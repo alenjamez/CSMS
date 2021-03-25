@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head><title>car showroom</title>
+  <link href="css/popup.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;
+  background-image: url('upload/images/2.jpg');
+background-size: cover;
+}
+h3 {
+     line-height: 1.1;
+     font-family: "Arial", cursive;
+     margin-bottom: .25em;
+     color: rgba(255, 255, 255, 0.75);
+     text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.125);
+     text-transform: none;
+     align-content: center;
+    }
+.blackbox{
+  background-color: rgba(0, 0, 0, 0.125);
+  position: fixed;
+  width: 600px;
+  height:600px;
+  padding: 30px 0px 30px 0px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.label{
+  color:white;
+}
+
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="blackbox">
+    <div class="col-md-6 col-sm-12">
+      <div class="form-popup" id="myForm">
+      <form class="form-container" method="post" action="addcom.php" enctype="multipart/form-data">
+        <center><h3><b>Add Accesory</b></h3></center>
+
+        <label for="name"><b>Name</b></label>  <input type="text" name="nme" id="comnme"  class="form-control"  autofocus="on" required>
+
+        <label for="icon"><b>Icon</b></label><input type="file" id="icn" name="icn" class="form-control-file" required>
+
+        <label for="price"><b>Price</b></label><input type="text" id="prz" name="prz" class="form-control" required>
+
+        <label for="desc"><b>Description</b></label><textarea name="disp" id="disp" class="form-control" rows="4" cols="40"></textarea>
+
+        <button type="submit" class="btn btn-success">Add</button>
+        <button type="button" class="btn cancel"  onclick="location.href='accessory.php'">Cancel</button>
+      </form></div>
+    </div>
+  <div>
+</body>
+</html>

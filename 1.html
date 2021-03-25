@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <script>
+            function myFunction() {
+            var x = document.getElementById("select-colors").value;
+            document.getElementById("colors").value = x;
+          }
+        </script>
+    </head>
+    <body>
+        <input id="colors" type="text" value="">
+
+<select id="select-colors" name="" onchange="myFunction()">
+   <option disabled selected>Choose Colour</option>
+   <option value="green">green</option>
+   <option value="red">red</option>
+   <option value="orange">orange</option>
+   <option value="black">black</option>
+</select>
+    </body>
