@@ -1,17 +1,5 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
-    if (isset($_POST['username_check'])) {
-        $username = $_POST['username'];
-        $sql = "SELECT * FROM tbl_login WHERE username='$username'";
-        $results = mysqli_query($db, $sql);
-        if (mysqli_num_rows($results) > 0) {
-        echo "taken";	
-        }else{
-        echo 'not_taken';
-        }
-        exit();
-    }
-    if (isset($_POST['username_check'])) {
     $name=$_POST["nme"];
     $gender=$_POST["gender"];
     $loc=$_POST["location"];

@@ -55,11 +55,11 @@ else{
     <div class="sidenav">
       <div class="sidebar-heading">UR CARZ</div>
         <a href="#" >Dashboard</a>
-        <button class="dropdown-btn" style="outline:none">Company
+        <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
-        <a href="#">Add Company</a>
-        <a href="company.php?msg=">Manage Details</a>
+        <a href="#">Add employee</a>
+        <a href="company.php?msg=">View Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
@@ -83,17 +83,17 @@ else{
 <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
             <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
     </div></div>
-<h1>Add Company</h1>
+<h1>Add Employee</h1>
 <div class="name">
-<h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Company&nbsp;/&nbsp;Add company</h6>
+<h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Employee&nbsp;/&nbsp;Add Employee</h6>
 </div><br>
 <div class="table"> 
   <label id="msg" style="color:#008000;"></label>
     <form id="adddet" method="post" enctype="multipart/form-data">
     <table >
       <tr><td>
-        <label for="icon"><b>Company Name</b></label></td>
-        <td><input type="text" name="comnme" id="comnme" placeholder="Company name" pattern="[A-Za-z]+" title="Only Alphabets" required>
+        <label for="icon"><b>Employee Name</b></label></td>
+        <td><input type="text" name="comnme" id="comnme" placeholder="Employee name" pattern="[A-Za-z]+" title="Only Alphabets" required>
       </td></tr>
       <tr>
         <td>

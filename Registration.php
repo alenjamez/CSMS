@@ -259,7 +259,7 @@
                 <form  method="post" name="regform" action="reg.php" class="form-group-sm container" enctype="multipart/form-data"></center><br>
                 <div class="row">
                     <div class="col-lg-6"><center>
-                        <input type="text"class="form-control" name="nme" id="name" style="border:red" placeholder="Name" title="Name" autocomplete="off" on onblur="rname()" onclick="hint1()" required>
+                        <input type="text" class="form-control" name="nme" id="name"  placeholder="Name" title="Name" autocomplete="off" on onblur="rname()" onclick="hint1()" required>
                         <span id="err1"></span><br></center>
                         <h5 style="padding-left:60px; color:#f2f2f2;">Gender</h5><center>
                         <div style="color:#f2f2f2;"> <input type="radio" name="gender" value="Male" required>&nbsp;Male&nbsp;&nbsp;&nbsp;

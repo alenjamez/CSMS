@@ -25,11 +25,11 @@
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
         <a href="#" >Dashboard</a>
-        <button class="dropdown-btn" style="outline:none">Company
+        <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
-        <a href="comadd.php">Add Company</a>
-        <a href="company.php?msg=">Manage Details</a>
+        <a href="comadd.php">Add Employee</a>
+        <a href="company.php?msg=">View Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>

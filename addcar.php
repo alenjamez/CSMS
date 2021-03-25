@@ -236,17 +236,6 @@ input[type=submit] {
               <div class="tab-pane active" id="home"><br><br>
 
                 <label>No of Airbag</label><input type="text" name="airbag" required><br>
-			          <label>Company</label><select name="company">
-                <option value="" disabled selected>Choose Company</option>
-                <?php 
-                $sql3="select comp_id,name from tbl_com where status=1";
-                $res=mysqli_query($con,$sql3);
-                $select= '<select name="company" >';
-                while($row=mysqli_fetch_array($res))
-                {
-                  echo '<option value="'.$row['comp_id'].'">'.$row['name'].'</option>';
-                }
-                ?></select>
                 <label>Boot Space</label><input type="text" name="boot" required><br>
                 <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required><br>
                 <div class="radio">
@@ -274,18 +263,6 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details2" enctype="multipart/form-data">
-            <label style="margin-top:45px;">Company</label><select name="company" style="margin-top:50px;" onChange="test(this.value)" required>
-            <option value="" disabled selected>Choose Company</option>
-            <?php 
-            $sql3="select comp_id,name from tbl_com where status=1";
-            $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
-            {
-              echo '<option value="'.$row['comp_id'].'">'.$row['name'].'</option>';
-            }
-            ?></select><br>
-            
-            
             <label>Car</label>
             <select id="sel" name="car" required>
               <option value="" disabled selected>Choose Car</option> 
@@ -348,18 +325,6 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
-            <label style="margin-top:45px;">Company</label><select name="company" style="margin-top:50px;" onChange="test1(this.value)" required>
-            <option value="" disabled selected>Choose Company</option>
-            <?php 
-            $sql3="select comp_id,name from tbl_com where status=1";
-            $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
-            {
-              echo '<option value="'.$row['comp_id'].'">'.$row['name'].'</option>';
-            }
-            ?></select><br>
-            
-            
             <label>Car</label>
             <select id="sele" name="car" required>
               <option value="" disabled selected>Choose Car</option> 
@@ -389,17 +354,6 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
-            <label style="margin-top:45px;">Company</label><select name="company" style="margin-top:50px;" onChange="test2(this.value)" required>
-            <option value="" disabled selected>Choose Company</option>
-            <?php 
-            $sql3="select comp_id,name from tbl_com where status=1";
-            $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
-            {
-              echo '<option value="'.$row['comp_id'].'">'.$row['name'].'</option>';
-            }
-            ?></select><br>
-          
             <label>Car</label><select id="seler" name="car" onChange="test3(this.value)" required>
               <option value="" disabled selected>Choose Car</option> 
             </select><br>

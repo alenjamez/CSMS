@@ -45,11 +45,11 @@
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
         <a href="#" >Dashboard</a>
-        <button class="dropdown-btn" style="outline:none">Company
+        <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
-        <a href="comadd.php">Add Company</a>
-        <a href="company.php?msg=">Manage Details</a>
+        <a href="comadd.php">Add Employee</a>
+        <a href="Employee.php?msg=">Manage Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
@@ -91,6 +91,15 @@
     <i class='fa fa-car' name="symb" style="font-size:50px" ></i></div>
     <div class="right">
     <h3>Cars</h3>
+    <h3><?php echo $car;?></h3>
+    </div></div>
+    <br><br>
+
+    <div class="div1">
+    <div class="left">
+    <i class='fa fa-id-card' name="symb" style="font-size:50px" ></i></div>
+    <div class="right">
+    <h3>Employee</h3>
     <h3><?php echo $car;?></h3>
     </div></div>
   <script src="vendor/jquery/jquery.min.js"></script>
