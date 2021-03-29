@@ -18,49 +18,32 @@
     text-align:center;
 }
 </style>
-<script>
- function test(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("sel").innerHTML=this.responseText;
-        }
-    };
-    xhttp.open("GET", "carselect.php?id="+value, true);
-    xhttp.send();
-  }
-  </script>
-
 </head>
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
         <a href="#" >Dashboard</a>
-        <button class="dropdown-btn" style="outline:none">Company
+        <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
-        <a href="comadd.php">Add Company</a>
-        <a href="company.php?msg=">Manage Details</a>
+        <a href="comadd.php">Add Employee</a>
+        <a href="Employee.php?msg=">Manage Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
         <div class="dropdown-container">
         <a href="addcar.php">Add car</a>
-        <a href="#">Manage Details</a>
+        <a href="managecar.php">Manage Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Accesory
         </button>
         <div class="dropdown-container">
-        <a href="#">Add car</a>
+        <a href="addcar.php">Add Accessory</a>
         <a href="#">Manage Details</a>
         </div>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a>
-    </div>
-</div>
+        <a href="logout.php" >Log Out</a></div>
+      </div>
 
 <div class="main">
     <div class="back">
@@ -69,28 +52,25 @@
     </div>
 </div>
 
-<h1>Manage Details</h1>
+<h1>Employee</h1>
 <div class="name">
-    <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Car&nbsp;/&nbsp;Manage Car</h6>
+    <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;ViewEmployee</h6>
 </div><br>
 <div class="table"> 
-    <label style="margin-top:45px;">Company</label><select name="company" style="margin-top:50px;margin-left:50px;" onChange="test(this.value)">
-    <option value="" disabled selected>Choose Company</option>
     <?php 
-    $sql3="select comp_id,name from tbl_com where status=1";
+    $sql3="select * from tbl_emp where status=1";
     $res=mysqli_query($con,$sql3);
     while($row=mysqli_fetch_array($res))
     {
-      echo '<option value="'.$row['comp_id'].'">'.$row['name'].'</option>';
+      echo '<option value="'.$row['name'].'">'.$row['phone'].'</option>';
     }
     ?></select><br>
-    <span id="msg" style="color:#008000;"><?php echo $msg ?></span><br>
     <table id="MainTable" class="auto-index" width= 70% border="1">
       <thead>
       <tr>
       <th scope="col">Sl.no</th>
-      <th scope="col">Car Name</th>
-      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
       </tr>
       </thead>
       <tbody id="sel">
