@@ -3,30 +3,13 @@
  session_start();
  if(isset($_SESSION['user']))
  {
- $ids=$_GET['id'];
- $sql="select * from tbl_com where comp_id='$ids'";
+ $sql="select * from tbl_emp ";
  $res=mysqli_query($con,$sql)or die( mysqli_error($con));;
  while($row=mysqli_fetch_array($res))
  {
    $name=$row['name'];
-   $sam=$row['icon'];
-   $pic='upload/company/'.$row['icon'];
+   $mail=$row['email'];
  }
- if(array_key_exists('update', $_POST)) { 
-  $photo=$_FILES["phto"]["name"];
-  $nme=$_POST["new"];
-  echo $nme;
-  $sql1="update tbl_com set name='$nme',icon='$photo' where comp_id='$ids'";
-  mysqli_query($con,$sql1);
-  $t="upload/company/".$photo;
-  move_uploaded_file($_FILES["icn"]["tmp_name"],$t);
-  header("Location:company.php?msg=* Company Updated"); 
-} 
-else if(array_key_exists('delete', $_POST)) { 
-  $sql2="update tbl_com set status=0 where comp_id='$ids'";
-  mysqli_query($con,$sql2);
-  header("Location:company.php?msg=* Company deleted");
-} 
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,21 +17,6 @@ else if(array_key_exists('delete', $_POST)) {
   <title>UR CARZ</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="style/sidebar.css" rel="stylesheet">
-  <script>
-    function Val()
-    {
-      var fileInput = document.getElementById('img');
-      var filePath = fileInput.value;
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-      if(!allowedExtensions.exec(filePath)){
-	      fileInput.value = '';
-	      return false;
-       }
-      else{
-       return true;
-      }
-  }
-  </script>
   <style>
     input[type=file]{ 
       padding-top:10px;
@@ -85,27 +53,28 @@ else if(array_key_exists('delete', $_POST)) {
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
-        <a href="dashboard.php" >Dashboard</a>
-        <button class="dropdown-btn" style="outline:none">Company
+        <a href="#" >Dashboard</a>
+        <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
-        <a href="comadd.php">Add Company</a>
-        <a href="company.php?msg=">Manage Details</a>
+        <a href="comadd.php">Add Employee</a>
+        <a href="Employee.php?msg=">Manage Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
         <div class="dropdown-container">
         <a href="addcar.php">Add car</a>
-        <a href="#">Manage Details</a>
+        <a href="managecar.php">Manage Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Accesory
         </button>
         <div class="dropdown-container">
-        <a href="#">Add car</a>
+        <a href="addcar.php">Add Accessory</a>
         <a href="#">Manage Details</a>
         </div>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div></div>
+        <a href="logout.php" >Log Out</a></div>
+      </div>
 
 <div class="main">
 <div class="back">

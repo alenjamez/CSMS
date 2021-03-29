@@ -155,29 +155,30 @@ input[type=submit] {
 </script>
 </head>
 <body>
-  <div class="sidenav">
-    <div class="sidebar-heading">UR CARZ</div>
-      <a href="#" >Dashboard</a>
-      <button class="dropdown-btn" style="outline:none">Company
-      </button>
-      <div class="dropdown-container">
-        <a href="comadd.php">Add Company</a>
-        <a href="company.php?msg=">Manage Details</a>
-      </div>
-      <button class="dropdown-btn"  style="outline:none">Car</button>
-      <div class="dropdown-container">
-        <a href="comadd.php">Add car</a>
+<div class="sidenav">
+  <div class="sidebar-heading">UR CARZ</div>
+        <a href="#" >Dashboard</a>
+        <button class="dropdown-btn" style="outline:none">Employee
+        </button>
+        <div class="dropdown-container">
+        <a href="comadd.php">Add Employee</a>
+        <a href="Employee.php?msg=">Manage Details</a>
+        </div>
+        <button class="dropdown-btn"  style="outline:none">Car
+        </button>
+        <div class="dropdown-container">
+        <a href="addcar.php">Add car</a>
         <a href="managecar.php">Manage Details</a>
-      </div>
-      <button class="dropdown-btn"  style="outline:none">Offers</button>
-      <div class="dropdown-container">
-        <a href="#">Add offer</a>
-        <a href="#">Manage offers</a>
-      </div>
+        </div>
+        <button class="dropdown-btn"  style="outline:none">Accesory
+        </button>
+        <div class="dropdown-container">
+        <a href="addcar.php">Add Accessory</a>
+        <a href="#">Manage Details</a>
+        </div>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a>
+        <a href="logout.php" >Log Out</a></div>
       </div>
-    </div>
   </div>
 	<div class="back">
 		  <p style="color:black;float:right;margin-right:2px;"><b><?php echo $_SESSION['user']; ?>&nbsp;

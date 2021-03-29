@@ -13,7 +13,7 @@
         $gender=$row['gender'];
         $email=$row['email'];
         $phno=$row['phone'];
-        //$propic='upload/profile/'.$row["propic"];
+        $propic='upload/profile/'.$row["pic"];
       }
 ?>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
     overflow: hidden;
     color: white;
     margin-top:10px;
-    margin-left:500px;
+    margin-left:600px;
     margin-right:30px;
     }
 
@@ -70,6 +70,7 @@
     margin-left:17%;
     margin-right:30px;
     padding-bottom:50px;
+    margin-bottom:30px;
     box-shadow:rgba(133, 133, 133, 0.603) 10px 10px 10px;
     }
          
@@ -83,7 +84,7 @@
         font-weight: bold;
        
     }
-    img1{
+    #img1{
       margin-top:50px;
       padding-bottom:20px;
     }
@@ -251,12 +252,27 @@
                 document.getElementById("conpass").focus();
             }
         }
+        function gend()
+        {
+        var ps=document.getElementById("gen").value;
+        if(ps=="Male" || ps=="Female")
+            {
+                document.getElementById("error").innerHTML="";
+                
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Value Should be Male or Female";
+                document.getElementById("error").style.color = "red";
+                document.getElementById("gen").focus();
+            }
+        }
         </script>
 </head>
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
-        <a href="emppdash.php" >Dashboard</a>
+        <a href="empdash.php" >Dashboard</a>
         <a href="#" >Profile</a>
         <a href="#" >TestDrives</a>
         <a href="#" >Services</a>
@@ -266,7 +282,7 @@
 <div class="main">
 <div class="back">
 <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-            <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+            <img  src="upload/profile/admin.jpg" width="40" height="40"><p><br>
     </div></div>
 <h1>Profile</h1>
 <div class="name">
@@ -283,8 +299,8 @@
   	<div class="col-sm-3">
       <div class="text-center">
       <form class="form" method="post" id="registrationForm1" enctype="multipart/form-data">
-        <img src="<?php echo $propic;?>" class="avatar img-circle img-thumbnail" alt="avatar"><br>
-        <input type="file" class="text-center center-block file-upload" style="color:#141e30" name="img" id="img" onblur="Val()">
+        <img  id="img1" src="<?php echo $propic;?>" class="avatar img-circle img-thumbnail" alt="avatar"><br>
+        <input type="file"  class="text-center center-block file-upload" style="color:#141e30" name="img" id="img" onblur="Val()">
       </div><br>
         </div>
     	    <div class="col-sm-9">
@@ -299,7 +315,7 @@
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="user"><h4>Username</h4></label>
-                              <input type="text" class="form-control" name="user" id="user" value="<?php echo $usr;?>" style=" font-size:15px;" readonly>
+                              <input type="text" class="form-control" name="user" id="user" value="<?php echo $usr;?>" style=" font-size:15px;" >
                           </div>
                       </div>
                       <div class="form-group">
@@ -312,7 +328,7 @@
                       <div class="form-group">
                           <div class="col-xs-6">
                               <label for="phone"><h4>Phone</h4></label>
-                              <input type="text" class="form-control" name="phne" id="ph" onblur="phn()" value="<?php echo $phno;?>" style=" font-size: 15px;" >
+                              <input type="text" class="form-control" name="phne" id="ph" onblur="phn()" value="<?php echo $phno;?>" style=" font-size: 15px;">
                           </div>
                       </div>
           
@@ -320,13 +336,13 @@
                           <div class="col-xs-6">
                              <label for="gender"><h4>Gender</h4></label>
                               <input type="text" class="form-control" name="gender" id="gen" value="<?php echo $gender;?>" style=" font-size: 15px;" onblur="gend()">
+                              
                           </div>
                       </div>
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	  <input class="btn btn-lg btn-success" type="submit" name="save" onsubmit="rname(); ema(); phn(); usr(); Val();">
-                                  <input type="button" id="btn" class="btn btn-lg btn btn-outline-info" onclick="location.href ='home.php'" value="Back">
+                              	  <input class="btn btn-lg btn-success" type="submit" name="save" onsubmit="rname(); ema(); phn(); usr(); gend(); Val();">
                             </div>
                       </div>
               	</form>
@@ -357,7 +373,7 @@
                            <div class="col-xs-12">
                                 <br>
                               	  <input class="btn btn-lg btn-success" type="submit" name="change" value="Change" onsubmit="npsw(); psw1();">
-                                  <input type="button" class="btn btn-lg btn btn-outline-info" onclick="location.href = 'home.php'" value="Back">
+                                 
                             </div>
                         </div>
                     </form>
