@@ -152,22 +152,6 @@ input[type=submit] {
     xhttp.open("GET", "selectmodel.php?id="+value, true);
     xhttp.send();
   }
-  // function charect(value)
-  // {
-  //   var nam1=/^[a-zA-Z]+$/;
-  //   alert(value);
-  //   if(value.match(nam1))
-  //   {
-  //     document.getElementById("error").innerHTML="";
-  //   }
-  //   else
-  //   {
-  //     document.getElementById("error").innerHTML="* Name must only contain characters";
-  //     document.getElementById("error").style.color = "red";
-  //     return false;
-  //     }
-  //   }
-  // }
 </script>
 </head>
 <body>
@@ -185,10 +169,10 @@ input[type=submit] {
         <a href="comadd.php">Add car</a>
         <a href="managecar.php">Manage Details</a>
       </div>
-      <button class="dropdown-btn"  style="outline:none">Accesory</button>
+      <button class="dropdown-btn"  style="outline:none">Offers</button>
       <div class="dropdown-container">
-        <a href="#">Add car</a>
-        <a href="#">Manage Details</a>
+        <a href="#">Add offer</a>
+        <a href="#">Manage offers</a>
       </div>
         <a href="#" >Sales</a>
         <a href="logout.php" >Log Out</a>
@@ -248,7 +232,8 @@ input[type=submit] {
                   <input style="margin-left:20px;" type="radio" name="display" value="Yes" required>&nbsp;Yes
                   <input type="radio" name="display" value="No">&nbsp;No
                 </div>
-                <label>Emission Norm </label><input type="text" name="desc" id="desc" required><br><br>
+                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required><br>
+                <label>Description </label><textarea name="desc" id="desc" required></textarea><br><br>
 	              <input type="submit" name="Add1" value="Add">
                 </form>
 
@@ -263,9 +248,16 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details2" enctype="multipart/form-data">
-            <label>Car</label>
-            <select id="sel" name="car" required>
+            <label name="car" style="margin-top:50px;">Car</label>
+            <select id="seler" name="car" style="margin-top:50px;" required>
               <option value="" disabled selected>Choose Car</option> 
+              <?php 
+            $sql3="select car_id,name from tbl_car where status=1";
+            $res=mysqli_query($con,$sql3);
+            while($row=mysqli_fetch_array($res))
+            {
+              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+            }?>
             </select><br>
 
 
@@ -325,9 +317,16 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
-            <label>Car</label>
-            <select id="sele" name="car" required>
+            <label name="car" style="margin-top:50px;">Car</label>
+            <select id="sele" name="car" style="margin-top:50px;" required>
               <option value="" disabled selected>Choose Car</option> 
+              <?php 
+            $sql3="select car_id,name from tbl_car where status=1";
+            $res=mysqli_query($con,$sql3);
+            while($row=mysqli_fetch_array($res))
+            {
+              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+            }?>
             </select><br>
             <label>Colour</label><input type="text" name="colour" required><br>
             <label>Car Image</label><input type="file" name="car1" required><br>
@@ -354,9 +353,16 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
-            <label>Car</label><select id="seler" name="car" onChange="test3(this.value)" required>
+            <label name="car" style="margin-top:50px;">Car</label><select id="seler" name="car" style="margin-top:50px;" onChange="test3(this.value)" required>
               <option value="" disabled selected>Choose Car</option> 
-            </select><br>
+              <?php 
+            $sql3="select car_id,name from tbl_car where status=1";
+            $res=mysqli_query($con,$sql3);
+            while($row=mysqli_fetch_array($res))
+            {
+              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+            }
+            ?></select><br>
             <label>Car Model</label><select name="mod" id="mod" required>
             <option value="" disabled selected>Choose model</option>
             </select><br>
@@ -401,7 +407,6 @@ input[type=submit] {
       var fun=element;
       <?php $comp=fun;
       $sql12="select comp_id from tbl_com where name='$comp' and status=1";?>
-      die($sql12);
     }
   </script>  
   <script type="text/javascript">
@@ -448,17 +453,16 @@ input[type=submit] {
    $length=$_POST["length"];
    $width=$_POST["width"];
    $heigth=$_POST["heigth"];
-   $company=$_POST["company"];
    $seat=$_POST["seat"];
    $boot=$_POST["boot"];
    $ac=$_POST["ac"];
    $capacity=$_POST["capacity"];
    $display=$_POST["display"];
    $airbag=$_POST["airbag"];
+   $emission=$_POST["emmi"];
    $desc=$_POST["desc"];
 
-   $sql1="insert into tbl_car (name,car_type,ground,steering,airbag,ac,capacity,length,width,heigth,bootspace,enc,seat,comp_id) values ('$name','$cartype','$bodytype','$display',$airbag,'$ac',$capacity,$length,$width,$heigth,$boot,'$desc',$seat,$company)";
-   
+   $sql1="insert into tbl_car (name,car_type,ground,steering,airbag,ac,capacity,length,width,heigth,bootspace,enc,seat,description) values ('$name','$cartype','$bodytype','$display',$airbag,'$ac',$capacity,$length,$width,$heigth,$boot,'$emission',$seat,'$desc')";
    mysqli_query($con,$sql1);
   }
   if(array_key_exists('Add2', $_POST))

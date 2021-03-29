@@ -15,7 +15,7 @@
         header("location:Registration.php?msg=* User name alredy exist");
     }
     else{
-        $sql="insert into tbl_login(username,password) values('$usr','$psw')";
+        $sql="insert into tbl_login(username,password,type) values('$usr','$psw','U')";
         mysqli_query($con,$sql);
         $li=mysqli_insert_id($con);
         $sql1="insert into tbl_registration(name,gender,email,phone,location,login_id) values('$name','$gender','$email','$phno','$loc',$li)";

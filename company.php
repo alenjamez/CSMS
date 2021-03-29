@@ -74,7 +74,6 @@
      {
        $no=$row['comp_id'];
        $name=$row['name'];
-
        echo "<tr><td>";
        echo "</td><td>";
        echo $name;

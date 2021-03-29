@@ -105,9 +105,16 @@ session_start();
     {
         while($row=mysqli_fetch_array($res))
         {
+          $type=$row['type'];
             if($usr=="Admin")
             {
              header("location:dashboard.php");
+            }
+            else if($type=='E')
+            {
+              $uid=$row['login_id'];
+              $_SESSION['logid']=$uid;
+              header("location:empdash.php");
             }
             else
             {

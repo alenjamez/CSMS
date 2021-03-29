@@ -34,22 +34,25 @@ input[type=submit] {
         margin-left:250px;
     }
 </style>
-<script>
-function Val()
-{
-var fileInput = document.getElementById('icn');
-var filePath = fileInput.value;
-var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-if(!allowedExtensions.exec(filePath)){
-  document.getElementById("err").innerHTML = "* Please upload file having extensions .jpeg/.jpg/.png only.";
-	fileInput.value = '';
-	return false;
- }
-else{
-  document.getElementById("err").innerHTML = "";
-}
-}
-</script>
+<script type="text/javascript">
+    function sendEmail() {
+      var mail=document.getElementById('comnme').value;
+      var uname=document.getElementById('uname').value;
+      var pword=document.getElementById('pword').value;
+      Email.send({
+        Host: "smtp.gmail.com",
+        Username: "josejames1008@gmail.com",
+        Password: "Alenjames@123",
+        To: mail,
+        From: "josejames1008@gmail.com",
+        Subject: "Employee Login",
+        Body: "Well that was easy!!",
+      })
+        .then(function (message) {
+          alert("mail sent successfully")
+        });
+    }
+  </script>
 </head>
 <body>
     <div class="sidenav">
@@ -92,16 +95,18 @@ else{
     <form id="adddet" method="post" enctype="multipart/form-data">
     <table >
       <tr><td>
-        <label for="icon"><b>Employee Name</b></label></td>
-        <td><input type="text" name="comnme" id="comnme" placeholder="Employee name" pattern="[A-Za-z]+" title="Only Alphabets" required>
+        <label for="icon"><b>Mail</b></label></td>
+        <td><input type="text" name="comnme" id="comnme"  title="Only Alphabets" required>
       </td></tr>
-      <tr>
-        <td>
-          <label for="icon"><b>Icon</b></label></td>
-          <td><input type="file" id="icn" name="icn" onblur="Val()" required>
-          </td>
-      </tr>
-      <tr><td></td><td><input type="submit" value="Submit" onsubmit="Val();" name="submit"></td></tr>
+      <tr><td>
+        <label for="icon"><b>Username</b></label></td>
+        <td><input type="text" name="uname" id="uname"   title="Only Alphabets" required>
+      </td></tr>
+      <tr><td>
+        <label for="icon"><b>Password</b></label></td>
+        <td><input type="text" name="pword" id="pword"   title="Only Alphabets" required>
+      </td></tr>
+      <tr><td></td><td><input type="submit" value="Sent" onclick="sendEmail();" name="submit"></td></tr>
    </table>
    <span id="err" style="color:green"></span>
    </form>
@@ -125,33 +130,21 @@ else{
   });
 }
   </script>
-  </script>
 </body>
 </html>
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  if(isset($_POST['submit']))
  {
- 
-    $name=$_POST["comnme"];
-    $pic=$_FILES["icn"]["name"];
-
-    $sql="select name from tbl_com where name='$name'";
-
-    $res=mysqli_query($con,$sql);
-    if(mysqli_num_rows($res)>0)
-    {
-      ?><script>document.getElementById("msg").innerHTML = "Name Already exist ";</script><?php
-    }
-    else{
-      $sql1="insert into tbl_com(name,icon,status) values('$name','$pic','1')";
-      mysqli_query($con,$sql1);
-      $t="upload/company/".$pic;
-      move_uploaded_file($_FILES["icn"]["tmp_name"],$t);
-      ?><script>document.getElementById("msg").innerHTML = "Successful ";</script><?php
-    }    
+    $email=$_POST["comnme"];
+    $name=$_POST["uname"];
+    $pass=md5($_POST["pword"]);
+    $sql1="insert into tbl_login(username,password,type) values('$name','$pass','E')";
+    mysqli_query($con,$sql1);
+    $li=mysqli_insert_id($con);
+    $sql1="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";
+    mysqli_query($con,$sql1);
  }
-
 }
 else{
   header("location:login.php?msg=");
