@@ -55,26 +55,30 @@ input[type=submit] {
   </script>
 </head>
 <body>
-<div class="sidenav">
-  <div class="sidebar-heading">UR CARZ</div>
-        <a href="dashboard.php" >Dashboard</a>
+    <div class="sidenav">
+      <div class="sidebar-heading">UR CARZ</div>
+        <a href="#" >Dashboard</a>
         <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
-        <a href="comadd.php">Add Employee</a>
+        <a href="#">Add employee</a>
         <a href="company.php?msg=">View Details</a>
-        <a href="company.php?msg=">Attendance</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
         <div class="dropdown-container">
         <a href="addcar.php">Add car</a>
-        <a href="managecar.php">Manage Details</a>
+        <a href="#">Manage Details</a>
         </div>
-        <a href="#">Service</a>
-        <a href="#">TestDrives</a>
+        <button class="dropdown-btn"  style="outline:none">Accesory
+        </button>
+        <div class="dropdown-container">
+        <a href="#">Add car</a>
+        <a href="#">Manage Details</a>
+        </div>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div></div>
+        <a href="logout.php" >Log Out</a>
+      </div>
 </div>
 
 <div class="main">

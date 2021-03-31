@@ -24,12 +24,13 @@
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
-        <a href="#" >Dashboard</a>
+        <a href="dashboard.php" >Dashboard</a>
         <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
         <a href="comadd.php">Add Employee</a>
         <a href="company.php?msg=">View Details</a>
+        <a href="company.php?msg=">Attendance</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
@@ -37,12 +38,8 @@
         <a href="addcar.php">Add car</a>
         <a href="managecar.php">Manage Details</a>
         </div>
-        <button class="dropdown-btn"  style="outline:none">Accesory
-        </button>
-        <div class="dropdown-container">
-        <a href="#">Add car</a>
-        <a href="#">Manage Details</a>
-        </div>
+        <a href="#">Service</a>
+        <a href="#">TestDrives</a>
         <a href="#" >Sales</a>
         <a href="logout.php" >Log Out</a></div></div>
 
@@ -61,23 +58,23 @@
    <thead>
      <tr>
      <th scope="col">Sl.no</th>
-     <th scope="col">Company Name</th>
+     <th scope="col">Name</th>
      <th scope="col"></th>
      </tr>
    </thead>
    <tbody>
 
    <?php
-     $sql="select comp_id,name from tbl_com where status=1";
+     $sql="select reg_id,name from tbl_emp";
      $res=mysqli_query($con,$sql);
      while($row=mysqli_fetch_array($res))
      {
-       $no=$row['comp_id'];
+       $no=$row['reg_id'];
        $name=$row['name'];
        echo "<tr><td>";
        echo "</td><td>";
        echo $name;
-       ?></td><td><a href="viewcom.php?id=<?php echo $no; ?>" >View</a></td?</tr><?php
+       ?></td><td><a href="" >View</a></td?</tr><?php
 
      }
    ?>

@@ -282,7 +282,7 @@
 <div class="main">
 <div class="back">
 <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-            <img  src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+            <img  src="<?php echo $propic;?>" width="50" height="50"><p><br>
     </div></div>
 <h1>Profile</h1>
 <div class="name">
@@ -315,7 +315,7 @@
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="user"><h4>Username</h4></label>
-                              <input type="text" class="form-control" name="user" id="user" value="<?php echo $usr;?>" style=" font-size:15px;" >
+                              <input type="text" class="form-control" name="user" id="user" value="<?php echo $usr;?>" readonly style=" font-size:15px;" >
                           </div>
                       </div>
                       <div class="form-group">
@@ -422,7 +422,23 @@ document.getElementById("defaultOpen").click();
 </body>
 </html>
 <?php
-
+  if(array_key_exists('save', $_POST)) { 
+    $name=$_POST["nme"];
+    $gender=$_POST["gender"];
+    $email=$_POST["mail"];
+    $phno=$_POST["phne"];
+    $photo=$_FILES["img"]["name"];
+    $sql1="update tbl_emp set name='$name',gender='$gender',email='$email',phone='$phno',pic='$photo' where login_id='$lid'";
+    mysqli_query($con,$sql1);
+    $t="upload/profile/".$photo;
+    move_uploaded_file($_FILES["img"]["tmp_name"],$t); 
+    
+  } 
+  else if(array_key_exists('change', $_POST)) { 
+    $psw=md5($_POST["psw"]);
+    $sql2="update tbl_login set password='$psw' where login_id='$lid'";
+    mysqli_query($con,$sql2);
+  } 
 }
 else{
   header("location:login.php?msg=");

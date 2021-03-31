@@ -157,13 +157,12 @@ input[type=submit] {
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
-        <a href="dashboard.php" >Dashboard</a>
+        <a href="#" >Dashboard</a>
         <button class="dropdown-btn" style="outline:none">Employee
         </button>
         <div class="dropdown-container">
         <a href="comadd.php">Add Employee</a>
-        <a href="company.php?msg=">View Details</a>
-        <a href="company.php?msg=">Attendance</a>
+        <a href="Employee.php?msg=">Manage Details</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
@@ -171,10 +170,15 @@ input[type=submit] {
         <a href="addcar.php">Add car</a>
         <a href="managecar.php">Manage Details</a>
         </div>
-        <a href="#">Service</a>
-        <a href="#">TestDrives</a>
+        <button class="dropdown-btn"  style="outline:none">Accesory
+        </button>
+        <div class="dropdown-container">
+        <a href="addcar.php">Add Accessory</a>
+        <a href="#">Manage Details</a>
+        </div>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div></div>
+        <a href="logout.php" >Log Out</a></div>
+      </div>
   </div>
 	<div class="back">
 		  <p style="color:black;float:right;margin-right:2px;"><b><?php echo $_SESSION['user']; ?>&nbsp;
@@ -190,6 +194,7 @@ input[type=submit] {
       <button class="tablinks" onclick="openCity(event, 'model')">Model</button>
       <button class="tablinks" onclick="openCity(event, 'colour')">Colour</button>
       <button class="tablinks" onclick="openCity(event, 'fuel')">Transmission</button>
+      <span id="error">Hello</span>
     </div>
 
     <div id="car" class="tabcontent">

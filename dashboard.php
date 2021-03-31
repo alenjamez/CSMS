@@ -49,7 +49,8 @@
         </button>
         <div class="dropdown-container">
         <a href="comadd.php">Add Employee</a>
-        <a href="Employee.php?msg=">Manage Details</a>
+        <a href="company.php?msg=">View Details</a>
+        <a href="company.php?msg=">Attendance</a>
         </div>
         <button class="dropdown-btn"  style="outline:none">Car
         </button>
@@ -57,15 +58,10 @@
         <a href="addcar.php">Add car</a>
         <a href="managecar.php">Manage Details</a>
         </div>
-        <button class="dropdown-btn"  style="outline:none">Accesory
-        </button>
-        <div class="dropdown-container">
-        <a href="addcar.php">Add Accessory</a>
-        <a href="#">Manage Details</a>
-        </div>
+        <a href="#">Service</a>
+        <a href="#">TestDrives</a>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div>
-      </div>
+        <a href="logout.php" >Log Out</a></div></div>
 
 <div class="main">
 <div class="back">
