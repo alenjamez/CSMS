@@ -3,24 +3,15 @@
  session_start();
  if(isset($_SESSION['user']))
  {
-   $que="select COUNT(name) as count from tbl_registration where status=1";
-   $result = mysqli_query($con,$que);
-	 while($row=mysqli_fetch_array($result)){
-     $usr=$row['count'];
-   }
-   $que1="select COUNT(name) as count from tbl_car where status=1";
-   $res = mysqli_query($con,$que1);
-	 while($row1=mysqli_fetch_array($res)){
-     $car=$row1['count'];
-   }
+
    
  ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <title>UR CARZ</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style/sidebar.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/sidebar.css" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <style>
     .div1{
@@ -44,17 +35,28 @@
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
-        <a href="#" >Dashboard</a>
+        <a href="empdash.php" >Dashboard</a>
         <a href="empprofile.php" >Profile</a>
+        <button class="dropdown-btn" style="outline:none">Attendance
+        </button>
+        <div class="dropdown-container">
+        <a href="attndance.php">Attendance</a>
+        <a href="">Leave</a>
+        </div>
         <a href="#" >TestDrives</a>
-        <a href="#" >Services</a>
-        <a href="logout.php" >Log Out</a></div>
+        <button class="dropdown-btn" style="outline:none">Services
+        </button>
+        <div class="dropdown-container">
+        <a href="">Upcoming Services</a>
+        <a href="">Booked Service</a>
+        </div>
+        <a href="../logout.php" >Log Out</a></div>
       </div>
 
 <div class="main">
 <div class="back">
       <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-        <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+        <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
     </div></div>
 <h1>Dashboard</h1>
 <div class="name">

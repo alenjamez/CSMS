@@ -106,21 +106,21 @@ session_start();
         while($row=mysqli_fetch_array($res))
         {
           $type=$row['type'];
-            if($usr=="Admin")
+            if($type=='A')
             {
-             header("location:dashboard.php");
+             header("location:Admin/dashboard.php");
             }
             else if($type=='E')
             {
               $uid=$row['login_id'];
               $_SESSION['logid']=$uid;
-              header("location:empdash.php");
+             header("location:Employee/empdash.php");
             }
             else
             {
              $uid=$row['login_id'];
              $_SESSION['logid']=$uid;
-             header("location:home.php");
+            header("location:User/home.php");
             }
         }
     }

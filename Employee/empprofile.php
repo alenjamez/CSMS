@@ -13,15 +13,15 @@
         $gender=$row['gender'];
         $email=$row['email'];
         $phno=$row['phone'];
-        $propic='upload/profile/'.$row["pic"];
+        $propic='../upload/profile/'.$row["pic"];
       }
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <title>UR CARZ</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style/sidebar.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/sidebar.css" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <style>
   body {font-family: Arial;
@@ -274,9 +274,20 @@
   <div class="sidebar-heading">UR CARZ</div>
         <a href="empdash.php" >Dashboard</a>
         <a href="#" >Profile</a>
+        <button class="dropdown-btn" style="outline:none">Attendance
+        </button>
+        <div class="dropdown-container">
+        <a href="attndance.php">Attendance</a>
+        <a href="">Leave</a>
+        </div>
         <a href="#" >TestDrives</a>
-        <a href="#" >Services</a>
-        <a href="logout.php" >Log Out</a></div>
+        <button class="dropdown-btn" style="outline:none">Services
+        </button>
+        <div class="dropdown-container">
+        <a href="">Upcoming Services</a>
+        <a href="">Booked Service</a>
+        </div>
+        <a href="../logout.php" >Log Out</a></div>
       </div>
 
 <div class="main">
