@@ -3,6 +3,14 @@
  session_start();
  if(isset($_SESSION['user']))
  {
+  $lid=$_SESSION['logid'];
+  $usr=$_SESSION['user'];
+  $sql="select * from tbl_emp where login_id='$lid'";
+  $res=mysqli_query($con,$sql);
+  while($row=mysqli_fetch_array($res))
+    {
+      $propic='../upload/profile/'.$row["pic"];
+    }
 
    
  ?>
@@ -56,7 +64,7 @@
 <div class="main">
 <div class="back">
       <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-        <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
+        <img src="<?php echo $propic;?>" width="40" height="40"><p><br>
     </div></div>
 <h1>Dashboard</h1>
 <div class="name">

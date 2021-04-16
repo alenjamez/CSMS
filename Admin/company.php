@@ -9,8 +9,8 @@
 <html lang="en">
   <head>
   <title>UR CARZ</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style/sidebar.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/sidebar.css" rel="stylesheet">
   <style>
 #MainTable{
     color: black;
@@ -46,7 +46,7 @@
 <div class="main">
 <div class="back">
 <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-            <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+            <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
     </div></div>
 <h1>Manage Details</h1>
 <div class="name">
@@ -121,6 +121,6 @@ addSerialNumber();
 <?php
  }
  else{
-  header("location:login.php?msg=");
+  header("location:../login.php?msg=");
 }
  ?>

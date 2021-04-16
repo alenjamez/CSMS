@@ -3,6 +3,14 @@
  session_start();
  if(isset($_SESSION['user']))
  {   
+  $lid=$_SESSION['logid'];
+  $usr=$_SESSION['user'];
+  $sql="select * from tbl_emp where login_id='$lid'";
+  $res=mysqli_query($con,$sql);
+  while($row=mysqli_fetch_array($res))
+    {
+      $propic='../upload/profile/'.$row["pic"];
+    }
     
 ?>
 <!DOCTYPE html>
@@ -145,12 +153,12 @@
 
 <div class="table"> 
   <label id="msg" style="color:#008000;"></label>
-  <form method="POST" action="storeImage.php">
+  <form method="POST">
         <div class="row">
             <div class="col-md-6">
                 <div id="my_camera"></div>
                 <br/>
-                <input type=button value="Take Snapshot" onClick="take_snapshot()">
+                <input type="button" value="Take Snapshot" onClick="take_snapshot()">
                 <input type="hidden" name="image" class="image-tag">
             </div>
             <div class="col-md-6">
@@ -158,7 +166,7 @@
             </div>
             <div class="col-md-12 text-center">
                 <br/>
-                <button class="btn btn-success" onclick="">Submit</button>
+                <input type="submit" class="btn btn-success" value="Submit">
             </div>
         </div>
     </form>
@@ -183,7 +191,7 @@
   </script>
 <script language="JavaScript">
     Webcam.set({
-        width: 350,
+        width: 450,
         height: 350,
         image_format: 'jpeg',
         jpeg_quality: 90
@@ -203,10 +211,10 @@
 </body>
 </html>
 <?php
-  if() { 
+  if(isset($_POST['submit'])) { 
     
     $img = $_POST['image'];
-    $folderPath = "upload/";
+    $folderPath = "../uploads/bio/";
   
     $image_parts = explode(";base64,", $img);
     $image_type_aux = explode("image/", $image_parts[0]);
@@ -218,9 +226,10 @@
     $file = $folderPath . $fileName;
     file_put_contents($file, $image_base64);
   
-    print_r($fileName);
+    header("location:HAARPHP/examples/index.php?$file=$filename");
+  }
 }
 else{
-  header("location:login.php?msg=");
+  header("location:../login.php?msg=");
 }
 ?>

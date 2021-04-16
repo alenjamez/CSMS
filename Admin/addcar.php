@@ -8,8 +8,8 @@
 <html lang="en">
   <head>
   <title>UR CARZ</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style/sidebar.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/sidebar.css" rel="stylesheet">
   <style>
 .tab {
   overflow: hidden;
@@ -174,11 +174,11 @@ input[type=submit] {
         <a href="#">Service</a>
         <a href="#">TestDrives</a>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div></div>
+        <a href="../logout.php" >Log Out</a></div></div>
   </div>
 	<div class="back">
 		  <p style="color:black;float:right;margin-right:2px;"><b><?php echo $_SESSION['user']; ?>&nbsp;
-        <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+        <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
   </div>
 	<h1>Add Car</h1>
 	<div class="name">
@@ -189,6 +189,7 @@ input[type=submit] {
       <button class="tablinks" style="margin-left:280px" onclick="openCity(event, 'car')" id="defaultOpen">Car Details</button>
       <button class="tablinks" onclick="openCity(event, 'model')">Model</button>
       <button class="tablinks" onclick="openCity(event, 'colour')">Colour</button>
+      <button class="tablinks" onclick="openCity(event, 'Image')">Image</button>
       <button class="tablinks" onclick="openCity(event, 'fuel')">Transmission</button>
     </div>
 
@@ -325,17 +326,43 @@ input[type=submit] {
             }?>
             </select><br>
             <label>Colour</label><input type="text" name="colour" required><br>
-            <label>Car Image</label><input type="file" name="car1" required><br>
+            <label>Car Image</label><input type="file" name="carimg" required><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="Image" class="tabcontent">
+      <div class="container bootstrap snippet">
+        <div class="row">
+  	      <div class="col-sm-6">
+            <form class="form" method="post" id="details5" enctype="multipart/form-data">
+            <label name="car" style="margin-top:50px;">Car</label>
+            <select id="sele" name="car" style="margin-top:50px;" required>
+              <option value="" disabled selected>Choose Car</option> 
+              <?php 
+            $sql3="select car_id,name from tbl_car where status=1";
+            $res=mysqli_query($con,$sql3);
+            while($row=mysqli_fetch_array($res))
+            {
+              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+            }?>
+            </select><br>
+            <label>Image1</label><input type="file" name="car1" required><br>
             <label>Image2</label><input type="file" name="car2" ><br>
+            <label>Interior1</label><input type="file" name="car3" ><br>
+            <label>Interior2</label><input type="file" name="car4" ><br>
+            <label>Interior3</label><input type="file" name="car5" ><br>
           </div>
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
-                <label>Interior1</label><input type="file" name="car3" ><br>
-                <label>Interior2</label><input type="file" name="car4" ><br>
-                <label>Image5</label><input type="file" name="car5" ><br>
-                <label>Image6</label><input type="file" name="car6" ><br>
-	              <input type="submit" name="Add3" value="Add">
+                <label>Interior4</label><input type="file" name="car6" ><br>
+                <label>Image3</label><input type="file" name="car7" required><br>
+                <label>Image4</label><input type="file" name="car8" ><br>
+                <label>Image5</label><input type="file" name="car9" required><br>
+                <label>Image6</label><input type="file" name="car10" ><br>
+	              <input type="submit" name="Add5" value="Add">
                 </form>    
               </div>
             </div>
@@ -484,12 +511,27 @@ input[type=submit] {
   {
    $car=$_POST["car"];
    $colour=$_POST["colour"];
+   $carim=$_FILES["carimg"]["name"];
+
+   $sql7="insert into tbl_carimage(colour,image,car_id) values ($colour','$carim','$car')";
+   mysqli_query($con,$sql7);
+   $t="upload/car/".$car1;
+   move_uploaded_file($_FILES["carimg"]["tmp_name"],$t);
+
+  }
+
+  if(array_key_exists('Add5', $_POST))
+  {
    $car1=$_FILES["car1"]["name"];
    $car2=$_FILES["car2"]["name"];
    $car3=$_FILES["car3"]["name"];
    $car4=$_FILES["car4"]["name"];
    $car5=$_FILES["car5"]["name"];
    $car6=$_FILES["car6"]["name"];
+   $car3=$_FILES["car7"]["name"];
+   $car4=$_FILES["car8"]["name"];
+   $car5=$_FILES["car9"]["name"];
+   $car6=$_FILES["car10"]["name"];
 
    $sql7="insert into tbl_carimage(main,image1,image2,image3,image4,image5,colour,car_id) values ('$car1','$car2','$car3','$car4','$car5','$car6','$colour','$car')";
    mysqli_query($con,$sql7);
@@ -505,8 +547,17 @@ input[type=submit] {
    move_uploaded_file($_FILES["car5"]["tmp_name"],$y);
    $z="upload/car/".$car6;
    move_uploaded_file($_FILES["car6"]["tmp_name"],$z);
+   $l="upload/car/".$car7;
+   move_uploaded_file($_FILES["car7"]["tmp_name"],$l);
+   $m="upload/car/".$car8;
+   move_uploaded_file($_FILES["car8"]["tmp_name"],$m);
+   $n="upload/car/".$car9;
+   move_uploaded_file($_FILES["car9"]["tmp_name"],$n);
+   $o="upload/car/".$car10;
+   move_uploaded_file($_FILES["car10"]["tmp_name"],$o);
 
   }
+
   if(array_key_exists('Add4', $_POST))
   {
    $car=$_POST["car"];
@@ -524,6 +575,6 @@ input[type=submit] {
   }
  }
  else{
-	header("location:login.php?msg=");
+	header("location:../login.php?msg=");
   }
 ?>

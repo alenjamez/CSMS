@@ -8,8 +8,8 @@
 <html lang="en">
   <head>
   <title>UR CARZ</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style/sidebar.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/sidebar.css" rel="stylesheet">
   <style>
 #adddet{
   width:100%x;
@@ -74,7 +74,7 @@ input[type=submit] {
         <a href="#">Service</a>
         <a href="#">TestDrives</a>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div></div>
+        <a href="../logout.php" >Log Out</a></div></div>
 </div>
 
 <div class="main">
@@ -143,6 +143,6 @@ input[type=submit] {
  }
 }
 else{
-  header("location:login.php?msg=");
+  header("location:../login.php?msg=");
 }
 ?>

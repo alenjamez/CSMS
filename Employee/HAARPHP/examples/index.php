@@ -1,4 +1,6 @@
-<?php require dirname(__FILE__).'/feature_detection.php'; ?>
+<?php require dirname(__FILE__).'/feature_detection.php'; 
+    
+?>
 <!DOCTYPE html>
 <html>
 

@@ -19,8 +19,8 @@
 <html lang="en">
   <head>
   <title>UR CARZ</title>
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style/sidebar.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/sidebar.css" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <style>
     .div1{
@@ -61,12 +61,12 @@
         <a href="#">Service</a>
         <a href="#">TestDrives</a>
         <a href="#" >Sales</a>
-        <a href="logout.php" >Log Out</a></div></div>
+        <a href="../logout.php" >Log Out</a></div></div>
 
 <div class="main">
 <div class="back">
       <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-        <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+        <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
     </div></div>
 <h1>Dashboard</h1>
 <div class="name">
@@ -98,8 +98,8 @@
     <h3>Employee</h3>
     <h3><?php echo $car;?></h3>
     </div></div>
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript">
     var dropdown = document.getElementsByClassName("dropdown-btn");
     var i;
@@ -120,6 +120,6 @@
 <?php
 }
 else{
-  header("location:login.php?msg=");
+  header("location:../login.php?msg=");
 }
 ?>
