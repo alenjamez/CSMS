@@ -1,7 +1,7 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $msg=$_GET['msg'];
+ //$msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
  ?>
@@ -53,12 +53,13 @@
 <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Company&nbsp;/&nbsp;Manage Details</h6>
 </div><br>
 <div class="table"> 
-<span id="msg" style="color:#008000;"><?php echo $msg ?></span><br>
+<!-- <span id="msg" style="color:#008000;"><?php echo $msg ?></span><br> -->
    <table id="MainTable" class="auto-index" width= 70% border="1">
    <thead>
      <tr>
      <th scope="col">Sl.no</th>
      <th scope="col">Name</th>
+     <th scope="col"></th>
      <th scope="col"></th>
      </tr>
    </thead>
@@ -67,15 +68,18 @@
    <?php
      $sql="select car_id,name from tbl_car";
      $res=mysqli_query($con,$sql);
+     $count=1;
      while($row=mysqli_fetch_array($res))
      {
        $no=$row['car_id'];
        $name=$row['name'];
        echo "<tr><td>";
+       echo $count;
        echo "</td><td>";
        echo $name;
-       ?></td><td><a href="" >View</a></td?</tr><?php
-
+       ?></td><td><a href="editcar.php?id=<?php echo $no; ?>" >View</a></td>
+       </td><td><a href="delete.php?id=<?php echo $no; ?>" >Delete</a></td><tr><?php
+       $count=$count+1;
      }
    ?>
    </tbody>

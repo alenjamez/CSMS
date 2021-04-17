@@ -39,15 +39,15 @@
 	<div id="carousel-up" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner " role="listbox">
 			<div class="item active">
-				<img src="upload/images/oldcar.jpg" alt="oldcar">
+				<img src="upload/images/Banner3.jpg" alt="oldcar">
 			</div>
 			<div class="item">
-				<img src="upload/images/porche.jpg" alt="porche">
+				<img src="upload/images/Banner2.jpg" alt="porche">
 			</div>
 			<div class="item">
-				<img src="upload/images/benz.jpg" alt="benz">
+				<img src="upload/images/Banner1.jpg" alt="benz">
 			</div>
-		</div>
+		</div><br><br>
 		<nav class="navbar navbar-default midle-nav">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
@@ -58,7 +58,7 @@
 					<span class="icon-bar"></span>
 				</button>
 			</div>
-			<div class="collapse navbar-collapse" id="navbarmidle">
+			<!-- <div class="collapse navbar-collapse" id="navbarmidle">
 				<div class="searchtxt">
 					<h1>SEARCH TEXT</h1>
 				</div>
@@ -78,7 +78,7 @@
 					<li class="li-search"> <button class="searchbutton"><span class="glyphicon glyphicon-search "></span></button></li>
 				</ul>
  
-			</div>
+			</div> -->
 		</nav>
 	</div>
 </div>

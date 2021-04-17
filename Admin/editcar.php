@@ -2,8 +2,29 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
+ $carid=$_GET['id'];
  if(isset($_SESSION['user']))
  {
+     $sql30="select * from tbl_car where car_id='$carid'";
+     $res=mysqli_query($con,$sql30);
+     while($row=mysqli_fetch_array($res))
+      {
+        $name=$row["name"];
+        $cartype=$row["car_type"];
+        $ground=$row["ground"];
+        $length=$row["length"];
+        $width=$row["width"];
+        $heigth=$row["heigth"];
+        $seat=$row["seat"];
+        $boot=$row["bootspace"];
+        $ac=$row["ac"];
+        $capacity=$row["capacity"];
+        $display=$row["steering"];
+        $airbag=$row["airbag"];
+        $emission=$row["enc"];
+        $desc=$row["description"];
+
+      }
  ?>
 <html lang="en">
   <head>
@@ -100,45 +121,21 @@ input[type=submit] {
 
 </style>
 <script>
-  function test(value)
+  function test()
   {
+      alert("hi");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function()
     {
         if (this.readyState == 4 && this.status == 200) 
         {
-          document.getElementById("sel").innerHTML=this.responseText;
+          document.getElementById("mod").innerHTML=this.responseText;
         }
     };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
+    xhttp.open("GET", "selectmodel.php?id=<?php echo $carid ?>", true);
     xhttp.send();
   }
-  function test1(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("sele").innerHTML=this.responseText;
-        }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
-  function test2(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("seler").innerHTML=this.responseText;
-        }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
+
   function test3(value)
   {
     var xhttp = new XMLHttpRequest();
@@ -170,7 +167,7 @@ input[type=submit] {
   }
 </script>
 </head>
-<body>
+<body onload="test()">
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
         <a href="dashboard.php" >Dashboard</a>
@@ -215,76 +212,50 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details1" enctype="multipart/form-data">
-	          <label style="margin-top:45px;">Name</label><input type="text" name="name" style="margin-top:50px;" required><br>
+	          <label style="margin-top:45px;">Name</label><input type="text" name="name" style="margin-top:50px;" value="<?php echo $name ?>" required><br>
             <label >Car Type</label><select name="cartype" required>
-              <option value="">Choose car Type</option>
+              <option value="<?php echo $cartype ?>"><?php echo $cartype ?></option>
               <option value="Sedan">Sedan</option>
               <option value="HatchBack">HatchBack</option>
               <option value="SUV">SUV</option>
               <option value="MUV">MUV</option>
               <option value="Luxury">Luxury</option></select>
-		        <label>Ground Clearence</label><input type="text" name="bodytype" required><br>
-            <label>Car Lenght</label><input type="text" name="length" required><br>
-  	        <label>Car Width</label><input type="text" name="width" required><br>
-            <label>Car Height</label><input type="text" name="heigth" required><br>
-            <label>No of seats</label><input type="text" name="seat" required><br>
+		        <label>Ground Clearence</label><input type="text" name="bodytype" required value="<?php echo $ground ?>"><br>
+            <label>Car Lenght</label><input type="text" name="length" required value="<?php echo $length ?>"><br>
+  	        <label>Car Width</label><input type="text" name="width" required value="<?php echo $width ?>"><br>
+            <label>Car Height</label><input type="text" name="heigth" required value="<?php echo $heigth ?>"><br>
+            <label>No of seats</label><input type="text" name="seat" required value="<?php echo $seat ?>"><br>
           </div>
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
 
-                <label>No of Airbag</label><input type="text" name="airbag" required><br>
-                <label>Boot Space</label><input type="text" name="boot" required><br>
-                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required><br>
-                <div class="radio">
-                  <label>Air Conditioner</label>
-                  <input style="margin-left:20px;" type="radio" name="ac" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="ac" value="No">&nbsp;No
-                </div>
-                <div class="radio">
-                  <label>Power Steering</label>
-                  <input style="margin-left:20px;" type="radio" name="display" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="display" value="No">&nbsp;No
-                </div>
-                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required><br>
-                <label>Description </label><textarea name="desc" id="desc" required></textarea><br><br>
-	              <input type="submit" name="Add1" value="Add">
+                <label>No of Airbag</label><input type="text" name="airbag" required value="<?php echo $airbag ?>"><br>
+                <label>Boot Space</label><input type="text" name="boot" required value="<?php echo $boot ?>"><br>
+                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required value="<?php echo $capacity ?>"><br>
+                <label>Air Conditioner</label><input type="text"name="ac" required value="<?php echo $ac ?>"><br>
+                <label>Power Steering</label><input type="text"name="display" required value="<?php echo $display ?>"><br>
+                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required value="<?php echo $emission ?>"><br>
+                <label>Description </label><textarea name="desc" id="desc" required><?php echo $desc ?></textarea><br><br>
+	              <input type="submit" name="Add1" value="Update">
                 </form>
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="model" class="tabcontent">
+    <div id="model" class="tabcontent" >
       <div class="container bootstrap snippet">
         <div class="row">
   	      <div class="col-sm-6">
-            <form class="form" method="post" id="details2" enctype="multipart/form-data">
-            <label name="car" style="margin-top:50px;">Car</label>
-            <select id="seler" name="car" style="margin-top:50px;" required>
-              <option value="" disabled selected>Choose Car</option> 
-              <?php 
-            $sql3="select car_id,name from tbl_car where status=1";
-            $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
-            {
-              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
-            }?>
+            <form class="form" method="post" id="details2" enctype="multipart/form-data" >
+            <label style="margin-top:50px;">Car Model</label><select name="mod" id="mod" style="margin-top:50px;" required>
+            <option value="" disabled selected>Choose model</option>
             </select><br>
-
-
-            <label>Car Model</label><input type="text" name="model" required><br>
             <label>Wheel</label><input type="text" name="wheel" required><br>
-            <div class="radio">
-                  <label>Fog lamb</label><input type="radio" style="margin-left:20px;" name="fog" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="fog" value="No">&nbsp;No
-            </div>
-            <div class="radio">
-                  <label>Power start</label><input type="radio" style="margin-left:20px;" name="start" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="start" value="No">&nbsp;No
-            </div>
+            <label>Fog lamb</label><input type="text" name="fog" value="Yes" required>
+            <label>Power start</label><input type="text"  name="start" value="Yes" required><br>
             <label>Sterio</label><input type="text" name="sterio" pattern="[A-Za-z]+"><br>
 
           </div>
@@ -300,23 +271,10 @@ input[type=submit] {
                   <input type="radio" name="sunroof" value="No">&nbsp;No
                 </div>
                 <div class="radio">
-                  <label>Auto Headlamb</label><input type="radio" style="margin-left:20px;" name="headlamb" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="headlamb" value="No">&nbsp;No
-                </div>
-                <div class="radio">
-                  <label>Sensor</label><input type="radio" style="margin-left:20px;" name="sensor" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="sensor" value="No">&nbsp;No
-            </div>
-            <div class="radio">
-                  <label>Reverse Camera</label><input type="radio" style="margin-left:20px;" name="camera" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="camera" value="No">&nbsp;No
-            </div>
-            <div class="radio">
-                  <label>Power Window</label>
-                  <input style="margin-left:20px;" type="radio" name="window" value="Front only" required>&nbsp;Front only
-                  <input type="radio" name="window" value="Both">&nbsp;Both
-                  <input type="radio" name="window" value="No">&nbsp;No
-                </div>
+                  <label>Auto Headlamb</label><input type="radio" name="headlamb" value="Yes" required>&nbsp;Yes
+                  <label>Sensor</label><input type="text" name="sensor" value="Yes" required>
+                  <label>Reverse Camera</label><input type="text" name="camera" value="Yes" required>&nbsp;Yes
+                  <label>Power Window</label><input  type="text" name="window" value="Front only" required>
 	              <input type="submit" name="Add2" value="Add">
                 </form>    
               </div>
