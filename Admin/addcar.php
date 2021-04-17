@@ -285,7 +285,7 @@ input[type=submit] {
                   <label>Power start</label><input type="radio" style="margin-left:20px;" name="start" value="Yes" required>&nbsp;Yes
                   <input type="radio" name="start" value="No">&nbsp;No
             </div>
-            <label>Sterio</label><input type="text" name="sterio" pattern="[A-Za-z]+"><br>
+            <label>Sterio</label><input type="text" name="sterio"><br>
 
           </div>
     	    <div class="col-sm-6">

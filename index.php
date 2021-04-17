@@ -98,6 +98,7 @@ include('includes/dbconnection.php');
  $query=mysqli_query($con,"select * from tbl_car order by rand() limit 6");
  while ($row=mysqli_fetch_array($query)) {
 	 $n=$row['car_id'];
+	 $seats=$row['seats'];
 	 $query5=mysqli_query($con,"select main from tbl_carimage where car_id=$n");
 	 $nm=mysqli_fetch_array($query5)['main'];
  ?>
@@ -112,20 +113,27 @@ include('includes/dbconnection.php');
 
                                 <div class="b-goods-f__main">
                                     <div class="b-goods-f__descrip">
-                                        <div class="b-goods-f__title"><span><?php echo $row['name'];?></span>
+                                        <div class="b-goods-f__title"><span>Maruthi Suzuki <?php echo $row['name'];?></span>
                                         </div>
                                         <?php
-										
+											 $query6=mysqli_query($con,"select * from tbl_transmission where car_id=$n");
+											 while($rows=mysqli_fetch_array($query6)){
+												 $millage=$rows['millage'];
+												 $cc=$rows['enginecc'];
+												 $type=$rows['engtype'];
+												 $bhp=$rows['bhp'];
+												 $price=$rows['price'];
+											 }
 										?>
                                         <ul class="b-goods-f__list list-unstyled">
-                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['millage'];?></span></li>
-                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['CarModel'];?></span></li>
-                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['TransmissionType'];?></span></li>
-                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['FuelType'];?></span></li>
-                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['MaxPower'];?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $millage;?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $type;?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $cseats;?> Seater</span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $cc;?> cc</span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $bhp;?></span></li>
                                         </ul>
                                     </div>
-                                    <div class="b-goods-f__sidebar"><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price-numb"><?php echo $row['CarPrice'];?></span></span>
+                                    <div class="b-goods-f__sidebar"><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price-numb">Starts at &#x20B9;<?php echo $price;?></span></span>
                                         </span>
                                     </div>
                                 </div>
