@@ -1,280 +1,261 @@
-<!doctype html>
-<html>
+<?php
+session_start();
+error_reporting(0);
+include('includes/dbconnection.php');
+?>
+<!DOCTYPE html>
+<html lang="zxx">
+
 <head>
-	<meta charset="UTF-8">
-	<title>URCARZ </title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="source/bootstrap-3.3.6-dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="source/font-awesome-4.5.0/css/font-awesome.css">
-	<link rel="stylesheet" type="text/css" href="style/slider.css">
-    <link rel="stylesheet" type="text/css" href="style/mystyle.css">
+    
+    <title>Car Showroom Management System / Home</title>
+    
+    <link rel="stylesheet" href="assets/css/master.css">
+   
+    
 </head>
-<body>
-<div class="allcontain">
-	<div class="header">
-			<ul class="givusacall">
-				<li>Give us a call : +91 9544441942 </li>
-			</ul>
-			<ul class="logreg">
-				<li><a href="login.php?msg=">Login </a> </li>
-				<li><a href="Registration.php?msg="><span class="register">Register</span></a></li>
-			</ul>
-		</div>
-	<nav class="topnavbar navbar-default topnav">
-        <div class="navbar-header">
-            <a class="navbar-brand logo" href="#"><img src="upload/images/logo1.png" alt="logo"></a>
-        </div>
-		<div class="collapse navbar-collapse" id="upmenu">
-			<ul class="nav navbar-nav" id="navbarontop">
-				<li class="active"><a href="#">HOME</a> </li>
-                <li class="active"><a href="#">CARS</a> </li>
-				<li class="active"><a href="#">SERVICE</a> </li>
-				<li><a href="contact.html">CONTACT</a></li>
-			</ul>
-		</div>
-	</nav>
-</div>
-<div class="allcontain">
-	<div id="carousel-up" class="carousel slide" data-ride="carousel">
-		<div class="carousel-inner " role="listbox">
-			<div class="item active">
-				<img src="upload/images/Banner3.jpg" alt="oldcar">
-			</div>
-			<div class="item">
-				<img src="upload/images/Banner2.jpg" alt="porche">
-			</div>
-			<div class="item">
-				<img src="upload/images/Banner1.jpg" alt="benz">
-			</div>
-		</div><br><br>
-		<nav class="navbar navbar-default midle-nav">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed textcostume" data-toggle="collapse" data-target="#navbarmidle" aria-expanded="false">
-						<h1>SEARCH TEXT</h1>
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<!-- <div class="collapse navbar-collapse" id="navbarmidle">
-				<div class="searchtxt">
-					<h1>SEARCH TEXT</h1>
-				</div>
-				<form class="navbar-form navbar-left searchformmargin" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control searchform" placeholder="Enter Keyword">
-					</div>
-				</form>
-				<ul class="nav navbar-nav navbarborder">
-					<li class="li-slideprice">
-						<p> <label class="slidertxt" for="amount">Price </label>
-							<input class="priceslider" type="text" id="amount" readonly="readonly">
-						</p>
-							<div id="slider-range"></div>
-							
-					</li>
-					<li class="li-search"> <button class="searchbutton"><span class="glyphicon glyphicon-search "></span></button></li>
-				</ul>
- 
-			</div> -->
-		</nav>
-	</div>
-</div>
-<!-- ____________________Featured Section ______________________________--> 
-<div class="allcontain">
-	<div class="feturedsection">
-		<h1 class="text-center"><span class="bdots">&bullet;</span>N E W<span class="carstxt">C A R S</span>&bullet;</h1>
-	</div>
-	<div class="feturedimage">
-		<div class="row firstrow">
-			<div class="col-lg-6 costumcol colborder1">
-				<div class="row costumrow">
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img1colon">
-						<img src="upload/images/featurporch.jpg" alt="porsche">
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon ">
-						<div class="featurecontant">
-							<h1>G L O S T E R</h1>
-			 				<h2>Price &#x20B9;</h2>
-			 				<button id="btnRM" onclick="rmtxt()">READ MORE</button>
-			 				<div id="readmore">
-			 						<h1>Car Name</h1>
-                                     <p>INDIA’S FIRST AUTONOMOUS LEVEL-1 PREMIUM SUV<br>
-                                        Advanced Driver Assistance System<br>
-                                        customize premiumness with the best-in-class 
-                                        features to get a feel of your dream car<br>
-                                        the mg gloster comes with best-in-class 
-                                        safety features for a protected drive<br>
-                                        STARTS AT ₹ 29.98 LAKH
-                                        </p>
-			 						<button id="btnRL">READ LESS</button>
-			 				</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-6 costumcol colborder2">
-				<div class="row costumrow">
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 img2colon">
-						<img src="upload/images/featurporch1.jpg" alt="porsche1">
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 txt1colon ">
-						<div class="featurecontant">
-							<h1>T H A R</h1>
-			 				<h2>Price &#x20B9;</h2>
-			 				<button id="btnRM2">READ MORE</button>
-			 				<div id="readmore2">
-			 						<h1>Car Name</h1>
-                                     <p>"THE ALL NEW THAR IS HERE<br>
-                                        A modern take on an iconic design, the All-New Thar, with its wide stance 
-                                        and iconic lines, stands out wherever it goes.<br>
-                                        Choose between the All-New mStallion150 petrol engine and mHawk130 diesel engine.
-                                         With 6-speed automatic and manual transmission options.<br>
-                                         STARTS AT ₹ 9.89 LAKH<br></p>
-			 						<button id="btnRL2">READ LESS</button>
-			 				</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+<body class="page">
+    
+    
+    <!-- Loader-->
+      <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
+    <!-- Loader end-->
 
 
-	<div class="latestcars">
-		<h1 class="text-center">&bullet; LATEST   CARS &bullet;</h1>
-	</div>
-	<br>
-	<br>
-	<!-- ________________________Latest Cars Image Thumbnail________________-->
-		<div class="grid">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="txthover">
-						<img src="upload/images/cars1.jpg" alt="car1">
-							<div class="txtcontent">
-								<div class="stars">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-								<div class="simpletxt">
-									<h3 class="name">Altroz</h3>
-									 <h4 class="price"> Starts at &#x20B9;5.44 Lakhs</h4>
-									 <button>READ MORE</button><br>
-									 <div class="wishtxt">
-										 <p class="paragraph2">Compare <span class="icon"><img src="image/compicon.png" alt="compicon"></span></p>
-									 </div>
-								</div>
-								<div class="stars2">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-							</div>
-					</div>	 
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
-					<div class="txthover">
-						<img src="upload/images/car2.jpg" alt="car2">
-							<div class="txtcontent">
-								<div class="stars">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-								<div class="simpletxt">
-									<h3 class="name">Urban Cruizer</h3>
-									
-									<h4 class="price"> Starts at &#x20B9;8.40 Lakhs</h4>
-									 <button>READ MORE</button><br>
-									 <div class="wishtxt">
-										 <p class="paragraph2">Compare <span class="icon"><img src="image/compicon.png" alt="compicon"></span></p>
-									 </div>
-								</div>
-								<div class="stars2">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-							</div>
-					</div>	 
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="txthover">
-						<img src="upload/images/car3.jpg" alt="car3">
-							<div class="txtcontent">
-								<div class="stars">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-								<div class="simpletxt">
-									<h3 class="name">Sonet</h3>
-									 <h4 class="price">Starts at &#x20B9;8.40 Lakhs</h4>
-									 <button>READ MORE</button><br>
-									 <div class="wishtxt">
-										 <p class="paragraph2">Compare <span class="icon"><img src="image/compicon.png" alt="compicon"></span></p>
-									 </div>
-								</div>
-								<div class="stars2">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-							</div>
-					</div>	 
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<div class="txthover">
-						<img src="upload/images/car4.gif" alt="car4">
-							<div class="txtcontent">
-								<div class="stars">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-								<div class="simpletxt">
-									<h3 class="name">Kona</h3>
-									 <h4 class="price">Starts at &#x20B9;23.8 Lakhs</h4>
-									 <button>READ MORE</button><br>
-									 <div class="wishtxt">
-										 <p class="paragraph2">Compare <span class="icon"><img src="image/compicon.png" alt="compicon"></span></p>
-									 </div>
-								</div>
-								<div class="stars2">
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-									<div class="glyphicon glyphicon-star"></div>
-								</div>
-							</div>
-					 	</div>	 
-					</div>
-				</div>
-			</div>
-		</div><br><br>
-		<center>
-        <div class="bottommenu">
-            <p>"All of those cars were once just a dream in somebody’s head".
-                Peter Gabriel </p>
-                 <img src="upload/images/line.png" alt="line"> <br>
-                 <div class="bottomsocial">
-                     <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                </div>
+   <?php include_once('includes/header.php');?>
+            <!-- end .header-->
+            <div class="main-slider slider-pro" id="main-slider" data-slider-width="100%" data-slider-height="700px" data-slider-arrows="false" data-slider-buttons="false">
+                <div class="sp-slides">
+                    <!-- Slide 1-->
+                    <div class="main-slider__slide sp-slide"><img class="sp-image" src="assets/media/content/b-main-slider/Banner.jpg" alt="slider" width='1200' height="400" />
+                   
                     </div>
-	</div>
-</div>
-</center>
+            
+                </div>
+            </div>
+            <!-- end .main-slider-->
+            <div class="section-area bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="b-find">
+                                <ul class="b-find-nav nav nav-tabs" id="findTab" role="tablist">
+                                    <li class="b-find-nav__item nav-item"><a class="b-find-nav__link nav-link active" id="tab-allCar" data-toggle="tab" href="#content-allCar" role="tab" aria-controls="content-allCar" aria-selected="true">All Car Types</a></li>
+                                 
+                                </ul>
+                                <div class="b-find-content tab-content" id="findTabContent">
+                                    <div class="tab-pane fade show active" id="content-allCar">
+                                        <form class="b-find__form" method="post" name="search" action="car-search-homepage.php">
+                                            <div class="b-find__row">
+                                                <div class="b-find__main">
+                                                    <div class="b-find__inner">
+                                                        <div class="b-find__item">
+                                                            <div class="b-find__label"><span class="b-find__number"></span> Car Type</div>
+                                                            <div class="b-find__selector">
+                                                                <select class="selectpicker" data-width="100%" data-style="ui-select" name="cartype" id="cartype" required="true">
+                                                                    <?php 
+ $query3=mysqli_query($con,"select distinct car_type from tbl_car");
+ while ($row3=mysqli_fetch_array($query3)) {
 
-<script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/jquery.js"></script>
-<script type="text/javascript" src="source/js/isotope.js"></script>
-<script type="text/javascript" src="source/js/myscript.js"></script> 
-<script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/jquery.1.11.js"></script>
-<script type="text/javascript" src="source/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+ ?>
+                                                                    <option><?php echo $row3['car_type'];?></option><?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="b-find__btn btn btn-primary" type="submit" name="search">Search</button>
+                                            </div>
+                                     
+                                        </form>
+                                    </div>
+                             
+                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end .b-find-->
+           
+          
+
+            <!-- end .b-progress-->
+            <section class="b-isotope section-default">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div class="ui-title-slogan">Helps you to find perfect car</div>
+                            <h2 class="ui-title">Our Car<span class="text-primary"> Listing</span></h2>
+                          
+                        </div>
+                    </div>
+                    <ul class="b-isotope-grid grid list-unstyled row">
+                         <?php 
+ $query=mysqli_query($con,"select * from tbl_car order by rand() limit 6");
+ while ($row=mysqli_fetch_array($query)) {
+	 $n=$row['car_id'];
+	 $query5=mysqli_query($con,"select main from tbl_carimage where car_id=$n");
+	 $nm=mysqli_fetch_array($query5)['main'];
+ ?>
+                        <li class="grid-sizer col-lg-4 col-md-6"></li>
+                        <li class="b-isotope-grid__item grid-item col-lg-4 col-md-6 web honda">
+                            <div class="b-goods-f b-goods-f_dark">
+                               
+                                <div class="b-goods-f__media">
+
+                                    <a href="viewcardetail.php?carid=<?php echo $n;?>"><img class="b-goods-f__img img-scale" src="upload/car/<?php echo $nm;?>" alt="<?php echo $nm;?>" width='300' height='250'/></a>
+                                </div>
+
+                                <div class="b-goods-f__main">
+                                    <div class="b-goods-f__descrip">
+                                        <div class="b-goods-f__title"><span><?php echo $row['name'];?></span>
+                                        </div>
+                                        <?php
+										
+										?>
+                                        <ul class="b-goods-f__list list-unstyled">
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['millage'];?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['CarModel'];?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['TransmissionType'];?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['FuelType'];?></span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $row['MaxPower'];?></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="b-goods-f__sidebar"><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price-numb"><?php echo $row['CarPrice'];?></span></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </section>
+            <!-- end .b-isotope-->
+           
+           
+      
+            <!-- end .b-team-->
+            <section class="section-reviews section-default parallax area-bg area-bg_dark">
+                <div class="area-bg__inner">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <div class="ui-title-slogan">Helps you to find perfect car</div>
+                                    <h2 class="ui-title">Customer Reviews</h2><span class="section-reviews__decor">“</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="b-reviews-slider js-slider" data-slick="{&quot;slidesToShow&quot;: 3,  &quot;slidesToScroll&quot;: 3, &quot;centerMode&quot;: true, &quot;arrows&quot;: false, &quot;dots&quot;: true, &quot;responsive&quot;: [{&quot;breakpoint&quot;: 1400, &quot;settings&quot;: {&quot;slidesToShow&quot;: 2, &quot;slidesToScroll&quot;: 2, &quot;centerMode&quot;: false}}, {&quot;breakpoint&quot;: 768, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1, &quot;centerMode&quot;: false}}]}">
+                                    <div class="b-reviews">
+                                        <blockquote class="b-reviews__blockquote">
+                                            <div class="b-reviews__wrap">
+                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
+                                            </div>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-1.jpg" alt="foto"/></span></cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="b-reviews">
+                                        <blockquote class="b-reviews__blockquote">
+                                            <div class="b-reviews__wrap">
+                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua uat enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit. Slyly babbled much partook this much in in thus the sauc.</p>
+                                            </div>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Tina Olivia</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-2.jpg" alt="foto"/></span></cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="b-reviews">
+                                        <blockquote class="b-reviews__blockquote">
+                                            <div class="b-reviews__wrap">
+                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
+                                            </div>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-3.jpg" alt="foto"/></span></cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="b-reviews">
+                                        <blockquote class="b-reviews__blockquote">
+                                            <div class="b-reviews__wrap">
+                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
+                                            </div>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-1.jpg" alt="foto"/></span></cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="b-reviews">
+                                        <blockquote class="b-reviews__blockquote">
+                                            <div class="b-reviews__wrap">
+                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua uat enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit. Slyly babbled much partook this much in in thus the sauc.</p>
+                                            </div>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Tina Olivia</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-2.jpg" alt="foto"/></span></cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="b-reviews">
+                                        <blockquote class="b-reviews__blockquote">
+                                            <div class="b-reviews__wrap">
+                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
+                                            </div>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-3.jpg" alt="foto"/></span></cite>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end .b-reviews-->
+           
+     
+      
+            <!-- end .b-gallery-->
+           <?php include_once('includes/footer.php');?>
+            <!-- .footer-->
+        </div>
+    </div>
+    <!-- end layout-theme-->
+
+
+    <!-- ++++++++++++-->
+    <!-- MAIN SCRIPTS-->
+    <!-- ++++++++++++-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    <!-- Bootstrap-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="assets/libs/bootstrap-select.min.js"></script>
+    <!-- Pop-up window-->
+    <script src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- Headers scripts-->
+    <script src="assets/plugins/headers/slidebar.js"></script>
+    <script src="assets/plugins/headers/header.js"></script>
+    <!-- Mail scripts-->
+    <script src="assets/plugins/jqBootstrapValidation.js"></script>
+    <script src="assets/plugins/contact_me.js"></script>
+    <!-- Video player-->
+    <script src="assets/plugins/flowplayer/flowplayer.min.js"></script>
+    <!-- Filter and sorting images-->
+    <script src="assets/plugins/isotope/isotope.pkgd.min.js"></script>
+    <script src="assets/plugins/isotope/imagesLoaded.js"></script>
+    <!-- Progress numbers-->
+    <script src="assets/plugins/rendro-easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="assets/plugins/rendro-easy-pie-chart/jquery.waypoints.min.js"></script>
+    <!-- Animations-->
+    <script src="assets/plugins/scrollreveal/scrollreveal.min.js"></script>
+    <!-- Scale images-->
+    <script src="assets/plugins/ofi.min.js"></script>
+    <!-- Main slider-->
+    <script src="assets/plugins/slider-pro/jquery.sliderPro.min.js"></script>
+    <!--Sliders-->
+    <script src="assets/plugins/slick/slick.js"></script>
+    <!-- User customization-->
+    <script src="assets/js/custom.js"></script>
 </body>
+
 </html>
