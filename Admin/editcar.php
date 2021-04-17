@@ -123,7 +123,6 @@ input[type=submit] {
 <script>
   function test()
   {
-      alert("hi");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function()
     {
@@ -165,6 +164,10 @@ input[type=submit] {
         return true;
       }
   }
+  function fun(value)
+  {
+    alert(value);
+  }
 </script>
 </head>
 <body onload="test()">
@@ -195,7 +198,7 @@ input[type=submit] {
   </div>
 	<h1>Add Car</h1>
 	<div class="name">
-	 <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Car&nbsp;/&nbsp;Add Car</h6>
+	 <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Car&nbsp;/&nbsp;Edit Details</h6>
 	</div><br>
   <div class="add_car">
     <div class="tab">
@@ -250,7 +253,7 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details2" enctype="multipart/form-data" >
-            <label style="margin-top:50px;">Car Model</label><select name="mod" id="mod" style="margin-top:50px;" required>
+            <label style="margin-top:50px;">Car Model</label><select name="mod" id="mod" style="margin-top:50px;" required onchange="fun(this.value)">
             <option value="" disabled selected>Choose model</option>
             </select><br>
             <label>Wheel</label><input type="text" name="wheel" required><br>
@@ -263,17 +266,11 @@ input[type=submit] {
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
                 <div class="radio">
-                  <label>Auto AC</label><input type="radio" style="margin-left:20px;" name="auto" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="auto" value="No">&nbsp;No
-                </div>
-                <div class="radio">
-                  <label>Sunroof</label><input type="radio" style="margin-left:20px;" name="sunroof" value="Yes" required>&nbsp;Yes
-                  <input type="radio" name="sunroof" value="No">&nbsp;No
-                </div>
-                <div class="radio">
-                  <label>Auto Headlamb</label><input type="radio" name="headlamb" value="Yes" required>&nbsp;Yes
+                  <label>Auto AC</label><input type="text" name="auto" value="Yes" required>
+                  <label>Sunroof</label><input type="text" name="sunroof" value="Yes" required>
+                  <label>Auto Headlamb</label><input type="text" name="headlamb" value="Yes" required>
                   <label>Sensor</label><input type="text" name="sensor" value="Yes" required>
-                  <label>Reverse Camera</label><input type="text" name="camera" value="Yes" required>&nbsp;Yes
+                  <label>Reverse Camera</label><input type="text" name="camera" value="Yes" required>
                   <label>Power Window</label><input  type="text" name="window" value="Front only" required>
 	              <input type="submit" name="Add2" value="Add">
                 </form>    
@@ -461,12 +458,11 @@ input[type=submit] {
    $emission=$_POST["emmi"];
    $desc=$_POST["desc"];
 
-   $sql1="insert into tbl_car (name,car_type,ground,steering,airbag,ac,capacity,length,width,heigth,bootspace,enc,seat,description) values ('$name','$cartype','$bodytype','$display',$airbag,'$ac',$capacity,$length,$width,$heigth,$boot,'$emission',$seat,'$desc')";
+   $sql1="UPDATE tbl_car SET  name ='$name', car_type ='$cartype', ground ='$bodytype', steering ='$display', airbag =$airbag, ac ='$ac', capacity =$capacity, length =$length, width =$width, heigth =$heigth, bootspace =$boot, enc =$emission, seat =$seat, description ='$desc' WHERE car_id=id;
    mysqli_query($con,$sql1);
   }
   if(array_key_exists('Add2', $_POST))
   {
-   $car=$_POST["car"];
    $model=$_POST["model"];
    $fog=$_POST["fog"];
    $wheel=$_POST["wheel"];
