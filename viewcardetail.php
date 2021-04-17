@@ -9,7 +9,7 @@ if(isset($_POST['send']))
     $mobilenumber=$_POST['mobnum'];
     $message=$_POST['message'];
     $enquirynumber = mt_rand(100000000, 999999999);
-$carid=$_GET['carid'];
+    $carid=$_GET['carid'];
     $query1=mysqli_query($con,"insert into  tblenquiry(CardId,FullName,Email,MobileNumber,Message,EnquiryNumber) value('$carid','$fullname','$email','$mobilenumber','$message','$enquirynumber')");
         if ($query1) {
  echo '<script>alert("Your enquiry successfully send. Your Enquiry number is "+"'.$enquirynumber.'")</script>';
@@ -73,7 +73,7 @@ echo "<script>window.location.href='car-list.php'</script>";
           <?php 
 
 $carid=$_GET['carid'];
-$query=mysqli_query($con,"select * from tblcars where ID='$carid'");
+$query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
 $num=mysqli_num_rows($query);
 while ($row=mysqli_fetch_array($query)) {
 ?>
@@ -83,7 +83,7 @@ while ($row=mysqli_fetch_array($query)) {
               <div class="row">
 
               <div class="col-lg-8">
-                <h1 class="ui-title text-uppercase"><?php echo $row['CarName'];?></h1>
+                <h1 class="ui-title text-uppercase"><?php echo $row['name'];?></h1>
                
               </div>
               <div class="col-lg-4" style="font-weight:bold">
@@ -98,16 +98,24 @@ while ($row=mysqli_fetch_array($query)) {
                 
                 <div class="b-goods-f__slider">
                   <div class="ui-slider-main js-slider-for">
-
-                    <img class="img-scale" src="admin/images/<?php echo $row['CarImage'];?>"  />
+                    <?php  
+                    $query2=mysqli_query($con,"select * from tbl_carimage where car_id='$carid'");
+                    while($rows=mysqli_fetch_array($query2)){
+                     $image=$rows['main'];
+                     $image1=$rows['image1'];
+                     $image2=$rows['image2'];
+                     $image3=$rows['image3'];
+                     $image4=$rows['image4'];
+                    }
+                    ?>
+                    <img class="img-scale" src="upload/car/<?php echo $image;?>"  />
                     <p style="margin-top:1%">
-                    <img src="admin/images/<?php echo $row['CarImage1'];?>" width="360" style="border:solid #000 1px"/> &nbsp;&nbsp;
-                    <img  src="admin/images/<?php echo $row['CarImage2'];?>" width="360"  style="border:solid #000 1px"/>  </p>
+                    <img src="upload/car/<?php echo $image1;?>" width="360" style="border:solid #000 1px"/> &nbsp;&nbsp;
+                    <img  src="upload/car/<?php echo $image2;?>" width="360"  style="border:solid #000 1px"/>  </p>
                     <p>
-                    <img  src="admin/images/<?php echo $row['CarImage3'];?>" width="360" style="border:solid #000 1px" />&nbsp;&nbsp;
-                    <img  src="admin/images/<?php echo $row['CarImage4'];?>"  width="360" style="border:solid #000 1px" /> </p>
+                    <img  src="upload/car/<?php echo $image3;?>" width="360" style="border:solid #000 1px" />&nbsp;&nbsp;
+                    <img  src="upload/car/<?php echo $image4;?>"  width="360" style="border:solid #000 1px" /> </p>
                   </div>
-         
                 </div> 
 
 

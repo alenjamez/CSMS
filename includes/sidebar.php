@@ -8,30 +8,15 @@
                          
                           <div class="b-filter__main">
                             <div class="b-filter__row">
-                               
-                              <select class="selectpicker" data-width="100%"  name="company" id="company" required="true" data-style="ui-select">
-                                <option value="">Select Company</option>
-                                <?php 
- $query1=mysqli_query($con,"select CompanyName from tblcompany");
- while ($row1=mysqli_fetch_array($query1)) {
-
-
- ?>
-                                <option><?php echo $row1['CompanyName'];?></option> <?php } ?>
-                                
-                              </select>
-                            </div>
-                           
-                            <div class="b-filter__row">
 <select class="selectpicker" data-style="ui-select" name="model" required="true">
      <option value="">Select Model</option>
                                 <?php 
- $query2=mysqli_query($con,"select CarModel from tblcars");
+ $query2=mysqli_query($con,"select name from tbl_car");
  while ($row2=mysqli_fetch_array($query2)) {
 
 
  ?>
-                                <option><?php echo $row2['CarModel'];?></option><?php } ?>
+                                <option><?php echo $row2['name'];?></option><?php } ?>
                                 
                               </select>
                             </div>
@@ -39,48 +24,37 @@
 <select class="selectpicker" title="Car Type" name="cartype" id="cartype" required="true" data-style="ui-select">
    <option value="">Select Car Type</option>
                                 <?php 
- $query3=mysqli_query($con,"select distinct CarType from tblcars");
+ $query3=mysqli_query($con,"select distinct car_type from tbl_car");
  while ($row3=mysqli_fetch_array($query3)) {
 
 
  ?>
-                                 <option><?php echo $row3['CarType'];?></option><?php } ?>
+                                 <option><?php echo $row3['car_type'];?></option><?php } ?>
                               </select>
                             </div>
                             <div class="b-filter__row">
  <select class="selectpicker" data-width="100%" data-style="ui-select"   name="transmissiontype" required="true">
   <option value="">Transmission Type</option>
  <?php 
- $query4=mysqli_query($con,"select distinct TransmissionType from tblcars");
+ $query4=mysqli_query($con,"select distinct type from tbl_transmission");
  while ($row4=mysqli_fetch_array($query4)) {
 
 
  ?>
-                                 <option><?php echo $row4['TransmissionType'];?></option><?php } ?>
+                                 <option><?php echo $row4['type'];?></option><?php } ?>
                               </select>
                             </div>
-                           
-                            <div class="b-filter__row">
-<select class="selectpicker" data-width="100%" title="Fuel Capacity" name="fuelcapacity" id="fuelcapacity" data-style="ui-select" required="true">
-  <option value="">Fuel Capacity</option>
-                               <?php 
- $query5=mysqli_query($con,"select distinct FuelCapacity  from tblcars");
- while ($row5=mysqli_fetch_array($query5)) {
 
-
- ?>
-                                 <option><?php echo $row5['FuelCapacity'];?></option><?php } ?>
-                              </select>
-                            </div>
                             <div class="b-filter__row">
                               <select class="selectpicker" data-width="100%" title="Fuel Type"  required="true" name="fueltype"  data-style="ui-select">
+                              <option value="">Fuel Type</option>
                                 <?php 
- $query6=mysqli_query($con,"select distinct FuelType from tblcars");
+ $query6=mysqli_query($con,"select distinct fuel from tbl_transmission");
  while ($row6=mysqli_fetch_array($query6)) {
 
 
  ?>
-                                 <option><?php echo $row6['FuelType'];?></option><?php } ?>
+                                 <option><?php echo $row6['fuel'];?></option><?php } ?>
                               </select>
                             </div>
                           </div>
