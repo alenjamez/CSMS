@@ -108,6 +108,39 @@ body {font-family: Arial;
         float: right;
         font-size: 13px;
     }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:20px;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4CAF50;
+}
 </style>
 <script>
         function rname()
@@ -318,6 +351,16 @@ body {font-family: Arial;
         </script>
 </head>
 <body>
+<div class="header">
+  <h2>Scroll Down</h2>
+  <p>Scroll down to see the sticky effect.</p>
+</div>
+
+<ul>
+  <li><a class="active" href="index.php">Home</a></li>
+  <li><a href="#news">Profile</a></li>
+  <li><a href="#contact">Test Drive</a></li>
+</ul>
 
 
 <div class="tab">
@@ -337,7 +380,7 @@ body {font-family: Arial;
         </div>
     	    <div class="col-sm-9">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="home"><br><br>
+                    <!-- <div class="tab-pane active" id="home"><br><br> -->
                         <div class="form-group">
                           <div class="col-xs-6">
                               <label for="first_name"><h4>Name</h4></label>
