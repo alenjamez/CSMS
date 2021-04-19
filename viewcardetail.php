@@ -1,27 +1,31 @@
 <?php
-//error_reporting(0);
+session_start();
+error_reporting(0);
 include('includes/dbconnection.php');
-
 if(isset($_POST['send']))
-  {
-    $fullname=$_POST['fullname'];
-    $email=$_POST['email'];
-    $mobilenumber=$_POST['mobnum'];
-    $message=$_POST['message'];
-    $enquirynumber = mt_rand(100000000, 999999999);
-    $carid=$_GET['carid'];
-    $query1=mysqli_query($con,"insert into  tblenquiry(CardId,FullName,Email,MobileNumber,Message,EnquiryNumber) value('$carid','$fullname','$email','$mobilenumber','$message','$enquirynumber')");
-        if ($query1) {
- echo '<script>alert("Your enquiry successfully send. Your Enquiry number is "+"'.$enquirynumber.'")</script>';
-echo "<script>window.location.href='car-list.php'</script>";
-  }
-  else
-    {
-      $msg="Something Went Wrong. Please try again";
-    }
+ {
 
-  
-}
+    if(isset($_SESSION['user']))
+      {
+        $lid=$_SESSION['logid'];
+        $fullname=$_POST['name'];
+        $date=$_POST['date'];
+        $location=$_POST['loc'];
+        $enquirynumber = mt_rand(100000000, 999999999);
+        $carid=$_GET['carid'];
+        $query1=mysqli_query($con,"insert into  tbl_ltestdrive(name,date,location,login_id,car_id,enquiryno) value('$fullname','$date','$location',$lid,$carid,$enquirynumbers)");
+            if ($query1) {
+            echo '<script>alert("Your booking has successfully send. Your Enquiry number is "+"'.$enquirynumber.'")</script>';
+            echo "<script>window.location.href='car-list.php'</script>";
+              }
+              else{
+                  $msg="Something Went Wrong. Please try again";
+                }
+      }
+        else{
+          header("location:login.php?msg=");
+        }
+    }
 
   ?>
 
@@ -33,8 +37,56 @@ echo "<script>window.location.href='car-list.php'</script>";
       
       <link rel="stylesheet" href="assets/css/master.css">
             <link rel="stylesheet" href="assets/css/master.css">
+            <link rel="stylesheet" href="style/img.css"> 
+
      
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
+<script>
+       function rname()
+        {
+        var nam=document.getElementById("name").value;
+        var nam1=/^[a-zA-Z]+$/;
+        
+        if(nam=="")
+            {
+                document.getElementById("name").style.borderColor = "red";
+                document.getElementById("name").focus();
+            return false;
+            }
+        if(nam.match(nam1))
+            {
+              document.getElementById("name").style.borderColor = "#dddddd";
+        
+            }
+        else
+            {
+                document.getElementById("name").style.borderColor = "red";
+                document.getElementById("name").focus();
+            return false;
+        
+            }
+        }
+        function loca()
+        {
+        var loc=document.getElementById("loc").value;
+        var loc1=/^[a-zA-Z]+$/;
+        if(loc=="")
+           {
+                document.getElementById("loc").style.borderColor = "red";
+                document.getElementById("loc").focus();
+            }
+        if(loc.match(loc1))
+            {
+                document.getElementById("loc").style.borderColor="#dddddd";
+        
+            }
+        else
+            {
+                document.getElementById("loc").style.borderColor = "red";
+                document.getElementById("loc").focus();
+            }
+        }
+</script>
   </head>
   <body class="page">
                
@@ -74,8 +126,8 @@ echo "<script>window.location.href='car-list.php'</script>";
 
 $carid=$_GET['carid'];
 $query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
-$num=mysqli_num_rows($query);
 while ($row=mysqli_fetch_array($query)) {
+  $name=$row['name'];
 ?>
           <section class="b-goods-f">
               
@@ -87,7 +139,7 @@ while ($row=mysqli_fetch_array($query)) {
                
               </div>
               <div class="col-lg-4" style="font-weight:bold">
-             <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col">msrp:&nbsp;</span><span class="b-goods-f__price-numb">Rs.<?php echo $row['CarPrice'];?></span></span></span>
+             <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col">msrp:&nbsp;</span><span class="b-goods-f__price-numb">Rs.<?php echo $row['price'];?></span></span></span>
                      
                       </div>
               </div>
@@ -102,60 +154,71 @@ while ($row=mysqli_fetch_array($query)) {
                     $query2=mysqli_query($con,"select * from tbl_carimage where car_id='$carid'");
                     while($rows=mysqli_fetch_array($query2)){
                      $image=$rows['main'];
-                     $image1=$rows['image1'];
-                     $image2=$rows['image2'];
-                     $image3=$rows['image3'];
-                     $image4=$rows['image4'];
                     }
                     ?>
-                    <img class="img-scale" src="upload/car/<?php echo $image;?>"  />
-                    <p style="margin-top:1%">
-                    <img src="upload/car/<?php echo $image1;?>" width="360" style="border:solid #000 1px"/> &nbsp;&nbsp;
-                    <img  src="upload/car/<?php echo $image2;?>" width="360"  style="border:solid #000 1px"/>  </p>
-                    <p>
-                    <img  src="upload/car/<?php echo $image3;?>" width="360" style="border:solid #000 1px" />&nbsp;&nbsp;
-                    <img  src="upload/car/<?php echo $image4;?>"  width="360" style="border:solid #000 1px" /> </p>
+                   <a href="carimage.php?carid=<?php echo $carid;?>"> <img class="img-scale" src="upload/car/<?php echo $image;?>"  /></a>
                   </div>
-                </div> 
+                </div><h6>*Click on image to view more image</h6><br> 
+                <h2 class="b-goods-f__title">Colours</h2>
+                <div class="container" id="bat">
+                    <img id="expandedImg" style="width:80%">
 
+                    <div id="imgtext"></div>
+                  </div>
+                  
+                  <div style="width:100%;heigth:100%">
+                  <div class="grid-container">
+                      <?php
+                          $quer=mysqli_query($con,"select * from colour where car_id='$carid' order by rand()");
+                          while($row1=mysqli_fetch_array($quer)){?>
+                      <div class="item">                  
+                      <img width="100" height="100" src="upload/car/<?php echo $row1['image'];?>" alt="<?php echo $row1['colour'];?>" onclick="myFunction(this);">
+                    </div>
+                      <?php
+                          }
+                      ?>
 
-
+                      </div>
+                  </div><h6>*Click on image to view large size</h6><br>
 
                 <h2 class="b-goods-f__title">Car Specifications</h2>
                 <div class="row">
                   <div class="col-md-6">
                     <dl class="b-goods-f__descr row">
                       <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Company</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['CarCompany'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Model</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['CarModel'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Body Style</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['CarBodytype'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Color</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['CarBodycolor'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Fuel Type</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['FuelType'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Max Power</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['MaxPower'];?></dd>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12">Maruti Suzuki</dd>
+                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">AC</dt>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['ac'];?></dd>
+                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Airbag</dt>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12">
+                      <?php if($row['airbag']==2){
+                        echo "Driver and Passenger";
+                      }
+                      else{
+                        echo "Driver,Passenger & Side" ;
+                      }?></dd>
+                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Emission Norm Compliance</dt>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['enc'];?></dd>
                     </dl>
                   </div>
                   <div class="col-md-6">
                     <dl class="b-goods-f__descr row">
                       <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Fuel Capacity</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['FuelCapacity'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Mileage</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['Milage'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Transmission</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['TransmissionType'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Air Bags</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['AirBags'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">No. of Gear</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['NoofGear'];?></dd>
-                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">No. Of Seats</dt>
-                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['Seatingcapacity'];?></dd>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['capacity'];?></dd>
+                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Power Steering</dt>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['steering'];?></dd>
+                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Bootspace</dt>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['bootspace'];?> litres</dd>
+                      <dt class="b-goods-f__descr-title col-lg-5 col-md-12">Ground Clearence</dt>
+                      <dd class="b-goods-f__descr-info col-lg-7 col-md-12"><?php echo $row['ground'];?>mm</dd>
+
                     </dl>
                   </div>
                 </div>
+
+
+
+                
                 <ul class="nav nav-tabs nav-vehicle-detail-tabs" id="myTab" role="tablist">
                   <li class="nav-item"><a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true"><strong>Overview</strong></a></li>
               
@@ -165,14 +228,17 @@ while ($row=mysqli_fetch_array($query)) {
                 <hr />
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                    <p><?php echo $row['CarDescription'];?></p>
-                    <h3 class="b-goods-f__title-inner">General Information</h3>
+                    <p><?php echo $row['description'];?></p>
+                    <h3 class="b-goods-f__title-inner">Versions</h3>
                     <ul class="list list-mark-2">
-                      <li>Max Torque: <?php echo $row['MaxTorque'];?> </li>
-                      <li>Car Length: <?php echo $row['CarLength'];?> </li>
-                      <li>Car Width:  <?php echo $row['CarWidth'];?> </li>
-                      <li>Car Height:  <?php echo $row['CarHeight'];?> </li>
-                      <li>Car Displacement: <?php echo $row['Displacement'];?> </li>
+                    <?php
+                          $query9=mysqli_query($con,"select * from tbl_model where car_id='$carid'");
+                          while($row1=mysqli_fetch_array($query9)){
+                            // $query8=mysqli_query($con,"select * from tbl_transmission where model_id=$row[model_id]");
+                            // while($row2=mysqli_fetch_array($query8)){?>
+                              <a href=""><li><?php echo $name," ", $row1['model'];?> </li></a>
+                        
+<?php }?>
                     </ul>
                   </div>
              
@@ -211,27 +277,29 @@ while ($row=mysqli_fetch_array($ret)) {
                   <!-- end .b-seller-->
                   
                   <div class="widget section-sidebar bg-gray widget-selecr-contact" style="margin-top:3%">
-                      <h3 class="widget-title bg-dark"><i class="ic icon_mail_alt"></i>Enquiry For Car</h3>
+                      <h3 class="widget-title bg-dark"><i class="ic icon_mail_alt"></i>Book for Test Drive</h3>
                     <div class="widget-content">
                       <div class="widget-inner">
-                   <form method="post">
+                   <form method="post" enctype="multipart/form-data">
                           <div class="form-group">
-                            <input class="form-control" type="text" name="fullname" required="true" placeholder="Name"/>
-                          </div>
-                            <div class="form-group">
-                            <input class="form-control" type="email" name="email" required="true" placeholder="Email"/>
-                          </div>
-                            <div class="form-group">
-                            <input class="form-control" type="text" name="mobnum" maxlength="10" pattern="[0-9]+" placeholder="Mobile Number" required="true"/>
+                            <input class="form-control" type="date"  name="date" required="true" placeholder="date of appoinment" max="2021-4-22" min="2021-4-19"/>
                           </div>
                           <div class="form-group">
-                            <textarea class="form-control" name="message" placeholder="Message" required="true" rows="4"></textarea>
+                            <input class="form-control" type="text" autocomplete="off" name="name" id="name" onblur="rname()" required="true" placeholder="Name"/>
                           </div>
-                          <button class="btn btn-red btn-lg w-100" name="send" type="submit">Send now</button>
+                          <div class="form-group">
+                          <input class="form-control" type="text" autocomplete="off" name="loc" id="loc" onblur="loca()" placeholder="Location" required="true"/>
+                          </div>
+       
+                          <input class="btn btn-red btn-lg w-100" name="send" type="submit" value="Book now" onsubmit="rname();loca();">
                         </form>
                       </div>
                     </div>
                   </div>
+
+  
+                  <!-- The expanding image container -->
+
              
                 </aside>
               </div>
@@ -290,7 +358,16 @@ while ($row=mysqli_fetch_array($ret)) {
     <!-- User customization-->
     <script src="assets/js/custom.js"></script>
 
+    <script>
+    function myFunction(imgs) {
+      var expandImg = document.getElementById("expandedImg");
+      var imgText = document.getElementById("imgtext");
+      expandImg.src = imgs.src;
+      imgText.innerHTML = imgs.alt;
+      expandImg.parentElement.style.display = "block";
+    }
+    </script>
+
   </body>
 
-<!-- Mirrored from templines.rocks/html/revus/vehicle-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Jun 2019 06:18:44 GMT -->
 </html>

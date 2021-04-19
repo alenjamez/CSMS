@@ -59,12 +59,10 @@ include('includes/dbconnection.php');
                 <main class="b-goods-group row">
 
  <?php 
-$company=$_POST['company'];
-$model=$_POST['model'];
-$cartype=$_POST['cartype'];
+$cartype=$_GET['cartype'];
 
 
- $query=mysqli_query($con,"select * from tblcars where (CarCompany='$company' and CarModel='$model' and CarType='$cartype')");
+ $query=mysqli_query($con,"select * from tbl_car where type='$cartype'");
  $num=mysqli_num_rows($query);
  if($num >0){
  while ($row=mysqli_fetch_array($query)) {

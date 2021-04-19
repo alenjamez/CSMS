@@ -120,7 +120,7 @@ session_start();
             {
              $uid=$row['login_id'];
              $_SESSION['logid']=$uid;
-            header("location:User/home.php");
+            header("location:index.php");
             }
         }
     }

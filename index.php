@@ -11,7 +11,6 @@ include('includes/dbconnection.php');
     <title>Car Showroom Management System / Home</title>
     
     <link rel="stylesheet" href="assets/css/master.css">
-   
     
 </head>
 
@@ -46,7 +45,7 @@ include('includes/dbconnection.php');
                                 </ul>
                                 <div class="b-find-content tab-content" id="findTabContent">
                                     <div class="tab-pane fade show active" id="content-allCar">
-                                        <form class="b-find__form" method="post" name="search" action="car-search-homepage.php">
+                                        <form class="b-find__form" method="post" name="search">
                                             <div class="b-find__row">
                                                 <div class="b-find__main">
                                                     <div class="b-find__inner">
@@ -60,7 +59,7 @@ include('includes/dbconnection.php');
 
 
  ?>
-                                                                    <option><?php echo $row3['car_type'];?></option><?php } ?>
+                                                                    <option value="<?php echo $row3['car_type'];?>"><?php echo $row3['car_type'];?></option><?php } ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -98,7 +97,7 @@ include('includes/dbconnection.php');
  $query=mysqli_query($con,"select * from tbl_car order by rand() limit 6");
  while ($row=mysqli_fetch_array($query)) {
 	 $n=$row['car_id'];
-	 $seats=$row['seats'];
+	 $seats=$row['seat'];
 	 $query5=mysqli_query($con,"select main from tbl_carimage where car_id=$n");
 	 $nm=mysqli_fetch_array($query5)['main'];
  ?>
@@ -128,7 +127,7 @@ include('includes/dbconnection.php');
                                         <ul class="b-goods-f__list list-unstyled">
                                             <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $millage;?></span></li>
                                             <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $type;?></span></li>
-                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $cseats;?> Seater</span></li>
+                                            <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $seats;?> Seater</span></li>
                                             <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $cc;?> cc</span></li>
                                             <li class="b-goods-f__list-item"><span class="b-goods-f__list-info"><?php echo $bhp;?></span></li>
                                         </ul>
@@ -267,3 +266,10 @@ include('includes/dbconnection.php');
 </body>
 
 </html>
+<?php
+if(isset($_POST['search']))
+{
+    $car=$_POST["cartype"];
+    header("car-search-homepage.php?cartype='$car'");
+}
+?>
