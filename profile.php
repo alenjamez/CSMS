@@ -102,6 +102,10 @@ body {font-family: Arial;
       margin-top:50px;
       padding-bottom:20px;
     }
+    #im{
+      margin-top:0px;
+      padding-bottom:0px;
+    }
     span{
         right:0;
         margin-right:40px;
@@ -134,13 +138,20 @@ li a {
   font-size:20px;
 }
 
-li a:hover {
-  background-color: #111;
+li p {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:20px;
 }
 
-.active {
-  background-color: #4CAF50;
+li a:hover {
+    color: #4CAF50;
+    text-decoration: none;
 }
+
 </style>
 <script>
         function rname()
@@ -352,14 +363,14 @@ li a:hover {
 </head>
 <body>
 <div class="header">
-  <h2>Scroll Down</h2>
-  <p>Scroll down to see the sticky effect.</p>
+  <br><br>
 </div>
 
 <ul>
-  <li><a class="active" href="index.php">Home</a></li>
-  <li><a href="#news">Profile</a></li>
-  <li><a href="#contact">Test Drive</a></li>
+  <li><a  href="index.php">Home</a></li>
+  <li><a href="#">Profile</a></li>
+  <li><a href="testview.php">Test Drive</a></li>
+  <li style="float:right"><p><?php echo $_SESSION['user']; ?>&nbsp;<img id="im" src="<?php echo $propic;?>" width="40" height="40"></p></li>
 </ul>
 
 
@@ -424,7 +435,6 @@ li a:hover {
                            <div class="col-xs-12">
                                 <br>
                               	  <input class="btn btn-lg btn-success" type="submit" name="save" onsubmit="rname(); ema(); phn(); loc(); usr(); Val();">
-                                  <input type="button" id="btn" class="btn btn-lg btn btn-outline-info" onclick="location.href ='home.php'" value="Back">
                             </div>
                       </div>
               	</form>
@@ -455,7 +465,6 @@ li a:hover {
                            <div class="col-xs-12">
                                 <br>
                               	  <input class="btn btn-lg btn-success" type="submit" name="change" value="Change" onsubmit="npsw(); psw1();">
-                                  <input type="button" class="btn btn-lg btn btn-outline-info" onclick="location.href = 'home.php'" value="Back">
                             </div>
                         </div>
                     </form>

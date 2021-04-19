@@ -11,11 +11,13 @@ if(isset($_POST['send']))
         $fullname=$_POST['name'];
         $date=$_POST['date'];
         $location=$_POST['loc'];
+        $trans=$_POST['trans'];
         $enquirynumber = mt_rand(100000000, 999999999);
         $carid=$_GET['carid'];
-        $query1=mysqli_query($con,"insert into  tbl_ltestdrive(name,date,location,login_id,car_id,enquiryno) value('$fullname','$date','$location',$lid,$carid,$enquirynumbers)");
-            if ($query1) {
-            echo '<script>alert("Your booking has successfully send. Your Enquiry number is "+"'.$enquirynumber.'")</script>';
+        $que="insert into  tbl_ltestdrive(name,date,location,gear,login_id,car_id,enquiryno) value('$fullname','$date','$location','$trans',$lid,$carid,'$enquirynumber')";
+        $query3=mysqli_query($con,$que);
+            if ($query3) {
+            echo '<script>alert("Your booking has successfully send.")</script>';
             echo "<script>window.location.href='car-list.php'</script>";
               }
               else{
@@ -290,6 +292,15 @@ while ($row=mysqli_fetch_array($ret)) {
                           <div class="form-group">
                           <input class="form-control" type="text" autocomplete="off" name="loc" id="loc" onblur="loca()" placeholder="Location" required="true"/>
                           </div>
+                          <div class="form-group">
+                          <select name="trans" class="form-control" required>
+                          <option value="" disabled selected>Choose Transmission Type</option>
+                          <option value="Automatic" >Automatic</option>
+                          <option value="Manual">Manual</option>
+                          <option value="Semi-Automatic and Dual Cluch">Semi-Automatic and Dual Cluch</option></select>  
+                          </div>
+
+             
        
                           <input class="btn btn-red btn-lg w-100" name="send" type="submit" value="Book now" onsubmit="rname();loca();">
                         </form>
