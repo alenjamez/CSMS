@@ -18,6 +18,9 @@
 input[type=text]{
   width:600px;
 }
+select{
+  width:600px;
+}
 input[type=file]{ 
   font-size: 15px;
   color: rgb(153,153,153);
@@ -72,7 +75,7 @@ input[type=submit] {
         <a href="managecar.php">Manage Details</a>
         </div>
         <a href="#">Service</a>
-        <a href="#">TestDrives</a>
+        <a href="testdrive.php">TestDrives</a>
         <a href="#" >Sales</a>
         <a href="../logout.php" >Log Out</a></div></div>
 </div>
@@ -80,7 +83,7 @@ input[type=submit] {
 <div class="main">
 <div class="back">
 <p style="color:black;float:right;font-family:Arial;padding-top:10px"><b><?php echo $_SESSION['user']; ?>&nbsp;
-            <img src="upload/profile/admin.jpg" width="40" height="40"><p><br>
+            <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
     </div></div>
 <h1>Add Employee</h1>
 <div class="name">
@@ -102,6 +105,13 @@ input[type=submit] {
         <label for="icon"><b>Password</b></label></td>
         <td><input type="text" name="pword" id="pword"   title="Only Alphabets" required>
       </td></tr>
+      <tr><td>
+      <label for="icon"><b>Position</b></label></td>
+      <td><select name="desig" required>
+      <option value="" disabled selected>Choose designation</option>
+      <option value="M" >Manager</option>
+      <option value="E">Employee</option>
+      </select></td></tr>
       <tr><td></td><td><input type="submit" value="Sent" onclick="sendEmail();" name="submit"></td></tr>
    </table>
    <span id="err" style="color:green"></span>
@@ -135,7 +145,8 @@ input[type=submit] {
     $email=$_POST["comnme"];
     $name=$_POST["uname"];
     $pass=md5($_POST["pword"]);
-    $sql1="insert into tbl_login(username,password,type) values('$name','$pass','E')";
+    $des=$_POST["desig"];
+    $sql1="insert into tbl_login(username,password,type) values('$name','$pass','$des')";
     mysqli_query($con,$sql1);
     $li=mysqli_insert_id($con);
     $sql1="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";

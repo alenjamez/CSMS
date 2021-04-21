@@ -40,7 +40,11 @@ if(isset($_POST['send']))
       <link rel="stylesheet" href="assets/css/master.css">
             <link rel="stylesheet" href="assets/css/master.css">
             <link rel="stylesheet" href="style/img.css"> 
-
+    <style>
+    #model:hover{
+      text-decoration:none;
+    }
+    </style>
      
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
 <script>
@@ -141,7 +145,7 @@ while ($row=mysqli_fetch_array($query)) {
                
               </div>
               <div class="col-lg-4" style="font-weight:bold">
-             <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col">msrp:&nbsp;</span><span class="b-goods-f__price-numb">Rs.<?php echo $row['price'];?></span></span></span>
+             <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col">&nbsp;</span><span class="b-goods-f__price-numb"><?php echo $row['price'];?></span></span></span>
                      
                       </div>
               </div>
@@ -234,13 +238,25 @@ while ($row=mysqli_fetch_array($query)) {
                     <h3 class="b-goods-f__title-inner">Versions</h3>
                     <ul class="list list-mark-2">
                     <?php
-                          $query9=mysqli_query($con,"select * from tbl_model where car_id='$carid'");
-                          while($row1=mysqli_fetch_array($query9)){
+                    $sql5="select * from tbl_model where car_id='$carid'";
+                    $res5=mysqli_query($con,$sql5);
+                    while($row5=mysqli_fetch_array($res5)){
+                      $mid=$row5["model_id"];
+                      $model=$row5["model"];
+                      $sql6="select * from tbl_transmission where model_id='$mid'";
+                      $res6=mysqli_query($con,$sql6);
+                      while($row6=mysqli_fetch_array($res6)){
+                      $trans=$row6["type"];
+                      $fuel=$row6["fuel"];
+                      $price=$row6["price"];
+                      $cc=$row6["enginecc"];
+            
                             // $query8=mysqli_query($con,"select * from tbl_transmission where model_id=$row[model_id]");
                             // while($row2=mysqli_fetch_array($query8)){?>
-                              <a href=""><li><?php echo $name," ", $row1['model'];?> </li></a>
+                              <a href="viewmodeldetail.php?cid=<?php echo $carid;?>&mid=<?php echo $mid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>"><li><?php echo $name," ", $model," (",$trans," | ",$fuel,")";?>&nbsp;&nbsp;&nbsp;&#x20B9;<?php echo $price;?><i>Lacs.</i> </li></a>
                         
-<?php }?>
+<?php }
+}?>
                     </ul>
                   </div>
              

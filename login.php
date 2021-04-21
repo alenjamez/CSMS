@@ -70,7 +70,7 @@
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
               <input id="psw" type="password" class="form-control" name="psw" placeholder="Password" required>
             </div><br>
-            <div class="form-group" style="color:#f2f2f2;"><input type="checkbox"> Remember me</div>
+            <!-- <div class="form-group" style="color:#f2f2f2;"><input type="checkbox"> Remember me</div> -->
             <div class="form-group"><input type="submit" value="LOGIN" class="form-control" name="button"></div>
             <footer><a href="registration.php?msg=" style="color:#f2f2f2;">Sign Up now</a></footer>
             </form>
@@ -115,6 +115,12 @@ session_start();
               $uid=$row['login_id'];
               $_SESSION['logid']=$uid;
              header("location:Employee/empdash.php");
+            }
+            else if($type=='M')
+            {
+              $uid=$row['login_id'];
+              $_SESSION['logid']=$uid;
+             header("location:Employee/mngdash.php");
             }
             else
             {
