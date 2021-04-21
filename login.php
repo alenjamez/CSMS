@@ -70,9 +70,9 @@
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
               <input id="psw" type="password" class="form-control" name="psw" placeholder="Password" required>
             </div><br>
-            <!-- <div class="form-group" style="color:#f2f2f2;"><input type="checkbox"> Remember me</div> -->
             <div class="form-group"><input type="submit" value="LOGIN" class="form-control" name="button"></div>
-            <footer><a href="registration.php?msg=" style="color:#f2f2f2;">Sign Up now</a></footer>
+            
+            <footer><a href="registration.php?msg=" style="color:#f2f2f2;">Sign Up now</a><a href="fpEnterMail.php" style="color:#f2f2f2;float:right"> Forgot Password?</a></footer>
             </form>
           </div>
         <div>
