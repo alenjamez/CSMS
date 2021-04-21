@@ -2,26 +2,28 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
+$carid=$_GET['cid'];
+$modid=$_GET['mid'];
+$trans=$_GET['tran'];
+$fuel=$_GET['fuel'];
 if(isset($_POST['send']))
  {
-
     if(isset($_SESSION['user']))
       {
-        $lid=$_SESSION['logid'];
-        $fullname=$_POST['name'];
-        $date=$_POST['date'];
-        $location=$_POST['loc'];
-        $trans=$_POST['trans'];
-        $enquirynumber = mt_rand(100000000, 999999999);
-        $carid=$_GET['carid'];
-        $que="insert into  tbl_ltestdrive(name,date,location,gear,login_id,car_id,enquiryno) value('$fullname','$date','$location','$trans',$lid,$carid,'$enquirynumber')";
+        $uid=$_SESSION['logid'];
+        $house=$_POST['house'];
+        $pin=$_POST['pin'];
+        $post=$_POST['post'];
+        $color=$_POST['color'];
+        $que="insert into tbl_order(car_id,login_id,model_id,color_id,gear,fuel,house,post,pin) VALUES ('$carid','$uid','$modid','$color','$trans','$fuel','$house','$post',$pin)";
         $query3=mysqli_query($con,$que);
+        
             if ($query3) {
-            echo '<script>alert("Your booking has successfully send.")</script>';
-            echo "<script>window.location.href='car-list.php'</script>";
+                $li=mysqli_insert_id($con);
+                header("location:billgen.php?cid=$carid&mid=$modid&tran=$trans&fuel=$fuel&oid=$li&lodid=$uid"); 
               }
               else{
-                  $msg="Something Went Wrong. Please try again";
+                echo '<script>alert("Something Went Wrong. Please try again")</script>';
                 }
       }
         else{
@@ -59,6 +61,71 @@ if(isset($_POST['send']))
     </style>
      
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
+<script>
+     function rname()
+        {
+        var nam=document.getElementById("house").value;
+        var nam1=/^[a-zA-Z]+$/;
+        
+        if(nam=="")
+            {
+                document.getElementById("house").style.borderColor = "red";
+                document.getElementById("name").focus();
+            return false;
+            }
+        if(nam.match(nam1))
+            {
+              document.getElementById("house").style.borderColor = "#dddddd";
+        
+            }
+        else
+            {
+                document.getElementById("house").style.borderColor = "red";
+                document.getElementById("house").focus();
+            return false;
+        
+            }
+        }
+        function loca()
+        {
+        var loc=document.getElementById("post").value;
+        var loc1=/^[a-zA-Z]+$/;
+        if(loc=="")
+           {
+                document.getElementById("post").style.borderColor = "red";
+                document.getElementById("post").focus();
+            }
+        if(loc.match(loc1))
+            {
+                document.getElementById("post").style.borderColor="#dddddd";
+        
+            }
+        else
+            {
+                document.getElementById("post").style.borderColor = "red";
+                document.getElementById("post").focus();
+            }
+        }
+        function pinno()
+        {
+        var pino=document.getElementById("pin").value;
+        var pino1=/^[0-9]{6,6}$/;
+        if(pino=="")
+           {
+                document.getElementById("pin").style.borderColor = "red";
+                document.getElementById("pin").focus();
+            }
+        if(pino.match(pino1))
+            {
+                document.getElementById("pin").style.borderColor="#dddddd";
+        
+            }
+        else
+            {
+                document.getElementById("pin").style.borderColor = "red";
+                document.getElementById("pin").focus();
+            }
+        }
 </script>
   </head>
   <body class="page">
@@ -92,10 +159,6 @@ if(isset($_POST['send']))
         </div>
         <!-- end .b-title-page-->
         <?php 
-        $carid=$_GET['cid'];
-        $modid=$_GET['mid'];
-        $trans=$_GET['tran'];
-        $fuel=$_GET['fuel'];
         $query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
 while ($row=mysqli_fetch_array($query)) {
   $name=$row['name'];
@@ -136,16 +199,17 @@ while ($row=mysqli_fetch_array($query)) {
                             <input class="form-control" type="text" autocomplete="off" name="name" id="name" value="<?php echo $name;?>"  required="true" Readonly>
                           </div>
                           <div class="form-group">
-                            <input class="form-control" type="text" autocomplete="off" name="name" id="name"  required="true" Readonly/>
+                            <input class="form-control" type="text" autocomplete="off"  value="<?php echo $model;?>" required="true" Readonly/>
                           </div>
                           <div class="form-group">
-                            <input class="form-control" type="text" autocomplete="off" name="name" id="name" " required="true" Readonly/>
+                            <input class="form-control" type="text" autocomplete="off"  value="<?php echo $trans;?>"required="true" Readonly/>
                           </div>
                           <div class="form-group">
-                          <input class="form-control" type="text" autocomplete="off" name="loc" id="loc"  Readonly required="true"/>
-                          </div>
+                          <input class="form-control" style="text-align: center" type="text" autocomplete="off" name="loc" id="loc" value="<?php echo $fuel;?>" Readonly required="true"/>
+                            </div>
+                           
                           <div class="form-group">
-                          <select name="trans" class="form-control" required>
+                          <select name="color" class="form-control" style="text-align: center" required>
                           <option value="" disabled selected>Choose Colour</option>
                           <?php
                                 $query5=mysqli_query($con,"select * from colour where car_id='$carid'");
@@ -155,10 +219,19 @@ while ($row=mysqli_fetch_array($query)) {
                           
                           ?></select>  
                           </div>
+                            <div class="form-group">
+                          <input class="form-control" style="text-align: center" type="text" autocomplete="off" name="house" id="house" onblur="rname()" placeholder="House name" required="true"/>
+                            </div>
+                            <div class="form-group">
+                            <input class="form-control" style="text-align: center" type="text" autocomplete="off" name="post" id="post" onblur="loca()" placeholder="Post Office" required="true"/>
+                            </div>
+                            <div class="form-group">
+                            <input class="form-control" style="text-align: center" type="text" autocomplete="off" name="pin" id="pin" onblur="pinno()" placeholder="PIN CODE" required="true"/>
+                            </div>
 
              
        
-                          <input class="btn btn-red btn-lg w-100" name="send" type="submit" value="Buy now" onsubmit="">
+                          <input class="btn btn-red btn-lg w-100" name="send" type="submit" value="Pay &#x20B9;<?php echo $price?>" onsubmit="rname();loca();pinno();">
                         </form>
                       </div>
                     </div>

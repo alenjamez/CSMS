@@ -269,29 +269,22 @@ while ($row=mysqli_fetch_array($query)) {
                     
                     
    
-                    <?php
-
-                    
-$ret=mysqli_query($con,"select * from tblpages where PageType='contactus'");
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
-
-?>               <div class="b-seller" style="border: solid #000 1px; height:200px;">
+             <div class="b-seller" style="border: solid #000 1px; height:200px;">
                     <div class="b-seller__header">
                      
                       <div class="b-seller__title">
                              <h3 class="widget-title bg-dark">Showroom Details </h3>
                         <div class="b-seller__category" align="center" style="margin-top:4%;font-size:17px;">
 <i class="b-seller__ic fas fa-map-marker text-primary"></i>
-                          <?php  echo $row['HeadOffice'];?></div>
+URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
                       </div>
                     </div>
                     <div class="b-seller__main" style="font-size:22px;" align="center">
-                      <div class="b-seller__contact"><i class="b-seller__ic fas fa-phone text-primary"></i> &nbsp;<?php  echo $row['PhoneNumber'];?></div>
+                      <div class="b-seller__contact"><i class="b-seller__ic fas fa-phone text-primary"></i> &nbsp;+91 999 888 9990</div>
                      
                     </div>
                   </div>
-                  <?php }} ?>
+                  <?php } ?>
                   <!-- end .b-seller-->
                   
                   <div class="widget section-sidebar bg-gray widget-selecr-contact" style="margin-top:3%">
