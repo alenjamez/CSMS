@@ -280,8 +280,7 @@
         <a href="attndance.php">Attendance</a>
         <a href="">Leave</a>
         </div>
-        <a href="#" >TestDrives</a>
-        <a href="#" >Sales</a>
+        <a href="testapprove.php" >TestDrives</a>
         <button class="dropdown-btn" style="outline:none">Services
         </button>
         <div class="dropdown-container">

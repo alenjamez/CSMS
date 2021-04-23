@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <?php
+ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $carid=$_GET['id'];
+ $carid=$_GET['cid'];
+ $modid=$_GET['mid'];
+ $trans=$_GET['tran'];
+ $fuel=$_GET['fuel'];
  if(isset($_SESSION['user']))
  {
      $sql30="select * from tbl_car where car_id='$carid'";
@@ -25,6 +29,32 @@
         $desc=$row["description"];
 
       }
+      $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
+      while ($row1=mysqli_fetch_array($query1)) {
+            $model=$row1['model'];
+            $fog= $row1['fog_lamb'];
+            $wheel= $row1['wheel'];
+            $start= $row1['powerstart'];
+            $auto= $row1['autoac'];
+            $window= $row1['window'];
+            $sunroof= $row1['sunroof'];
+            $headlamb= $row1['headlamb'];
+            $camera= $row1['camera'];
+            $sensor= $row1['sensor'];
+            $sterio= $row1['sterio'];
+      }
+      $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel'";
+      $res6=mysqli_query($con,$sql6);
+      while($row6=mysqli_fetch_array($res6)){
+      $bhp=$row6["bhp"];
+      $millage=$row6["millage"];
+      $price=$row6["price"];
+      $cc=$row6["enginecc"];
+      $eng=$row6["engtype"];
+      $gear=$row6["gearno"];
+      }
+
+
  ?>
 <html lang="en">
   <head>
@@ -77,18 +107,18 @@
 }
 
 .tabcontent input[type=text],[type=file]{
-  width:250px;
+  width:200px;
   margin-right:70px;
   float:right;
 }
 .tabcontent select{
-  width:250px;
+  width:200px;
   margin-right:70px;
   float:right;
   height:35px;
 }
 .tabcontent textarea{
-  width:250px;
+  width:200px;
   margin-right:70px;
   float:right;
 }
@@ -111,6 +141,8 @@ input[type=submit] {
   opacity: 1;
   font-weight: bold;
   margin-left:350px;
+  right:0;
+  padding:3px;
   }
   span{
         right:0;
@@ -164,10 +196,6 @@ input[type=submit] {
         return true;
       }
   }
-  function fun(value)
-  {
-    alert(value);
-  }
 </script>
 </head>
 <body onload="test()">
@@ -196,7 +224,7 @@ input[type=submit] {
 		  <p style="color:black;float:right;margin-right:2px;"><b><?php echo $_SESSION['user']; ?>&nbsp;
         <img src="../upload/profile/admin.jpg" width="40" height="40"><p><br>
   </div>
-	<h1>Add Car</h1>
+	<h1>Edit Car</h1>
 	<div class="name">
 	 <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Car&nbsp;/&nbsp;Edit Details</h6>
 	</div><br>
@@ -205,7 +233,7 @@ input[type=submit] {
       <button class="tablinks" style="margin-left:280px" onclick="openCity(event, 'car')" id="defaultOpen">Car Details</button>
       <button class="tablinks" onclick="openCity(event, 'model')">Model</button>
       <button class="tablinks" onclick="openCity(event, 'colour')">Colour</button>
-      <button class="tablinks" onclick="openCity(event, 'Image')">Image</button>
+      <!-- <button class="tablinks" onclick="openCity(event, 'Image')">Image</button> -->
       <button class="tablinks" onclick="openCity(event, 'fuel')">Transmission</button>
       <span id="error"></span>
     </div>
@@ -223,23 +251,23 @@ input[type=submit] {
               <option value="SUV">SUV</option>
               <option value="MUV">MUV</option>
               <option value="Luxury">Luxury</option></select>
-		        <label>Ground Clearence</label><input type="text" name="bodytype" required value="<?php echo $ground ?>"><br>
-            <label>Car Lenght</label><input type="text" name="length" required value="<?php echo $length ?>"><br>
-  	        <label>Car Width</label><input type="text" name="width" required value="<?php echo $width ?>"><br>
-            <label>Car Height</label><input type="text" name="heigth" required value="<?php echo $heigth ?>"><br>
-            <label>No of seats</label><input type="text" name="seat" required value="<?php echo $seat ?>"><br>
+		        <label>Ground<br>Clearence</label><input type="text" name="bodytype" required value="<?php echo $ground; ?>"><br>
+            <label>Car Lenght</label><input type="text" name="length" required value="<?php echo $length; ?>"><br>
+  	        <label>Car Width</label><input type="text" name="width" required value="<?php echo $width; ?>"><br>
+            <label>Car Height</label><input type="text" name="heigth" required value="<?php echo $heigth; ?>"><br>
+            <label>No of seats</label><input type="text" name="seat" required value="<?php echo $seat; ?>"><br>
           </div>
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
 
-                <label>No of Airbag</label><input type="text" name="airbag" required value="<?php echo $airbag ?>"><br>
-                <label>Boot Space</label><input type="text" name="boot" required value="<?php echo $boot ?>"><br>
-                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required value="<?php echo $capacity ?>"><br>
-                <label>Air Conditioner</label><input type="text"name="ac" required value="<?php echo $ac ?>"><br>
-                <label>Power Steering</label><input type="text"name="display" required value="<?php echo $display ?>"><br>
-                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required value="<?php echo $emission ?>"><br>
-                <label>Description </label><textarea name="desc" id="desc" required><?php echo $desc ?></textarea><br><br>
+                <label>No of Airbag</label><input type="text" name="airbag" required value="<?php echo $airbag; ?>"><br>
+                <label>Boot Space</label><input type="text" name="boot" required value="<?php echo $boot; ?>"><br>
+                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required value="<?php echo $capacity; ?>"><br>
+                <label>Air Conditioner</label><input type="text"name="ac" required value="<?php echo $ac; ?>"><br>
+                <label>Power Steering</label><input type="text"name="display" required value="<?php echo $display; ?>"><br>
+                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required value="<?php echo $emission; ?>"><br>
+                <label>Description </label><textarea name="desc" id="desc" required><?php echo $desc; ?></textarea><br><br>
 	              <input type="submit" name="Add1" value="Update">
                 </form>
               </div>
@@ -248,31 +276,31 @@ input[type=submit] {
         </div>
       </div>
     </div>
-    <div id="model" class="tabcontent" >
+    <div id="model" class="tabcontent">
       <div class="container bootstrap snippet">
         <div class="row">
   	      <div class="col-sm-6">
-            <form class="form" method="post" id="details2" enctype="multipart/form-data" >
-            <label style="margin-top:50px;">Car Model</label><select name="mod" id="mod" style="margin-top:50px;" required onchange="fun(this.value)">
-            <option value="" disabled selected>Choose model</option>
-            </select><br>
-            <label>Wheel</label><input type="text" name="wheel" required><br>
-            <label>Fog lamb</label><input type="text" name="fog" value="Yes" required>
-            <label>Power start</label><input type="text"  name="start" value="Yes" required><br>
-            <label>Sterio</label><input type="text" name="sterio" pattern="[A-Za-z]+"><br>
+            <form class="form" method="post" id="details2" enctype="multipart/form-data">
+            <label name="car" style="margin-top:50px;">Car</label>
+            <input type="text" style="margin-top:50px;"  id="seler" name="car" value="<?php echo $model; ?>" required><br>
+
+
+            <label>Wheel</label><input type="text" name="wheel" value="<?php echo $wheel; ?>" required><br>
+            <label>Fog lamb</label><input type="text" name="fog" value="<?php echo $fog; ?>" required>
+            <label>Power start</label><input type="text"  name="start" value="<?php echo $start; ?>" required><br>
+            <label>Sterio</label><input type="text" name="sterio" pattern="[A-Za-z]+" value="<?php echo $sterio; ?>"><br>
+            <label>Auto AC</label><input type="text" name="auto" value="<?php echo $auto; ?>" required>
 
           </div>
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
-                <div class="radio">
-                  <label>Auto AC</label><input type="text" name="auto" value="Yes" required>
-                  <label>Sunroof</label><input type="text" name="sunroof" value="Yes" required>
-                  <label>Auto Headlamb</label><input type="text" name="headlamb" value="Yes" required>
-                  <label>Sensor</label><input type="text" name="sensor" value="Yes" required>
-                  <label>Reverse Camera</label><input type="text" name="camera" value="Yes" required>
-                  <label>Power Window</label><input  type="text" name="window" value="Front only" required>
-	              <input type="submit" name="Add2" value="Add">
+                  <label>Sunroof</label><input type="text" name="sunroof" value="<?php echo $sunroof; ?>" required>
+                  <label>Auto Headlamb</label><input type="text" name="headlamb" value="<?php echo $headlamb; ?>" required>
+                  <label>Sensor</label><input type="text" name="sensor" value="<?php echo $sensor ?>" required><br>
+                  <label>Camera</label><input type="text" name="camera" value="<?php echo $camera ?>" required><br>
+                  <label>Power Window</label><input  type="text" name="window" value="<?php echo $window?>" required><br>
+	              <input type="submit" name="Add2" value="Update">
                 </form>    
               </div>
             </div>
@@ -288,57 +316,16 @@ input[type=submit] {
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
             <label name="car" style="margin-top:50px;">Car</label>
             <select id="sele" name="car" style="margin-top:50px;" required>
-              <option value="" disabled selected>Choose Car</option> 
+              <option value="" disabled selected>Choose Colour</option> 
               <?php 
-            $sql3="select car_id,name from tbl_car where status=1";
+            $sql3="select * from colour where status=1 and car_id='$carid'";
             $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
+            while($raw=mysqli_fetch_array($res))
             {
-              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+              echo '<option value="'.$raw['color_id'].'">'.$raw['colour'].'</option>';
             }?>
             </select><br>
-            <label>Colour</label><input type="text" name="colour" required><br>
-            <label>Car Image</label><input type="file" name="carimg"  id="carimg" onblur="Val(this.id)" required><br>
-            <input type="submit" name="Add3" value="Add" ></form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="Image" class="tabcontent">
-      <div class="container bootstrap snippet">
-        <div class="row">
-  	      <div class="col-sm-6">
-            <form class="form" method="post" id="details5" enctype="multipart/form-data">
-            <label name="car" style="margin-top:50px;">Car</label>
-            <select id="sele" name="car" style="margin-top:50px;" required>
-              <option value="" disabled selected>Choose Car</option> 
-              <?php 
-            $sql3="select car_id,name from tbl_car where status=1";
-            $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
-            {
-              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
-            }?>
-            </select><br>
-            <label>Image1</label><input type="file" name="car1" id="car1" required onblur="Val(this.id)"><br>
-            <label>Image2</label><input type="file" name="car2" id="car2" required onblur="Val(this.id)"><br>
-            <label>Interior1</label><input type="file" name="car3" id="car3" required onblur="Val(this.id)"><br>
-            <label>Interior2</label><input type="file" name="car4" id="car4" required onblur="Val(this.id)"><br>
-            <label>Interior3</label><input type="file" name="car5" id="car5" required onblur="Val(this.id)"><br>
-          </div>
-    	    <div class="col-sm-6">
-            <div class="tab-content">
-              <div class="tab-pane active" id="home"><br><br>
-                <label>Interior4</label><input type="file" name="car6" id="car6" required onblur="Val(this.id)"><br>
-                <label>Image3</label><input type="file" name="car7" id="car7" required onblur="Val(this.id)"><br>
-                <label>Image4</label><input type="file" name="car8" id="car8" required onblur="Val(this.id)"><br>
-                <label>Image5</label><input type="file" name="car9" id="car9" required onblur="Val(this.id)"><br>
-                <label>Image6</label><input type="file" name="car10" id="car10" required onblur="Val(this.id)"><br>
-	              <input type="submit" name="Add5" value="Add">
-                </form>    
-              </div>
-            </div>
+            <input type="submit" name="Add3" value="Delete" ></form>
           </div>
         </div>
       </div>
@@ -349,43 +336,30 @@ input[type=submit] {
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
-            <label name="car" style="margin-top:50px;">Car</label><select id="seler" name="car" style="margin-top:50px;" onChange="test3(this.value)" required>
-              <option value="" disabled selected>Choose Car</option> 
-              <?php 
-            $sql3="select car_id,name from tbl_car where status=1";
-            $res=mysqli_query($con,$sql3);
-            while($row=mysqli_fetch_array($res))
-            {
-              echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
-            }
-            ?></select><br>
-            <label>Car Model</label><select name="mod" id="mod" required>
-            <option value="" disabled selected>Choose model</option>
-            </select><br>
-            <label>Fuel Type</label><select name="fueltype" required>
-              <option value="" disabled selected>Choose Fuel Type</option>
+            <label style="margin-top:50px;">Fuel Type</label><select name="fueltype" required style="margin-top:50px;">
+              <option value="" disabled selected><?php echo $fuel?></option>
               <option value="Petrol">Petrol</option>
               <option value="Disel">Disel</option>
               <option value="CNG">CNG</option>
               <option value="Electric">Electric</option></select>
             <label>Transmission </label><select name="gear" required>
-              <option value="" disabled selected>Choose Transmission Type</option>
+              <option value="" disabled selected><?php echo $trans?></option>
               <option value="Automatic" >Automatic</option>
               <option value="Manual">Manual</option>
               <option value="Semi-Automatic and Dual Cluch">Semi-Automatic and Dual Cluch</option></select>     
-              <label>Engine Type</label><input style="margin-top:10px" type="text" name="engtype"><br>
+              <label>Engine Type</label><input style="margin-top:10px" type="text" name="engtype" value="<?php echo $eng?>"><br>
+              <label>No of Gear</label><input type="text" name="gearno" id="gearno" value="<?php echo $gear?>" required><br>
               
           </div>
 
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
-                <label>No of Gear</label><input type="text" name="gearno" id="gearno" required><br>
-                <label>Millage</label><input type="text" name="millage" required><br>
-                <label>Engine CC</label><input type="text" name="power" required><br>
-  	            <label>BHP</label><input type="text" name="torque" required><br>
-                <label>Car Price</label><input type="text" name="price" required><br><br>     
-	              <input type="submit" name="Add4" value="Add">
+                <label>Millage</label><input type="text" name="millage" value="<?php echo $millage?>" required><br>
+                <label>Engine CC</label><input type="text" name="power" value="<?php echo $cc?>" required><br>
+  	            <label>BHP</label><input type="text" name="torque" value="<?php echo $bhp?>" required><br>
+                <label>Car Price</label><input type="text" name="price" value="<?php echo $price?>" required><br><br>     
+	              <input type="submit" name="Add4" value="Update">
                 </form>    
               </div>
             </div>
@@ -458,7 +432,7 @@ input[type=submit] {
    $emission=$_POST["emmi"];
    $desc=$_POST["desc"];
 
-   $sql1="UPDATE tbl_car SET  name ='$name', car_type ='$cartype', ground ='$bodytype', steering ='$display', airbag =$airbag, ac ='$ac', capacity =$capacity, length =$length, width =$width, heigth =$heigth, bootspace =$boot, enc =$emission, seat =$seat, description ='$desc' WHERE car_id=id;
+   $sql1="UPDATE tbl_car SET  name ='$name', car_type ='$cartype', ground ='$bodytype', steering ='$display', airbag =$airbag, ac ='$ac', capacity =$capacity, length =$length, width =$width, heigth =$heigth, bootspace =$boot, enc =$emission, seat =$seat, description ='$desc' WHERE car_id=carid ";
    mysqli_query($con,$sql1);
   }
   if(array_key_exists('Add2', $_POST))
@@ -475,67 +449,20 @@ input[type=submit] {
    $sensor=$_POST["sensor"];
    $sterio=$_POST["sterio"];
 
-
-   $sql6="insert into tbl_model(model,wheel,fog_lamb,sensor,camera,powerstart,autoac,sunroof,headlamb,sterio,car_id,window) values('$model','$wheel','$fog','$sensor','$camera','$start','$auto','$sunroof','$headlamb','$sterio',$car,'$window')";
+   $sql6="UPDATE tbl_model SET model='$model',wheel='$wheel',fog_lamb='$fog',sensor='$sensor',camera='$camera',powerstart='$start',autoac='$auto',sunroof='$sunroof',headlamb='$headlamb',sterio='$sterio',window='$window' WHERE model_id=$modid";
    mysqli_query($con,$sql6);
   }
 
   if(array_key_exists('Add3', $_POST))
   {
-   $car=$_POST["car"];
-   $colour=$_POST["colour"];
-   $carim=$_FILES["carimg"]["name"];
-
-   $sql10="insert into colour(colour,image,car_id) values ('$colour','$carim','$car')";
-   mysqli_query($con,$sql10);
-   $ta="../upload/car/".$carim;
-   move_uploaded_file($_FILES["carimg"]["tmp_name"],$ta);
-
+    $car=$_POST["car"];
+    $sql="update colour set status=0 where color_id=$car";
+    $res=mysqli_query($con,$sql);
   }
 
-  if(array_key_exists('Add5', $_POST))
-  {
-   $car=$_POST["car"];
-   $car1=$_FILES["car1"]["name"];
-   $car2=$_FILES["car2"]["name"];
-   $car3=$_FILES["car3"]["name"];
-   $car4=$_FILES["car4"]["name"];
-   $car5=$_FILES["car5"]["name"];
-   $car6=$_FILES["car6"]["name"];
-   $car7=$_FILES["car7"]["name"];
-   $car8=$_FILES["car8"]["name"];
-   $car9=$_FILES["car9"]["name"];
-   $car10=$_FILES["car10"]["name"];
-
-   $sql7="insert into tbl_carimage(main,image1,image2,image3,image4,image5,image6,image7,image8,image9,car_id) values ('$car1','$car2','$car3','$car4','$car5','$car6','$car7','$car8','$car9','$car10','$car')";
-   mysqli_query($con,$sql7);
-   $t="../upload/car/".$car1;
-   move_uploaded_file($_FILES["car1"]["tmp_name"],$t);
-   $v="../upload/car/".$car2;
-   move_uploaded_file($_FILES["car2"]["tmp_name"],$v);
-   $w="../upload/car/".$car3;
-   move_uploaded_file($_FILES["car3"]["tmp_name"],$w);
-   $x="../upload/car/".$car4;
-   move_uploaded_file($_FILES["car4"]["tmp_name"],$x);
-   $y="../upload/car/".$car5;
-   move_uploaded_file($_FILES["car5"]["tmp_name"],$y);
-   $z="../upload/car/".$car6;
-   move_uploaded_file($_FILES["car6"]["tmp_name"],$z);
-   $l="../upload/car/".$car7;
-   move_uploaded_file($_FILES["car7"]["tmp_name"],$l);
-   $m="../upload/car/".$car8;
-   move_uploaded_file($_FILES["car8"]["tmp_name"],$m);
-   $n="../upload/car/".$car9;
-   move_uploaded_file($_FILES["car9"]["tmp_name"],$n);
-   $o="../upload/car/".$car10;
-   move_uploaded_file($_FILES["car10"]["tmp_name"],$o);
-
-  }
 
   if(array_key_exists('Add4', $_POST))
   {
-   $car=$_POST["car"];
-   $model=$_POST["mod"];
    $fueltype=$_POST["fueltype"];
    $price=$_POST["price"];
    $engtype=$_POST["engtype"];
@@ -544,7 +471,8 @@ input[type=submit] {
    $gearno=$_POST["gearno"];
    $power=$_POST["power"];
    $torque=$_POST["torque"];
-   $sql8="insert into tbl_transmission(type,fuel,enginecc,bhp,millage,price,car_id,model_id,gearno,engtype) values ('$gear','$fueltype',$power,'$torque',$millage,$price,$car,$model,$gearno,'$engtype')";
+
+   $sql8="UPDATE `tbl_transmission` SET type='$gear',fuel='$fueltype',enginecc=$power],bhp='$torque',millage=$millage,price=$price,engtype='$engtype',gearno=$gearno WHERE type='$trans' and fuel='$fuel'";
    mysqli_query($con,$sql8);
   }
  }

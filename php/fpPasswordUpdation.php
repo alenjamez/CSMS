@@ -8,7 +8,6 @@ session_start();
         $id=$_SESSION["login"];
 
         $query="UPDATE tbl_login SET password='$n' WHERE login_id=$id";
-        die($query);
         if(mysqli_query($con,$query)){
             session_unset();
             header("Location:..\login.php?msg=");

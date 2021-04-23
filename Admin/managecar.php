@@ -50,7 +50,7 @@
     </div></div>
 <h1>Manage Details</h1>
 <div class="name">
-<h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Company&nbsp;/&nbsp;Manage Details</h6>
+<h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Car&nbsp;/&nbsp;Manage Details</h6>
 </div><br>
 <div class="table"> 
 <!-- <span id="msg" style="color:#008000;"><?php echo $msg ?></span><br> -->
@@ -77,7 +77,7 @@
        echo $count;
        echo "</td><td>";
        echo $name;
-       ?></td><td><a href="editcar.php?id=<?php echo $no; ?>" >View</a></td>
+       ?></td><td><a href="managecar1.php?id=<?php echo $no; ?>" >View</a></td>
        </td><td><a href="delete.php?id=<?php echo $no; ?>" >Delete</a></td><tr><?php
        $count=$count+1;
      }

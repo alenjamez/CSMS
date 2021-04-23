@@ -281,12 +281,7 @@
         <a href="">Leave</a>
         </div>
         <a href="#" >TestDrives</a>
-        <button class="dropdown-btn" style="outline:none">Services
-        </button>
-        <div class="dropdown-container">
-        <a href="">Upcoming Services</a>
-        <a href="">Booked Service</a>
-        </div>
+        <a href="">Services</a>
         <a href="../logout.php" >Log Out</a></div>
       </div>
 

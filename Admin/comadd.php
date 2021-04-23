@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
  if(isset($_SESSION['user']))
@@ -144,13 +145,19 @@ input[type=submit] {
  {
     $email=$_POST["comnme"];
     $name=$_POST["uname"];
-    $pass=md5($_POST["pword"]);
+    $pass=$_POST["pword"];
     $des=$_POST["desig"];
-    $sql1="insert into tbl_login(username,password,type) values('$name','$pass','$des')";
-    mysqli_query($con,$sql1);
+    $sql1="insert into tbl_login(username,password,type) values('$name','md5($pass)','$des')";
+    $res=mysqli_query($con,$sql1);
     $li=mysqli_insert_id($con);
-    $sql1="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";
+    $res=$sql1="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";
     mysqli_query($con,$sql1);
+    $_SESSION['user']=$name;
+    $_SESSION['pass']=$pass;
+    $_SESSION['email']=$email;
+    if($res){
+      header("location:SendMail.php");
+    }
  }
 }
 else{

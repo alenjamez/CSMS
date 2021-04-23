@@ -43,7 +43,7 @@
 <body>
 <div class="sidenav">
   <div class="sidebar-heading">UR CARZ</div>
-        <a href="empdash.php" >Dashboard</a>
+        <a href="#" >Dashboard</a>
         <a href="empprofile.php" >Profile</a>
         <button class="dropdown-btn" style="outline:none">Attendance
         </button>
@@ -52,12 +52,7 @@
         <a href="">Leave</a>
         </div>
         <a href="#" >TestDrives</a>
-        <button class="dropdown-btn" style="outline:none">Services
-        </button>
-        <div class="dropdown-container">
-        <a href="">Upcoming Services</a>
-        <a href="">Booked Service</a>
-        </div>
+        <a href="">Services</a>
         <a href="../logout.php" >Log Out</a></div>
       </div>
 

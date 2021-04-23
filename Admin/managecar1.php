@@ -1,9 +1,16 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $msg=$_GET['msg'];
+ //$msg=$_GET['msg'];
+ $carid=$_GET['id'];
  if(isset($_SESSION['user']))
  {
+    $sql="select name from tbl_car where car_id=$carid";
+    $res=mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($res))
+    {
+      $name=$row['name'];
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,34 +57,37 @@
     </div></div>
 <h1>Manage Details</h1>
 <div class="name">
-<h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Employee&nbsp;/&nbsp;Manage Details</h6>
+<h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Company&nbsp;/&nbsp;Manage Details</h6>
 </div><br>
 <div class="table"> 
-<span id="msg" style="color:#008000;"><?php echo $msg ?></span><br>
+<!-- <span id="msg" style="color:#008000;"><?php echo $msg ?></span><br> -->
    <table id="MainTable" class="auto-index" width= 70% border="1">
    <thead>
      <tr>
      <th scope="col">Sl.no</th>
-     <th scope="col">Name</th>
-     <th scope="col"></th>
+     <th scope="col">Model</th>
      </tr>
    </thead>
    <tbody>
-
    <?php
    $count=1;
-     $sql="select reg_id,name from tbl_emp";
-     $res=mysqli_query($con,$sql);
-     while($row=mysqli_fetch_array($res))
-     {
-       $no=$row['reg_id'];
-       $name=$row['name'];
-       echo "<tr><td>$count";
-       echo "</td><td>";
-       echo $name;
-       ?></td><td><a href="" >View</a></td?</tr><?php
-      $count=$count+1;
+                    $sql5="select * from tbl_model where car_id='$carid'";
+                    $res5=mysqli_query($con,$sql5);
+                    while($row5=mysqli_fetch_array($res5)){
+                      $mid=$row5["model_id"];
+                      $model=$row5["model"];
+                      $sql6="select * from tbl_transmission where model_id='$mid'";
+                      $res6=mysqli_query($con,$sql6);
+                      while($row6=mysqli_fetch_array($res6)){
+                      $trans=$row6["type"];
+                      $fuel=$row6["fuel"];
+                        echo "<tr><td>";
+                        echo $count;
+                        ?></td><td><a href="editcar.php?cid=<?php echo $carid;?>&mid=<?php echo $mid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>"><?php echo $name," ", $model," (",$trans," | ",$fuel,")";?></a></td>
+                        <tr><?php
+                        $count=$count+1;
      }
+    }
    ?>
    </tbody>
    </table>
@@ -94,7 +104,7 @@ var addSerialNumber = function () {
 };
 addSerialNumber();
 </script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript">
     var dropdown = document.getElementsByClassName("dropdown-btn");
     var i;

@@ -56,18 +56,18 @@
 }
 
 .tabcontent input[type=text],[type=file]{
-  width:250px;
+  width:200px;
   margin-right:70px;
   float:right;
 }
 .tabcontent select{
-  width:250px;
+  width:200px;
   margin-right:70px;
   float:right;
   height:35px;
 }
 .tabcontent textarea{
-  width:250px;
+  width:200px;
   margin-right:70px;
   float:right;
 }
@@ -223,7 +223,7 @@ input[type=submit] {
               <option value="SUV">SUV</option>
               <option value="MUV">MUV</option>
               <option value="Luxury">Luxury</option></select>
-		        <label>Ground Clearence</label><input type="text" name="bodytype" required><br>
+		        <label>Ground</label><input type="text" name="bodytype" required><br>
             <label>Car Lenght</label><input type="text" name="length" required><br>
   	        <label>Car Width</label><input type="text" name="width" required><br>
             <label>Car Height</label><input type="text" name="heigth" required><br>

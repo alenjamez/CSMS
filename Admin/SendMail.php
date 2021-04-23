@@ -1,15 +1,15 @@
 <?php
 session_start();
-require("PHPMailer/src/PHPMailer.php");
-require("PHPMailer/src/SMTP.php");
-require("PHPMailer/src/Exception.php");
+require("../php/PHPMailer/src/PHPMailer.php");
+require("../php/PHPMailer/src/SMTP.php");
+require("../php/PHPMailer/src/Exception.php");
 // require("../../../../confidential.php");
 
 // function sentmail($otp_data,$rand,$email){
-if(isset($_SESSION['email']) && isset($_SESSION['rand']) && isset($_SESSION['otp_data'])){
+if(isset($_SESSION['email']) && isset($_SESSION['user']) && isset($_SESSION['pass'])){
     $email=$_SESSION['email'];
-    $otp_data=$_SESSION['otp_data'];
-    $rand=$_SESSION['rand'];
+    $user=$_SESSION['user'];
+    $pass=$_SESSION['pass'];
         
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     try {
@@ -21,12 +21,12 @@ if(isset($_SESSION['email']) && isset($_SESSION['rand']) && isset($_SESSION['otp
         $mail->Port       = 587;                                   
 
         //Recipients
-        $mail->setFrom('alenjames@mca.ajce.in', 'Mailer');
+        $mail->setFrom('alenjames@mca.ajce.in', 'URCARZ');
         $mail->addAddress($email); 
 
         //Content
         $mail->isHTML(true); 
-        $mail->Subject = 'Reset your password for Home Care';
+        $mail->Subject ='Password for URCARZ';
         $mail->Body    = '
             <!DOCTYPE html>
             <html lang="en">
@@ -81,11 +81,10 @@ if(isset($_SESSION['email']) && isset($_SESSION['rand']) && isset($_SESSION['otp
             <body>
                 <div class="container">
                     <center><h1>Hello.</h1></center>
-                    <p>No need to worry, you can reset your Find password by clicking the link below or entering the OTP:</p>
-                    <a href="localhost/care_app/php/fpOtpValidation.php?varify='.$rand.'">Reset Password</a>
-                    <p>OTP : <b>'.$otp_data.'</b> </p>
-                    <p>For security reasons this link and OTP will only be active for 3 minuties. If you didnt request a password reset, feel free to delete this email and carry on enjoying !</p>
-                    <p style="margin-bottom:0;">All the best</p>
+                    <p>The Credential for login are :</p>
+                    <p>Username : '.$user.'</p>
+                    <p>Password : '.$pass.'</p>
+                    <p>For security reasons this username and password will only be active for 3 days. </p>
                     <p style="margin-top:0;">The Find Team.</p>
                 </div>
             </body>
@@ -95,24 +94,19 @@ if(isset($_SESSION['email']) && isset($_SESSION['rand']) && isset($_SESSION['otp
 
         $mail->send();
         // echo 'Message has been sent';
-        session_unset();
-        if(session_destroy()){header("location:../fpEnterOtp.php");}
+//session_unset();
+        if($_SESSION['user']){
+            header("location:dashboard.php");
+        }
         
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
-else{
-    header("location:../fpEnterMail.php?err='wrong'");
-            // echo 'Message not sent';
+// else{
+//     header("location:../fpEnterMail.php?err='wrong'");
+//             // echo 'Message not sent';
 
-}
+// }
 ?>
                       
-<html>
-
- <!-- <img src="https://raw.githubusercontent.com/alansmathew/Find/master/web/images/find_logo100px.png" alt="Find logo" loading="lazy"/> -->
- <!-- <a href="https://alansmathew.000webhostapp.com/php/forget_pass/verifyotprequest.php?varify='.$rand.'">Reset Password</a> -->
-
- 
- </html> 
