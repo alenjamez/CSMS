@@ -1,0 +1,85 @@
+  body{
+    overflow: hidden; 
+  }
+  .tab {
+    overflow: hidden;
+    margin-top:10px;
+    margin-bottom:20px;
+    margin-right:30px;
+  }
+  .tab button {
+    background-color:#f8f9fc;
+    float: left;
+    border:none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  .tab button:hover {
+    border-bottom: 2px solid #4e73df;
+    font-weight: bold; 
+  }
+  .tab button.active {
+    border-bottom: 2px solid #4e73df; 
+    font-weight: bold;
+  }
+  .tabcontent {
+    display: none;
+    padding: 20px ;
+    border: 1px solid #ccc;
+    border-radius:10px;
+    border-top: none;
+    margin-bottom:50px;
+    background-color: #fff;
+    margin-right:30px;
+    height:100%;
+    position:relative;
+    margin-left: 2%;
+  }
+  .tabcontent label{
+    margin-right:10px;
+    color:black;
+    padding:10px 10px 10px 10px;
+  }
+  
+  .tabcontent input[type=text],[type=email]{
+    width:250px;
+    margin-right:200px;
+    float:right;
+  }
+  .tabcontent [type=file]{
+      margin-top: 10px;
+    width:225px;
+    float:right;
+    height:35px;
+    font-weight: 5px;
+  }
+  .tabcontent .radio input[type=radio]{
+    width:20px;
+    padding:0px 0px 0px 0px;
+  }
+  .tabcontent .radio label{
+    width:150px;
+    color:black;
+    margin-left:100px;
+    text-align:left !important;
+  }
+  input[type=submit] {
+    width: 15%;
+    height:15%;
+    color: #f2f2f2;
+    background-color:  #469fbd;
+    border-radius: 10px;
+    opacity: 1;
+    font-weight: bold;
+    margin-left:350px;
+    }
+    /* span{
+          right:0;
+          margin-right:40px;
+          float: right;
+          font-size: 13px;
+      } */
+  

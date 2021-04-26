@@ -1,5 +1,5 @@
 body{
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .tab {
   overflow: hidden;
@@ -44,7 +44,7 @@ body{
   padding:10px 10px 10px 10px;
 }
 
-.tabcontent input[type=text],[type=file]{
+.tabcontent input[type=text],[type=file],[type=email]{
   width:200px;
   margin-right:70px;
   float:right;
@@ -86,3 +86,8 @@ input[type=submit] {
         float: right;
         font-size: 13px;
     } */
+#img1{
+  float:right;
+  margin-right:0;
+
+}
