@@ -111,7 +111,7 @@ include('includes/dbconnection.php');
  <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Mileage :</span><span class="b-goods-f__list-info"><?php echo $millage;?></span></li>
                           <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Displacement :</span><span class="b-goods-f__list-info"><?php echo $cc;?></span></li>
                           <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Transmission :</span><span class="b-goods-f__list-info"><?php echo "Automatic/Manual";?></span></li>
-                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Engine Type :</span><span class="b-goods-f__list-info"><?php echo $engtype;?></span></li>
+                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Engine Type :</span><span class="b-goods-f__list-info"><?php echo $type;?></span></li>
                           <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Fuel Type :</span><span class="b-goods-f__list-info"><?php echo "Petrol/Disel";?></span></li>
                           <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Max Power:</span><span class="b-goods-f__list-info"><?php echo $bhp;?></span></li>
                         </ul>

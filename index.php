@@ -13,6 +13,8 @@ include('includes/dbconnection.php');
     <link rel="stylesheet" href="assets/css/master.css">
     
 </head>
+<script>
+</script>
 
 <body class="page">
     
@@ -45,7 +47,7 @@ include('includes/dbconnection.php');
                                 </ul>
                                 <div class="b-find-content tab-content" id="findTabContent">
                                     <div class="tab-pane fade show active" id="content-allCar">
-                                        <form class="b-find__form" method="post" name="search">
+                                        <form class="b-find__form" method="post" action="search.php" name="search">
                                             <div class="b-find__row">
                                                 <div class="b-find__main">
                                                     <div class="b-find__inner">
@@ -53,7 +55,8 @@ include('includes/dbconnection.php');
                                                             <div class="b-find__label"><span class="b-find__number"></span> Car Type</div>
                                                             <div class="b-find__selector">
                                                                 <select class="selectpicker" data-width="100%" data-style="ui-select" name="cartype" id="cartype" required="true">
-                                                                    <?php 
+                                                                <option value="" disabled>Choose car Type</option>
+                                                                   <?php 
  $query3=mysqli_query($con,"select distinct car_type from tbl_car");
  while ($row3=mysqli_fetch_array($query3)) {
 
@@ -66,6 +69,7 @@ include('includes/dbconnection.php');
                                                     </div>
                                                 </div>
                                                 <button class="b-find__btn btn btn-primary" type="submit" name="search">Search</button>
+                                                <!-- <input type="submit" class="b-find__btn btn btn-primary" value="search" > -->
                                             </div>
                                      
                                         </form>

@@ -60,43 +60,56 @@ include('includes/dbconnection.php');
 
  <?php 
 $cartype=$_GET['cartype'];
-
-
- $query=mysqli_query($con,"select * from tbl_car where type='$cartype'");
- $num=mysqli_num_rows($query);
- if($num >0){
- while ($row=mysqli_fetch_array($query)) {
-
+//  $query="select * from tbl_car where car_type='$cartype'";
+//  die($query);
+ $query=mysqli_query($con,"select * from tbl_car where car_type=$cartype");
+ $newr=mysqli_num_rows($query);
+  if($newr>0){
+    while ($row=mysqli_fetch_array($query)) {
+      $id=$row['car_id'];
+      $query5=mysqli_query($con,"select main from tbl_carimage where car_id=$id");
+      $nm=mysqli_fetch_array($query5)['main'];
 
  ?>                 
                   <div class="b-goods-f col-12 b-goods-f_row">
                     <div class="b-goods-f__media">
-
- <a href="viewcardetail.php?carid=<?php echo $row['ID'];?>">                     
-<img class="b-goods-f__img img-scale" src="admin/images/<?php echo $row['CarImage'];?>" alt="<?php echo $row['CarName'];?>"/></a><span class="b-goods-f__media-inner"></span>
+                    <a href="viewcardetail.php?carid=<?php echo $row['car_id'];?>">                     
+<img class="b-goods-f__img img-scale" src="upload/car/<?php echo $nm;?>" alt="<?php echo $nm;?>"/></a><span class="b-goods-f__media-inner"></span>
 </div>
                     <div class="b-goods-f__main">
                       <div class="b-goods-f__descrip">
-                        <a href="viewcardetail.php?carid=<?php echo $row['ID'];?>"> 
-                        <div class="b-goods-f__title"><?php echo $row['CarName'];?></div></a>
-                        <div class="b-goods-f__info"><?php echo substr($row['CarDescription'],100);?>.</div>
+                        <a href="viewcardetail.php?carid=<?php echo $row['car_id'];?>"> 
+                        <div class="b-goods-f__title"><?php echo $row['name'];?></div></a>
+                        <div class="b-goods-f__info"><?php echo substr($row['description'],100);?>.</div>
                         <ul class="b-goods-f__list list-unstyled">
- <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Mileage :</span><span class="b-goods-f__list-info"><?php echo $row['Milage'];?></span></li>
-                          <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Model :</span><span class="b-goods-f__list-info"><?php echo $row['CarModel'];?></span></li>
-                          <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Transmission :</span><span class="b-goods-f__list-info"><?php echo $row['TransmissionType'];?></span></li>
-                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Body Type :</span><span class="b-goods-f__list-info"><?php echo $row['CarBodytype'];?></span></li>
-                          <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Fuel Type :</span><span class="b-goods-f__list-info"><?php echo $row['FuelType'];?></span></li>
-                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Max Power:</span><span class="b-goods-f__list-info"><?php echo $row['MaxPower'];?></span></li>
-                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Body Color :</span><span class="b-goods-f__list-info"><?php echo $row['CarBodycolor'];?></span></li>
-                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Air Bags :</span><span class="b-goods-f__list-info"><?php echo $row['AirBags'];?></span></li>
+                        <?php
+											 $query6=mysqli_query($con,"select * from tbl_transmission where car_id=$id");
+											 while($rows=mysqli_fetch_array($query6)){
+												 $millage=$rows['millage'];
+												 $cc=$rows['enginecc'];
+												 $type=$rows['engtype'];
+												 $bhp=$rows['bhp'];
+												 $price=$rows['price'];
+											 }
+										?>
+ <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Mileage :</span><span class="b-goods-f__list-info"><?php echo $millage;?></span></li>
+                          <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Displacement :</span><span class="b-goods-f__list-info"><?php echo $cc;?></span></li>
+                          <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Transmission :</span><span class="b-goods-f__list-info"><?php echo "Automatic/Manual";?></span></li>
+                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Engine Type :</span><span class="b-goods-f__list-info"><?php echo $type;?></span></li>
+                          <li class="b-goods-f__list-item"><span class="b-goods-f__list-title">Fuel Type :</span><span class="b-goods-f__list-info"><?php echo "Petrol/Disel";?></span></li>
+                          <li class="b-goods-f__list-item b-goods-f__list-item_row"><span class="b-goods-f__list-title">Max Power:</span><span class="b-goods-f__list-info"><?php echo $bhp;?></span></li>
                         </ul>
+     <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col">&nbsp;</span><span class="b-goods-f__price-numb">Starts at &#x20B9;<?php echo $price;?></span></span></span>
+                     
                       </div>
-                      <div class="b-goods-f__sidebar"><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col">msrp:&nbsp;</span><span class="b-goods-f__price-numb">Rs.<?php echo $row['CarPrice'];?></span></span></span>
+
                       </div>
+                 
                     </div>
                   </div>
                   <!-- end .b-goods-->
-                 <?php } } else { ?>
+                 <?php } }
+                 else { ?>
 <h4 style="color:red" align="center">No Record found againt this search</h4>
                  <?php } ?>
                

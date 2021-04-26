@@ -1592,7 +1592,7 @@ html, body {
 
 .b-find__btn {
   position: absolute;
-  right: 0;
+  left:30%;
   bottom: 0;
   width: 176px;
 }

@@ -292,39 +292,6 @@
                 </form>
             </div>
         </div>
-        <script>
-        $('document').ready(function(){
-            var username_state = false;
-            var email_state = false;
-            $('#user').on('blur', function(){
-            var username = $('#user').val();
-            if (username == '') {
-                username_state = false;
-                return;
-            }
-            $.ajax({
-                url: 'reg.php',
-                type: 'post',
-                data: {
-                    'user_check' : 1,
-                    'username' : username,
-                },
-                success: function(response){
-                if (response == 'taken' ) {
-                    username_state = false;
-                    $('#user').parent().removeClass();
-                    $('#user').parent().addClass("form_error");
-                    $('#user').siblings("error").text('Sorry... Username already taken');
-                }else if (response == 'not_taken') {
-                    username_state = true;
-                    $('#username').parent().removeClass();
-                    $('#username').parent().addClass("form_success");
-                    $('#username').siblings("error").text('Username available');
-                }
-                }
-            });
-            });
-        
-        </script>
+
     </body>
 </html>

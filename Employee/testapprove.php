@@ -59,7 +59,7 @@
         <a href="attndance.php">Attendance</a>
         <a href="">Leave</a>
         </div>
-        <a href="testdrive.php" >TestDrives</a>
+        <a href="#" >TestDrives</a>
         <button class="dropdown-btn" style="outline:none">Services
         </button>
         <div class="dropdown-container">
@@ -81,6 +81,7 @@
 
 
 <div class="table">  
+<form id="frmm" action="approv.php" method="post">
 <table id= "ta" >
   <thead>
     <tr>
@@ -117,25 +118,30 @@
             echo "</td><td>";
             echo $rows['date'];
             echo "</td><td>";
+            $query1=mysqli_query($con,"select * from tbl_ltestdrive where status='Not Approved'");
+              $rows1=mysqli_fetch_array($query1)['date'];
+              
             //$q=mysqli_query($con,"select * from tbl_login where type='E'");
-            $dat=$rows['date'];
-            $q="select username from tbl_ltestdrive where date='$dat'";
-            while($see=mysqli_query($con,$q)){
-              $emp=$see['emp_id'];
-                  $q1="select username from tbl_login where username!='$emp'";
-                  //die($q1);
-            }
-
-
-            ?><form id="frmm" action="approv.php" method="post">
+            
+            ?>
             <select name="desig" required>
               <option value="" disabled selected>Choose Employee</option><?php
-            while($we=mysqli_fetch_array($q1))
-            {
+            $q1="SELECT reg_id FROM tbl_itestdrive WHERE date=$rows1";
+            $see1=mysqli_query($con,$q1);
+             while($wor1=mysqli_fetch_array($see1)){
+              $t=$wor1["reg_id"];
+              $q="SELECT reg_id FROM tbl_emp WHERE status=1 and reg_id!='$t'";
+              $see=mysqli_query($con,$q);
+               while($wor=mysqli_fetch_array($see)){
+                
+                $id=$wor['reg_id'];
+                $q1=mysqli_query($con,"select name from tbl_emp where reg_id='$id'");
+                
+                $nm=mysqli_fetch_array($q1)['name'];
               ?>
-              <option value="<?php echo $we['username'];?>" ><?php echo $we['username']; ?></option>
+              <option value="<?php echo $id;?>" ><?php echo $nm; ?></option>
               <?php
-            }
+            }}
             echo " </select></td><td>";
             ?><input type="Button" value="Approve" id="<?php echo $testid; ?>" onclick="update(this.id)" ></form><?php
             echo "</td></tr>";

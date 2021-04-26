@@ -441,7 +441,7 @@ document.getElementById("defaultOpen").click();
     $photo=$_FILES["img"]["name"];
     $sql1="update tbl_emp set name='$name',gender='$gender',email='$email',phone='$phno',pic='$photo' where login_id='$lid'";
     mysqli_query($con,$sql1);
-    $t="upload/profile/".$photo;
+    $t="../upload/profile/".$photo;
     move_uploaded_file($_FILES["img"]["tmp_name"],$t); 
     
   } 
