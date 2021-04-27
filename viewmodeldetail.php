@@ -16,12 +16,17 @@ include('includes/dbconnection.php');
             <link rel="stylesheet" href="style/img.css"> 
 
      <style>
-     #but{
+     #mod{
          background-color:#d01818;
          padding: 6px 23px;
         font-size: 24px;
         color: #fff;
+        text-decoration:none;
      }
+     #mod:hover{
+      text-decoration:none;
+     }
+
      </style>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
 
@@ -70,6 +75,8 @@ $fuel=$_GET['fuel'];
 $query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
 while ($row=mysqli_fetch_array($query)) {
   $name=$row['name'];
+}
+
   $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
   while ($row1=mysqli_fetch_array($query1)) {
         $model=$row1['model'];
@@ -99,11 +106,11 @@ while ($row=mysqli_fetch_array($query)) {
               <div class="row">
 
               <div class="col-lg-8">
-                <h1 class="ui-title text-uppercase"><?php echo $row['name']." ".$model;?></h1>
+                <h1 class="ui-title text-uppercase"><?php echo $name." ".$model;?></h1>
                
               </div>
               <div class="col-lg-4" style="font-weight:bold"><form>
-             <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span class="b-goods-f__price_col"><a id="mod" href="confirmpurchase.php?cid=<?php echo $carid;?>&mid=<?php echo $modid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>">Buy Now</a></span></span>
+             <div><span class="b-goods-f__price-group"><span class="b-goods-f__price"><span ><a id="mod" href="confirmpurchase.php?cid=<?php echo $carid;?>&mid=<?php echo $modid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>">Buy Now</a></span></span>
                      </form>
                       </div>
               </div>
@@ -180,10 +187,16 @@ while ($row=mysqli_fetch_array($query)) {
                     </dl>
                   </div>
                 </div>
-                <?php
-}  ?>
+              </div>
               </div>
               <div class="col-lg-4">
+                
+
+
+                  <!-- The expanding image container -->
+
+             
+                
               </div>
             </div>
           </section>

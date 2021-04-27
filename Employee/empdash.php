@@ -1,10 +1,21 @@
-<!DOCTYPE html>
 <?php
-ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
  if(isset($_SESSION['user']))
  {
+    $lid=$_SESSION['logid'];
+    $usr=$_SESSION['user'];
+    $sql="select * from tbl_emp where login_id='$lid'";
+    $res=mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($res))
+      {
+        $propic='../upload/profile/'.$row["pic"];
+      }
+   $que1="select COUNT(*) as count from tbl_ltestdrive where reg_id='$lid'";
+   $res = mysqli_query($con,$que1);
+	 while($row1=mysqli_fetch_array($res)){
+     $test1=$row1['count'];
+   }
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -26,39 +37,7 @@ ob_start();
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <style>
-        #adddet{
-  width:100%x;
-  margin-left:50px;
-}
-input[type=text]{
-  width:600px;
-}
-select{
-  width:600px;
-}
-input[type=file]{ 
-  font-size: 15px;
-  color: rgb(153,153,153);
-}
-input[type=submit] {
-        width: 35%;
-        height:15%;
-        color: #f2f2f2;
-        background-color:  #469fbd;
-        border-radius: 10px;
-        border: solid #f2f2f2;
-        opacity: 1;
-        font-weight: bold;
-        margin-left:250px;
-    }
-    .table{
-        padding:30px;
-        background-color:  #fff;
-        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
-    }
-    </style>
+    <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -71,7 +50,7 @@ input[type=submit] {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="mngdash.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                  <i class="fal fa-car"></i>
                 </div>
@@ -83,7 +62,7 @@ input[type=submit] {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
             </li>
 
@@ -92,32 +71,22 @@ input[type=submit] {
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Employee</span>
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    <span>Attendance</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addemp.php">Add Employee</a>
-                        <a class="collapse-item" href="viewemp.php">View Details</a>
+                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Nav Item - Sales -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <span>Car</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addcar.php">Add car</a>
-                        <a class="collapse-item" href="managecar.php">Manage Details</a>
-                    </div>
-                </div>
+              <a class="nav-link" href="empprofile.php">
+              <span>Profile</span></a>
             </li>
-
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
@@ -128,13 +97,13 @@ input[type=submit] {
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
             </li>
 
             <!-- Nav Item - Sales -->
             <li class="nav-item">
-              <a class="nav-link" href="sales.php">
+              <a class="nav-link" href="testdrive.php">
               <span>Sales</span></a>
             </li>
             <!-- Divider -->
@@ -144,6 +113,7 @@ input[type=submit] {
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
         </ul>
         <!-- End of Sidebar -->
 
@@ -202,16 +172,18 @@ input[type=submit] {
                             </div>
                         </li>
 
-
+                        <!-- Nav Item - Alerts -->
+                        
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $usr;?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../upload/profile/admin.jpg">
+                                    src="<?php echo $propic;?>">
+                            </a>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -233,40 +205,36 @@ input[type=submit] {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Add Employee</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
                     <!-- Content Row -->
-                    <div class="table"> 
-                    <label id="msg" style="color:#008000;"></label>
-                        <form id="adddet" method="post" enctype="multipart/form-data">
-                        <table >
-                        <tr><td>
-                            <label for="icon"><b>Mail</b></label></td>
-                            <td><input type="text" name="comnme" id="comnme"  title="Only Alphabets" required>
-                        </td></tr>
-                        <tr><td>
-                            <label for="icon"><b>Username</b></label></td>
-                            <td><input type="text" name="uname" id="uname"   title="Only Alphabets" required>
-                        </td></tr>
-                        <tr><td>
-                            <label for="icon"><b>Password</b></label></td>
-                            <td><input type="text" name="pword" id="pword"   title="Only Alphabets" required>
-                        </td></tr>
-                        <tr><td>
-                        <label for="icon"><b>Position</b></label></td>
-                        <td><select name="desig" required>
-                        <option value="" disabled selected>Choose designation</option>
-                        <option value="M" >Manager</option>
-                        <option value="E">Employee</option>
-                        </select></td></tr>
-                        <tr><td></td><td><input type="submit" value="Sent" onclick="sendEmail();" name="submit"></td></tr>
-                    </table>
-                    <span id="err" style="color:green"></span>
-                    </form>
-                    </div>
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Test Drive Allotted</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $test1; ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
 
                         <!-- Pending Requests Card Example -->
                         <!-- <div class="col-xl-3 col-md-6 mb-4">
@@ -381,9 +349,9 @@ input[type=submit] {
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <!-- <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>
+    </a> -->
      <!-- Logout Modal-->
      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -414,14 +382,14 @@ input[type=submit] {
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../Admin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="../Admin/js/demo/chart-area-demo.js"></script>
+    <script src="../Admin/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

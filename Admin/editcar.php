@@ -219,7 +219,7 @@ ob_start();
 
             <!-- Nav Item - Sales -->
             <li class="nav-item">
-              <a class="nav-link" href="testdrive.php">
+              <a class="nav-link" href="sales.php">
               <span>Sales</span></a>
             </li>
             <!-- Divider -->
@@ -489,7 +489,7 @@ ob_start();
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.php">Logout</a>
+                    <a class="btn btn-primary" href="../login.php?msg=">Logout</a>
                 </div>
             </div>
         </div>

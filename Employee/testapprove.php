@@ -3,21 +3,15 @@
  session_start();
  if(isset($_SESSION['user']))
  {
-   $que="select COUNT(*) as count from tbl_order";
-   $result = mysqli_query($con,$que);
-	 while($row=mysqli_fetch_array($result)){
-     $order=$row['count'];
-   }
-   $que1="select COUNT(*) as count from tbl_ltestdrive where status='Approved'";
-   $res = mysqli_query($con,$que1);
-	 while($row1=mysqli_fetch_array($res)){
-     $test1=$row1['count'];
-   }
-   $que2="select COUNT(*) as count from tbl_emp where status='Not approved'";
-   $res = mysqli_query($con,$que2);
-	 while($row1=mysqli_fetch_array($res)){
-     $test2=$row1['count'];
-   }
+    $lid=$_SESSION['logid'];
+    $usr=$_SESSION['user'];
+    $sql="select * from tbl_emp where login_id='$lid'";
+    $res=mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($res))
+      {
+        $propic='../upload/profile/'.$row["pic"];
+      }
+
    
  ?>
  <!DOCTYPE html>
@@ -41,6 +35,16 @@
 
     <!-- Custom styles for this template-->
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <script>
+        function update(id){
+
+            var empl=document.getElementById("desig").value;
+            
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","approv.php?id="+id+"&empid="+empl);
+            frm.submit();
+        }
+  </script>
 
 </head>
 
@@ -67,6 +71,12 @@
             <li class="nav-item active">
                 <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
+            </li>
+
+                        <!-- Nav Item - Sales -->
+                        <li class="nav-item">
+              <a class="nav-link" href="mngprofile.php">
+              <span>Profile</span></a>
             </li>
 
             <!-- Divider -->
@@ -98,10 +108,10 @@
                 <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
             </li>
-
+            
             <!-- Nav Item - Sales -->
             <li class="nav-item">
-              <a class="nav-link" href="testdrive.php">
+              <a class="nav-link" href="sales.php">
               <span>Sales</span></a>
             </li>
             <!-- Divider -->
@@ -178,9 +188,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $usr;?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../upload/profile/admin.jpg">
+                                    src="<?php echo $propic;?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -256,33 +266,28 @@
                                             $rows1=mysqli_fetch_array($query1)['date'];
                                             
                                             //$q=mysqli_query($con,"select * from tbl_login where type='E'");
-                                            
-                                            ?>
-                                            <select name="desig" required>
-                                            <option value="" disabled selected>Choose Employee</option><?php
-                                            $q1="SELECT reg_id FROM tbl_itestdrive WHERE date=$rows1";
+                                            $q1="SELECT reg_id FROM tbl_emp WHERE status=1 and reg_id!=(select reg_id from tbl_ltestdrive where date='$rows1')";
                                             $see1=mysqli_query($con,$q1);
-                                            while($wor1=mysqli_fetch_array($see1)){
-                                            $t=$wor1["reg_id"];
-                                            $q="SELECT reg_id FROM tbl_emp WHERE status=1 and reg_id!='$t'";
-                                            $see=mysqli_query($con,$q);
-                                            while($wor=mysqli_fetch_array($see)){
+                                            ?>
+                                            <form action="approv.php" method="POST" id="frmm">
+                                            <select name="desig" id="desig"  required>
+                                            <option value="" disabled selected>Choose Employee</option><?php
+                                            while($word1=mysqli_fetch_array($see1)){
+                                                $id=$word1['reg_id'];
+                                                $q2=mysqli_query($con,"select name from tbl_emp where reg_id='$id'");
                                                 
-                                                $id=$wor['reg_id'];
-                                                $q1=mysqli_query($con,"select name from tbl_emp where reg_id='$id'");
-                                                
-                                                $nm=mysqli_fetch_array($q1)['name'];
+                                                $nm=mysqli_fetch_array($q2)['name'];
                                             ?>
                                             <option value="<?php echo $id;?>" ><?php echo $nm; ?></option>
                                             <?php
-                                            }}
+                                            }
                                             echo " </select></td><td>";
                                             ?><input type="Button" value="Approve" id="<?php echo $testid; ?>" onclick="update(this.id)" ></form><?php
                                             echo "</td></tr>";
                                             $count=$count+1;
                                         }
                                     ?>
-
+                                    </form>
                                     </tbody>
                                 </table>
                             </div>
@@ -318,7 +323,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.php">Logout</a>
+                    <a class="btn btn-primary" href="../login.php?msg=">Logout</a>
                 </div>
             </div>
         </div>

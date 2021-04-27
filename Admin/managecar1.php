@@ -105,6 +105,11 @@
                 <a class="nav-link" href="testdrive.php">
                     <span>Test Drive</span></a>
             </li>
+                    <!-- Nav Item - Sales -->
+                    <li class="nav-item">
+              <a class="nav-link" href="sales.php">
+              <span>Sales</span></a>
+            </li>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -302,7 +307,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php?msg=">Logout</a>
                 </div>
             </div>
         </div>

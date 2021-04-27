@@ -2,7 +2,7 @@
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
  if(isset($_SESSION['user']))
- {
+ {   
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +24,8 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../style/form.css" rel="stylesheet">
+    <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -37,7 +37,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="mngdash.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                  <i class="fal fa-car"></i>
                 </div>
@@ -46,6 +46,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
+
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -200,37 +201,38 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Test Drives</h1>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-4 text-gray-800">Sales</h1>
+                        <a href="report.php" style="float:right" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                         class="fas fa-download fa-sm text-white-50"></i> Generate Report</a></div>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Name</th>
+                                        <th >Customer</th>
+                                        <th >Pincode</th>
                                         <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Status</th>
+                                        <th >fuel</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Name</th>
-                                        <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Status</th>
+                                        <th >Customer</th>
+                                        <th >Pincode</th>
+                                        <th >Car name</th>                                   
+                                        <th >fuel</th>
                                         </tr>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_ltestdrive");
+                                        $query=mysqli_query($con,"select * from tbl_order");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             echo "<tr><td>";
                                             echo $count;
@@ -240,16 +242,15 @@
                                             $raw=mysqli_fetch_array($qu)['username'];
                                             echo $raw;
                                             echo "</td><td>";
+                                            echo $rows['pin'];
+                                            echo "</td><td>";
                                             $id=$rows['car_id'];
                                             $quer=mysqli_query($con,"select name from tbl_car where car_id='$id'");
                                             $ro=mysqli_fetch_array($quer)['name'];
                                             echo $ro;
+
                                             echo "</td><td>";
-                                            echo $rows['gear'];
-                                            echo "</td><td>";
-                                            echo $rows['date'];
-                                            echo "</td><td>";
-                                            echo $rows['status'];
+                                            echo $rows['fuel'];
                                             echo "</td></tr>";
                                             $count=$count+1;
                                         }
@@ -271,7 +272,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -295,6 +295,9 @@
             </div>
         </div>
     </div>
+
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -303,13 +306,23 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
- </body>
+    <script src="../Admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../Admin/js/demo/chart-area-demo.js"></script>
+    <script src="../Admin/js/demo/chart-pie-demo.js"></script>
+
+</body>
 
 </html>
 <?php
- }
- else{
-	header("location:../login.php?msg=");
-  }
+}
+else{
+  header("location:../login.php?msg=");
+}
 ?>
+
+

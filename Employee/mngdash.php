@@ -3,6 +3,14 @@
  session_start();
  if(isset($_SESSION['user']))
  {
+    $lid=$_SESSION['logid'];
+    $usr=$_SESSION['user'];
+    $sql="select * from tbl_emp where login_id='$lid'";
+    $res=mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($res))
+      {
+        $propic='../upload/profile/'.$row["pic"];
+      }
    $que="select COUNT(*) as count from tbl_order";
    $result = mysqli_query($con,$que);
 	 while($row=mysqli_fetch_array($result)){
@@ -13,7 +21,7 @@
 	 while($row1=mysqli_fetch_array($res)){
      $test1=$row1['count'];
    }
-   $que2="select COUNT(*) as count from tbl_emp where status='Not approved'";
+   $que2="select COUNT(*) as count from tbl_ltestdrive where status='Not approved'";
    $res = mysqli_query($con,$que2);
 	 while($row1=mysqli_fetch_array($res)){
      $test2=$row1['count'];
@@ -69,6 +77,12 @@
                     <span>Dashboard</span></a>
             </li>
 
+            <!-- Nav Item - Sales -->
+            <li class="nav-item">
+              <a class="nav-link" href="mngprofile.php">
+              <span>Profile</span></a>
+            </li>
+
             <!-- Divider -->
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -93,15 +107,18 @@
                 </a>
             </li>
 
+
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
                 <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
             </li>
 
+
+
             <!-- Nav Item - Sales -->
             <li class="nav-item">
-              <a class="nav-link" href="testdrive.php">
+              <a class="nav-link" href="sales.php">
               <span>Sales</span></a>
             </li>
             <!-- Divider -->
@@ -176,11 +193,13 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
+                        <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $usr;?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../upload/profile/admin.jpg">
+                                    src="<?php echo $propic;?>">
+                            </a>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -398,7 +417,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.php">Logout</a>
+                    <a class="btn btn-primary" href="../login.php?msg=">Logout</a>
                 </div>
             </div>
         </div>

@@ -3,6 +3,16 @@
  session_start();
  if(isset($_SESSION['user']))
  {
+    $lid=$_SESSION['logid'];
+    $usr=$_SESSION['user'];
+    $sql="select * from tbl_emp where login_id='$lid'";
+    $res=mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($res))
+      {
+        $propic='../upload/profile/'.$row["pic"];
+      }
+
+   
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +34,18 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../style/form.css" rel="stylesheet">
+    <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <script>
+        function update(id){
+            // var ele=document.getElementById("desig").value;
+            // alert(ele);
+            var frm = document.getElementById("frmm")
+        // var empl=document.getElementById("desig").value
+            frm.setAttribute("action","approv.php?id="+id);
+            frm.submit();
+        }
+  </script>
+
 </head>
 
 <body id="page-top">
@@ -37,7 +57,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="mngdash.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                  <i class="fal fa-car"></i>
                 </div>
@@ -49,8 +69,14 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
+            </li>
+            
+            <!-- Nav Item - Sales -->
+            <li class="nav-item">
+              <a class="nav-link" href="mngprofile.php">
+              <span>Profile</span></a>
             </li>
 
             <!-- Divider -->
@@ -58,28 +84,13 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Employee</span>
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    <span>Attendance</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addemp.php">Add Employee</a>
-                        <a class="collapse-item" href="viewemp.php">View Details</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <span>Car</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addcar.php">Add car</a>
-                        <a class="collapse-item" href="managecar.php">Manage Details</a>
+                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
             </li>
@@ -94,9 +105,11 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
             </li>
+
+
 
             <!-- Nav Item - Sales -->
             <li class="nav-item">
@@ -177,9 +190,10 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $usr;?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../upload/profile/admin.jpg">
+                                    src="<?php echo $propic;?>">
+                            </a>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -200,37 +214,37 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Test Drives</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Sales</h1>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Name</th>
+                                        <th >Customer</th>
+                                        <th >PIN code</th>
                                         <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Status</th>
+                                        <th >fuel</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Name</th>
+                                        <th >Customer</th>
+                                        <th >PIN code</th>
                                         <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Status</th>
+                                        <th >fuel</th>
                                         </tr>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_ltestdrive");
+                                        $query=mysqli_query($con,"select * from tbl_order");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             echo "<tr><td>";
                                             echo $count;
@@ -240,16 +254,15 @@
                                             $raw=mysqli_fetch_array($qu)['username'];
                                             echo $raw;
                                             echo "</td><td>";
+                                            echo $rows['pin'];
+                                            echo "</td><td>";
                                             $id=$rows['car_id'];
                                             $quer=mysqli_query($con,"select name from tbl_car where car_id='$id'");
                                             $ro=mysqli_fetch_array($quer)['name'];
                                             echo $ro;
+
                                             echo "</td><td>";
-                                            echo $rows['gear'];
-                                            echo "</td><td>";
-                                            echo $rows['date'];
-                                            echo "</td><td>";
-                                            echo $rows['status'];
+                                            echo $rows['fuel'];
                                             echo "</td></tr>";
                                             $count=$count+1;
                                         }
@@ -271,7 +284,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -295,6 +307,9 @@
             </div>
         </div>
     </div>
+
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -303,13 +318,23 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
- </body>
+    <script src="../Admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../Admin/js/demo/chart-area-demo.js"></script>
+    <script src="../Admin/js/demo/chart-pie-demo.js"></script>
+
+</body>
 
 </html>
 <?php
- }
- else{
-	header("location:../login.php?msg=");
-  }
+}
+else{
+  header("location:../login.php?msg=");
+}
 ?>
+
+
