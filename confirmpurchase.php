@@ -15,7 +15,7 @@ if(isset($_POST['send']))
         $pin=$_POST['pin'];
         $post=$_POST['post'];
         $color=$_POST['color'];
-        $que="insert into tbl_order(car_id,login_id,model_id,color_id,gear,fuel,house,post,pin) VALUES ('$carid','$uid','$modid','$color','$trans','$fuel','$house','$post',$pin)";
+        $que="insert into tbl_order(car_id,login_id,model_id,color_id,gear,fuel,house,post,pin,price) VALUES ('$carid','$uid','$modid','$color','$trans','$fuel','$house','$post',$pin,'$price')";
         $query3=mysqli_query($con,$que);
         
             if ($query3) {

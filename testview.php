@@ -70,7 +70,7 @@ li a:hover {
     margin-left:5%;
     margin-right:10%;
     margin-top:5%;
-    padding:2px;
+    padding:10px;
     border:1px solid white;
     font-size:15px;
 }
@@ -86,6 +86,7 @@ li a:hover {
 #buy:hover {
     color: #4CAF50;
     text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -101,14 +102,15 @@ li a:hover {
 </ul>
 
 <table id= "ta" >
-  <thead>
+  <thead style="padding:20px">
     <tr>
       <th scope="col">Sl no</th>
       <th scope="col">Car name</th>
       <th scope="col">Transmission</th>
       <th scope="col">Date</th>
-      <th scope="col">Status</th>
-      <th scope="col"></th>
+      <th scope="col">time</th>
+      <th scope="col">Staff</th>
+      <th scope="col">Ph no</th>
     </tr>
   </thead>
   <tbody>
@@ -128,9 +130,15 @@ li a:hover {
             echo "</td><td>";
             echo $rows['date'];
             echo "</td><td>";
-            echo $rows['status'];
+            echo $rows['time'];
             echo "</td><td>";
-            ?><a href="" id="buy">Buy Now</a><?php
+            $emp=$rows['reg_id'];
+            $sql1=mysqli_query($con,"select * from tbl_emp where reg_id=$emp");
+            while ($rows1=mysqli_fetch_array($sql1)) {
+            echo $rows1['name'];
+            echo "</td><td>";
+            echo $rows1['phone'];
+            }
             echo "</td></tr>";
             $count=$count+1;
          }

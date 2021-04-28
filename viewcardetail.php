@@ -293,7 +293,7 @@ URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
                       <div class="widget-inner">
                    <form method="post" enctype="multipart/form-data">
                           <div class="form-group">
-                            <input class="form-control" type="date"  name="date" required="true" placeholder="date of appoinment" max="2021-4-22" min="2021-4-19"/>
+                            <input class="form-control" type="date"  name="date" required="true" placeholder="date of appoinment" max="2021-4-30" min="2021-4-27"/>
                           </div>
                           <div class="form-group">
                             <input class="form-control" type="text" autocomplete="off" name="name" id="name" onblur="rname()" required="true" placeholder="Name"/>

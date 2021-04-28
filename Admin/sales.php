@@ -216,7 +216,8 @@
                                         <th >Customer</th>
                                         <th >Pincode</th>
                                         <th >Car name</th>
-                                        <th >fuel</th>
+                                        <th >Fuel</th>
+                                        <th >Price</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -226,6 +227,7 @@
                                         <th >Pincode</th>
                                         <th >Car name</th>                                   
                                         <th >fuel</th>
+                                        <th >Price</th>
                                         </tr>
                                         </tr>
                                     </tfoot>
@@ -251,6 +253,8 @@
 
                                             echo "</td><td>";
                                             echo $rows['fuel'];
+                                            echo "</td><td>";
+                                            echo $rows['price'];
                                             echo "</td></tr>";
                                             $count=$count+1;
                                         }

@@ -336,5 +336,3 @@ else{
   header("location:../login.php?msg=");
 }
 ?>
-
-

@@ -64,7 +64,8 @@ error_reporting(0);
                                         <th >Customer</th>
                                         <th >Pincode</th>
                                         <th >Car name</th>
-                                        <th >fuel</th>
+                                        <th >Fuel</th>
+                                        <th >Price</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -74,6 +75,7 @@ error_reporting(0);
                                         <th >Pincode</th>
                                         <th >Car name</th>                                   
                                         <th >fuel</th>
+                                        <th >Price</th>
                                         </tr>
                                         </tr>
                                     </tfoot>
@@ -99,6 +101,8 @@ error_reporting(0);
 
                                             echo "</td><td>";
                                             echo $rows['fuel'];
+                                            echo "</td><td>";
+                                            echo $rows['price'];
                                             echo "</td></tr>";
                                             $count=$count+1;
                                         }
@@ -107,6 +111,15 @@ error_reporting(0);
                                 </table>
 			</table>
             </div>
+            <table class="balance">
+				<tr>
+                <?php
+                    $query1=mysqli_query($con,"select sum(price) as price from tbl_order");
+                    $rows1=mysqli_fetch_array($query1)['price'];?>
+					<th><span  >Total</span></th>
+					<td><span data-prefix>&#x20B9;</span><span  ><?php echo $rows1;?>.000</span></td>
+				</tr>
+			</table>
 		</article>
   
 		<aside>

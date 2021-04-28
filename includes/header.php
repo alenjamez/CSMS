@@ -24,7 +24,6 @@ if(isset($_SESSION['user']))
                 <li class="nav-item active"><a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a></li>
                 
                 <li class="nav-item"><a class="nav-link" href="car-list.php">Car List</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="companies-car.php">Service</a></li>
                
@@ -53,7 +52,6 @@ if(isset($_SESSION['user']))
                                        
                                         </li>
                                         <li class="nav-item"><a class="nav-link" href="car-list.php">Car List</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Service</a></li>
                                         <li class="nav-item"><a class="nav-link" href="contacts.php">Contact</a></li>
                                         <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
@@ -85,7 +83,6 @@ if(isset($_SESSION['user']))
                 <li class="nav-item active"><a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a></li>
                 
                 <li class="nav-item"><a class="nav-link" href="car-list.php">Car List</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="companies-car.php">Service</a></li>
                
@@ -114,7 +111,6 @@ if(isset($_SESSION['user']))
                                        
                                         </li>
                                         <li class="nav-item"><a class="nav-link" href="car-list.php">Car List</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                                         <li class="nav-item"><a class="nav-link" href="">Service</a></li>
                                         <li class="nav-item"><a class="nav-link" href="contacts.php">Contact</a></li>
                                         <li class="nav-item"><a class="nav-link" href="login.php?msg=">Sign-in</a></li>

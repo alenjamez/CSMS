@@ -45,41 +45,32 @@ include('includes/dbconnection.php');
         <main class="l-main-content">
           <div class="container">
             <div class="section-area">
-              <?php
-
-                    
-$ret=mysqli_query($con,"select * from tblpages where PageType='contactus'");
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
-
-?>
               <div class="row">
                 <div class="col-md-6 col-lg-3">
                   <div class="b-contacts"><i class="ic icon-direction"></i>
-                    <div class="b-contacts__title">Head Office</div>
-                    <div class="b-contacts__info"><?php  echo $row['HeadOffice'];?></div>
+                    <div class="b-contacts__title">Head office</div>
+                    <div class="b-contacts__info">ASV Ramana Towers, <br>  52, Kottayam.</div>
                   </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                   <div class="b-contacts"><i class="ic icon-call-end bg-primary"></i>
                     <div class="b-contacts__title">Phone</div>
-                    <div class="b-contacts__info"><?php  echo $row['PhoneNumber'];?></div>
+                    <div class="b-contacts__info">+91 999 888 9990</div>
                   </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                   <div class="b-contacts"><i class="ic icon-envelope"></i>
                     <div class="b-contacts__title">Email</div>
-                    <div class="b-contacts__info"><?php  echo $row['Email'];?></div>
+                    <div class="b-contacts__info">urcarzmaruti@gmail.com</div>
                   </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
                   <div class="b-contacts"><i class="ic icon-flag bg-primary"></i>
                     <div class="b-contacts__title">Showroom</div>
-                    <div class="b-contacts__info"><?php  echo $row['PageDescription'];?></div>
+                    <div class="b-contacts__info">URCARZ: ASV Ramana Towers, <br>  52, Kottayam.<div><br></div></div>
                   </div>
                 </div>
               </div>
-              <?php } ?>
               <!-- end .b-contacts-->
             </div>
             
