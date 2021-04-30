@@ -94,19 +94,19 @@ if(isset($_SESSION['email']) && isset($_SESSION['user']) && isset($_SESSION['pas
 
         $mail->send();
         // echo 'Message has been sent';
-//session_unset();
+session_unset();
         if($_SESSION['user']){
-            header("location:dashboard.php");
+            header("location:addemp.php?msg=* Employee added successfully");
         }
         
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
-// else{
-//     header("location:../fpEnterMail.php?err='wrong'");
-//             // echo 'Message not sent';
+else{
+    header("location:addemp.php?msg=* Error");
+            // echo 'Message not sent';
 
-// }
+}
 ?>
                       

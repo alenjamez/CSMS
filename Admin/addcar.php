@@ -28,45 +28,6 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../style/form.css" rel="stylesheet">
     <script>
-  function test(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("sel").innerHTML=this.responseText;
-        }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
-  function test1(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("sele").innerHTML=this.responseText;
-        }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
-  function test2(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          document.getElementById("seler").innerHTML=this.responseText;
-        }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
   function test3(value)
   {
     var xhttp = new XMLHttpRequest();
@@ -536,7 +497,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.php?msg=">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

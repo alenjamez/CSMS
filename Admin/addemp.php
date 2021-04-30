@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <?php
-ob_start();
+ ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
+ $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
  ?>
@@ -59,6 +60,32 @@ input[type=submit] {
         box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
     }
     </style>
+    <script>
+    function ema()
+        {
+        var emi=document.getElementById("mail").value;
+        var emi1=/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})+$/;
+        if(emi=="")
+            {
+                document.getElementById("error").innerHTML="* Enter email";
+                document.getElementById("error").style.color = "black";
+                document.getElementById("mail").focus();
+            return false;
+            }
+        if(emi.match(emi1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Enter valid email";
+                document.getElementById("error").style.color = "red";
+                document.getElementById("mail").focus();
+            return false;
+            }
+        }
+    </script>
 
 </head>
 
@@ -209,7 +236,7 @@ input[type=submit] {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['user'];?></span>
                                 <img class="img-profile rounded-circle"
                                     src="../upload/profile/admin.jpg">
                             </a>
@@ -240,12 +267,14 @@ input[type=submit] {
 
                     <!-- Content Row -->
                     <div class="table"> 
-                    <label id="msg" style="color:#008000;"></label>
+                    <span id="msg"  style="color:#008000;"><?php echo $msg; ?></span><br>
+                    <span id="error"  style="color:#008000;"></span><br>
                         <form id="adddet" method="post" enctype="multipart/form-data">
+                        
                         <table >
                         <tr><td>
                             <label for="icon"><b>Mail</b></label></td>
-                            <td><input type="text" name="comnme" id="comnme"  title="Only Alphabets" required>
+                            <td><input type="text" name="mail" id="mail"  title="Only Alphabets" onblur="ema()" required>
                         </td></tr>
                         <tr><td>
                             <label for="icon"><b>Username</b></label></td>
@@ -398,7 +427,7 @@ input[type=submit] {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.php?msg=">Logout</a>
+                    <a class="btn btn-primary" href="../logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -427,6 +456,33 @@ input[type=submit] {
 
 </html>
 <?php
+ $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+ if(isset($_POST['submit']))
+ {
+    $email=$_POST["comnme"];
+    $name=$_POST["uname"];
+    $pass=$_POST["pword"];
+    $des=$_POST["desig"];
+    $sql="select email from tbl_registration where email='$email'";
+    $res=mysqli_query($con,$sql);
+    if(mysqli_num_rows($res)>0)
+    {
+        header("location:addemp.php?msg=* Email already exist");
+    }
+    else{
+        $sql1="insert into tbl_login(username,password,type) values('$name','md5($pass)','$des')";
+        $res=mysqli_query($con,$sql1);
+        $li=mysqli_insert_id($con);
+        $res=$sql1="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";
+        mysqli_query($con,$sql1);
+        $_SESSION['user']=$name;
+        $_SESSION['pass']=$pass;
+        $_SESSION['email']=$email;
+        if($res){
+        header("location:SendMail.php");
+        }
+    }
+ }
 }
 else{
   header("location:../login.php?msg=");
