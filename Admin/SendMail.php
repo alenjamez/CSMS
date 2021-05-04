@@ -94,7 +94,6 @@ if(isset($_SESSION['email']) && isset($_SESSION['user']) && isset($_SESSION['pas
 
         $mail->send();
         // echo 'Message has been sent';
-session_unset();
         if($_SESSION['user']){
             header("location:addemp.php?msg=* Employee added successfully");
         }

@@ -3,9 +3,10 @@ ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
  $carid=$_GET['cid'];
- $modid=$_GET['mid'];
+ $mid=$_GET['mid'];
  $trans=$_GET['tran'];
  $fuel=$_GET['fuel'];
+ $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
      $sql30="select * from tbl_car where car_id='$carid'";
@@ -28,21 +29,7 @@ ob_start();
         $desc=$row["description"];
 
       }
-      $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
-      while ($row1=mysqli_fetch_array($query1)) {
-            $model=$row1['model'];
-            $fog= $row1['fog_lamb'];
-            $wheel= $row1['wheel'];
-            $start= $row1['powerstart'];
-            $auto= $row1['autoac'];
-            $window= $row1['window'];
-            $sunroof= $row1['sunroof'];
-            $headlamb= $row1['headlamb'];
-            $camera= $row1['camera'];
-            $sensor= $row1['sensor'];
-            $sterio= $row1['sterio'];
-      }
-      $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel'";
+      $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel' and car_id='$carid'";
       $res6=mysqli_query($con,$sql6);
       while($row6=mysqli_fetch_array($res6)){
       $bhp=$row6["bhp"];
@@ -75,76 +62,168 @@ ob_start();
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../style/form.css" rel="stylesheet">
-    <script>
-  function test(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
+  <script>
+function len(value)
         {
-          document.getElementById("sel").innerHTML=this.responseText;
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>99) && (ph<5001))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 100 and 5000";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
         }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
-  function test1(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
+        function len1(value)
         {
-          document.getElementById("sele").innerHTML=this.responseText;
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>1) && (ph<10))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 1 and 10";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
         }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
-  function test2(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
+        function fuel(value)
         {
-          document.getElementById("seler").innerHTML=this.responseText;
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>30) && (ph<100))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 30 and 100";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }   
+        function rname(value)
+        {
+        var nam=value;
+        var nam1=/^[a-zA-Z][a-zA-Z ]+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
         }
-    };
-    xhttp.open("GET", "selectcar.php?id="+value, true);
-    xhttp.send();
-  }
-  function test3(value)
-  {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200) 
+        function des(value)
         {
-          document.getElementById("mod").innerHTML=this.responseText;
+        var nam=value;
+        var nam1=/^[a-zA-Z ]+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
         }
-    };
-    xhttp.open("GET", "selectmodel.php?id="+value, true);
-    xhttp.send();
-  }
-  function Val(id)
+        function emmis(value)
         {
-            var fileInput = document.getElementById(id);
-            var filePath = fileInput.value;
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-            if(!allowedExtensions.exec(filePath)){
-            fileInput.value = '';
-            document.getElementById("error").innerHTML="* Must be only .jpg,.jepg,.png file";
-            document.getElementById("error").style.color = "red";
-	        return false;
-       }
-      else{
-        document.getElementById("error").innerHTML="";
-        return true;
-      }
-  }
-</script>
+        var nam=value;
+        var nam1=/^[B]{1}[S]{1}[a-zA-Z ]{2}+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+        function mill(value)
+        {
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>0) && (ph<40))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 1 and 40";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }    
+        function engbhp(value)
+        {
+        var ph=value;
+        var ph1=/^[a-zA-Z0-9@ ]+$/;;
+        if(ph.match(ph1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value can contain number charecter and @ ";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
+        function engty(value)
+        {
+        var ph=value;
+        var ph1=/^[a-zA-Z0-9 ]+$/;;
+        if(ph.match(ph1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value can contain number and charecter";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
+        function cash(value)
+        {
+        var ph=value;
+        var ph1=/^[0-9 ]+$/;;
+        if((ph.match(ph1))&& (ph>100000))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be grater than 100000";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
+  </script>
 </head>
 
 <body id="page-top">
@@ -182,8 +261,8 @@ ob_start();
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addemp.php">Add Employee</a>
-                        <a class="collapse-item" href="viewemp.php">View Details</a>
+                        <a class="collapse-item" href="addemp.php?msg=">Add Employee</a>
+                        <a class="collapse-item" href="viewemp.php?msg=">View Details</a>
                     </div>
                 </div>
             </li>
@@ -197,8 +276,8 @@ ob_start();
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addcar.php">Add car</a>
-                        <a class="collapse-item" href="managecar.php">Manage Details</a>
+                        <a class="collapse-item" href="addcar.php?msg=">Add car</a>
+                        <a class="collapse-item" href="managecar.php?msg=">Manage Details</a>
                     </div>
                 </div>
             </li>
@@ -213,7 +292,7 @@ ob_start();
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>
 
@@ -325,11 +404,10 @@ ob_start();
                 <!-- /.container-fluid -->
                 <div class="tab">
       <button class="tablinks" style="margin-left:280px" onclick="openCity(event, 'car')" id="defaultOpen">Car Details</button>
-      <button class="tablinks" onclick="openCity(event, 'model')">Model</button>
       <button class="tablinks" onclick="openCity(event, 'colour')">Colour</button>
       <!-- <button class="tablinks" onclick="openCity(event, 'Image')">Image</button> -->
       <button class="tablinks" onclick="openCity(event, 'fuel')">Transmission</button>
-      <span id="error"></span>
+      </div><span style="color:#008000; margin-left:20px" id="error"><?php echo $msg;?></span><br>
     </div>
 
     <div id="car" class="tabcontent">
@@ -337,7 +415,7 @@ ob_start();
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details1" enctype="multipart/form-data">
-	          <label style="margin-top:45px;">Name</label><input type="text" name="name" style="margin-top:50px;" value="<?php echo $name ?>" required><br>
+	          <label style="margin-top:45px;">Name</label><input type="text" onblur="rname(this.value)" name="name" style="margin-top:50px;" value="<?php echo $name ?>" required><br>
             <label >Car Type</label><select name="cartype" required>
               <option value="<?php echo $cartype ?>"><?php echo $cartype ?></option>
               <option value="Sedan">Sedan</option>
@@ -345,23 +423,23 @@ ob_start();
               <option value="SUV">SUV</option>
               <option value="MUV">MUV</option>
               <option value="Luxury">Luxury</option></select>
-		        <label>Ground<br>Clearence</label><input type="text" name="bodytype" required value="<?php echo $ground; ?>"><br>
-            <label>Car Lenght</label><input type="text" name="length" required value="<?php echo $length; ?>"><br>
-  	        <label>Car Width</label><input type="text" name="width" required value="<?php echo $width; ?>"><br>
-            <label>Car Height</label><input type="text" name="heigth" required value="<?php echo $heigth; ?>"><br>
-            <label>No of seats</label><input type="text" name="seat" required value="<?php echo $seat; ?>"><br>
+		        <label>Ground<br>Clearence</label><input type="text" name="bodytype" onblur="len(this.value)" required value="<?php echo $ground; ?>"><br>
+            <label>Car Lenght</label><input type="text" name="length" required onblur="len(this.value)" value="<?php echo $length; ?>"><br>
+  	        <label>Car Width</label><input type="text" name="width" required onblur="len(this.value)"  value="<?php echo $width; ?>"><br>
+            <label>Car Height</label><input type="text" name="heigth" required onblur="len(this.value)" value="<?php echo $heigth; ?>"><br>
+            <label>No of seats</label><input type="text" name="seat" required onblur="len1(this.value)" value="<?php echo $seat; ?>"><br>
           </div>
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
 
-                <label>No of Airbag</label><input type="text" name="airbag" required value="<?php echo $airbag; ?>"><br>
-                <label>Boot Space</label><input type="text" name="boot" required value="<?php echo $boot; ?>"><br>
-                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required value="<?php echo $capacity; ?>"><br>
-                <label>Air Conditioner</label><input type="text"name="ac" required value="<?php echo $ac; ?>"><br>
-                <label>Power Steering</label><input type="text"name="display" required value="<?php echo $display; ?>"><br>
-                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required value="<?php echo $emission; ?>"><br>
-                <label>Description </label><textarea name="desc" id="desc" required><?php echo $desc; ?></textarea><br><br>
+                <label>No of Airbag</label><input type="text" name="airbag" required onblur="len1(this.value)" value="<?php echo $airbag; ?>"><br>
+                <label>Boot Space</label><input type="text" name="boot" required onblur="len(this.value)" value="<?php echo $boot; ?>"><br>
+                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" onblur="fuel(this.value)" required value="<?php echo $capacity; ?>"><br>
+                <label>Air Conditioner</label><input type="text"name="ac" readonly required value="<?php echo $ac; ?>"><br>
+                <label>Power Steering</label><input type="text"name="display" readonly required value="<?php echo $display; ?>"><br>
+                <label>Emission Norm </label><input type="text" name="emmi" onblur="emmis(this.value)" id="emmi" required value="<?php echo $emission; ?>"><br>
+                <label>Description </label><textarea name="desc" id="desc" onblur="des(this.value)" required><?php echo $desc; ?></textarea><br><br>
 	              <input type="submit" name="Add1" value="Update">
                 </form>
               </div>
@@ -370,46 +448,14 @@ ob_start();
         </div>
       </div>
     </div>
-    <div id="model" class="tabcontent">
-      <div class="container bootstrap snippet">
-        <div class="row">
-  	      <div class="col-sm-6">
-            <form class="form" method="post" id="details2" enctype="multipart/form-data">
-            <label name="car" style="margin-top:50px;">Car</label>
-            <input type="text" style="margin-top:50px;"  id="seler" name="car" value="<?php echo $model; ?>" required><br>
 
-
-            <label>Wheel</label><input type="text" name="wheel" value="<?php echo $wheel; ?>" required><br>
-            <label>Fog lamb</label><input type="text" name="fog" value="<?php echo $fog; ?>" required>
-            <label>Power start</label><input type="text"  name="start" value="<?php echo $start; ?>" required><br>
-            <label>Sterio</label><input type="text" name="sterio" pattern="[A-Za-z]+" value="<?php echo $sterio; ?>"><br>
-            <label>Auto AC</label><input type="text" name="auto" value="<?php echo $auto; ?>" required>
-
-          </div>
-    	    <div class="col-sm-6">
-            <div class="tab-content">
-              <div class="tab-pane active" id="home"><br><br>
-                  <label>Sunroof</label><input type="text" name="sunroof" value="<?php echo $sunroof; ?>" required>
-                  <label>Auto Headlamb</label><input type="text" name="headlamb" value="<?php echo $headlamb; ?>" required>
-                  <label>Sensor</label><input type="text" name="sensor" value="<?php echo $sensor ?>" required><br>
-                  <label>Camera</label><input type="text" name="camera" value="<?php echo $camera ?>" required><br>
-                  <label>Power Window</label><input  type="text" name="window" value="<?php echo $window?>" required><br>
-	              <input type="submit" name="Add2" value="Update">
-                </form>    
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="colour" class="tabcontent">
+    <div id="colour" class="tabcontent"style="margin-bottom:200px;">
       <div class="container bootstrap snippet">
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details3" enctype="multipart/form-data">
             <label name="car" style="margin-top:50px;">Car</label>
-            <select id="sele" name="car" style="margin-top:50px;" required>
+            <select id="colour" name="colour" style="margin-top:50px;" required>
               <option value="" disabled selected>Choose Colour</option> 
               <?php 
             $sql3="select * from colour where status=1 and car_id='$carid'";
@@ -449,10 +495,10 @@ ob_start();
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
-                <label>Millage</label><input type="text" name="millage" value="<?php echo $millage?>" required><br>
-                <label>Engine CC</label><input type="text" name="power" value="<?php echo $cc?>" required><br>
-  	            <label>BHP</label><input type="text" name="torque" value="<?php echo $bhp?>" required><br>
-                <label>Car Price</label><input type="text" name="price" value="<?php echo $price?>" required><br><br>     
+                <label>Millage</label><input type="text" name="millage"  value="<?php echo $millage?>" onblur="mill(this.value)" required><br>
+                <label>Engine CC</label><input type="text" name="power" onblur="len(this.value)" value="<?php echo $cc?>" required><br>
+  	            <label>BHP</label><input type="text" name="torque" onblur="engbhp(this.value)" value="<?php echo $bhp?>" required><br>
+                <label>Car Price</label><input type="text" name="price" onblur="cash(this.value)" value="<?php echo $price?>" required><br><br>     
 	              <input type="submit" name="Add4" value="Update">
                 </form>    
               </div>
@@ -544,80 +590,24 @@ ob_start();
    $emission=$_POST["emmi"];
    $desc=$_POST["desc"];
 
-   $sql1="insert into tbl_car (name,car_type,ground,steering,airbag,ac,capacity,length,width,heigth,bootspace,enc,seat,description) values ('$name','$cartype','$bodytype','$display',$airbag,'$ac',$capacity,$length,$width,$heigth,$boot,'$emission',$seat,'$desc')";
-   mysqli_query($con,$sql1);
+   $sql1="UPDATE tbl_car SET name='$name',car_type='$cartype',ground='$bodytype',steering='$display',airbag=$airbag,ac='$ac',capacity=$capacity,length=$length,width=$width,heigth=$heigth,bootspace=$boot,enc='$emission',seat=$seat,description='$desc' WHERE car_id=$carid";
+   $res3=mysqli_query($con,$sql1);
+   if($res3){
+    header("location:editcar.php?cid=$carid&mid=$mid&tran=$trans&fuel=$fuel&msg=* Successfully Updated");
+    }
   }
-  if(array_key_exists('Add2', $_POST))
-  {
-   $car=$_POST["car"];
-   $model=$_POST["model"];
-   $fog=$_POST["fog"];
-   $wheel=$_POST["wheel"];
-   $start=$_POST["start"];
-   $auto=$_POST["auto"];
-   $window=$_POST["window"];
-   $sunroof=$_POST["sunroof"];
-   $headlamb=$_POST["headlamb"];
-   $camera=$_POST["camera"];
-   $sensor=$_POST["sensor"];
-   $sterio=$_POST["sterio"];
 
-
-   $sql6="insert into tbl_model(model,wheel,fog_lamb,sensor,camera,powerstart,autoac,sunroof,headlamb,sterio,car_id,window) values('$model','$wheel','$fog','$sensor','$camera','$start','$auto','$sunroof','$headlamb','$sterio',$car,'$window')";
-   mysqli_query($con,$sql6);
-  }
 
   if(array_key_exists('Add3', $_POST))
   {
-   $car=$_POST["car"];
    $colour=$_POST["colour"];
-   $carim=$_FILES["carimg"]["name"];
-
-   $sql10="insert into colour(colour,image,car_id) values ('$colour','$carim','$car')";
-   mysqli_query($con,$sql10);
-   $ta="../upload/car/".$carim;
-   move_uploaded_file($_FILES["carimg"]["tmp_name"],$ta);
-
+   $sql10="UPDATE colour SET status=0 WHERE color_id=$colour";
+   $res1=mysqli_query($con,$sql10);
+   if($res1){
+    header("location:editcar.php?cid=$carid&mid=$mid&tran=$trans&fuel=$fuel&msg=* Colour deleted");
+    }
   }
 
-  if(array_key_exists('Add5', $_POST))
-  {
-   $car=$_POST["car"];
-   $car1=$_FILES["car1"]["name"];
-   $car2=$_FILES["car2"]["name"];
-   $car3=$_FILES["car3"]["name"];
-   $car4=$_FILES["car4"]["name"];
-   $car5=$_FILES["car5"]["name"];
-   $car6=$_FILES["car6"]["name"];
-   $car7=$_FILES["car7"]["name"];
-   $car8=$_FILES["car8"]["name"];
-   $car9=$_FILES["car9"]["name"];
-   $car10=$_FILES["car10"]["name"];
-
-   $sql7="insert into tbl_carimage(main,image1,image2,image3,image4,image5,image6,image7,image8,image9,car_id) values ('$car1','$car2','$car3','$car4','$car5','$car6','$car7','$car8','$car9','$car10','$car')";
-   mysqli_query($con,$sql7);
-   $t="../upload/car/".$car1;
-   move_uploaded_file($_FILES["car1"]["tmp_name"],$t);
-   $v="../upload/car/".$car2;
-   move_uploaded_file($_FILES["car2"]["tmp_name"],$v);
-   $w="../upload/car/".$car3;
-   move_uploaded_file($_FILES["car3"]["tmp_name"],$w);
-   $x="../upload/car/".$car4;
-   move_uploaded_file($_FILES["car4"]["tmp_name"],$x);
-   $y="../upload/car/".$car5;
-   move_uploaded_file($_FILES["car5"]["tmp_name"],$y);
-   $z="../upload/car/".$car6;
-   move_uploaded_file($_FILES["car6"]["tmp_name"],$z);
-   $l="../upload/car/".$car7;
-   move_uploaded_file($_FILES["car7"]["tmp_name"],$l);
-   $m="../upload/car/".$car8;
-   move_uploaded_file($_FILES["car8"]["tmp_name"],$m);
-   $n="../upload/car/".$car9;
-   move_uploaded_file($_FILES["car9"]["tmp_name"],$n);
-   $o="../upload/car/".$car10;
-   move_uploaded_file($_FILES["car10"]["tmp_name"],$o);
-
-  }
 
   if(array_key_exists('Add4', $_POST))
   {
@@ -631,8 +621,12 @@ ob_start();
    $gearno=$_POST["gearno"];
    $power=$_POST["power"];
    $torque=$_POST["torque"];
-   $sql8="insert into tbl_transmission(type,fuel,enginecc,bhp,millage,price,car_id,model_id,gearno,engtype) values ('$gear','$fueltype',$power,'$torque',$millage,$price,$car,$model,$gearno,'$engtype')";
-   mysqli_query($con,$sql8);
+   $sql8="UPDATE tbl_transmission SET enginecc=$power,bhp='$torque',millage=$millage,price=$price,engtype='$engtype',gearno=$gearno WHERE type='$trans' and fuel='$fuel' and car_id='$carid'";
+  
+   $res2=mysqli_query($con,$sql8);
+   if($res2){
+    header("location:editcar.php?cid=$carid&mid=$mid&tran=$trans&fuel=$fuel&msg=* Successfully Updated");
+    }
   }
  }
  else{

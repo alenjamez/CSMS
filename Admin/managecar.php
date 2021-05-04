@@ -1,7 +1,7 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- //$msg=$_GET['msg'];
+ $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
  ?>
@@ -64,8 +64,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addemp.php">Add Employee</a>
-                        <a class="collapse-item" href="viewemp.php">View Details</a>
+                        <a class="collapse-item" href="addemp.php?msg=">Add Employee</a>
+                        <a class="collapse-item" href="viewemp.php?msg=">View Details</a>
                     </div>
                 </div>
             </li>
@@ -79,8 +79,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addcar.php">Add car</a>
-                        <a class="collapse-item" href="managecar.php">Manage Details</a>
+                        <a class="collapse-item" href="addcar.php?msg=">Add car</a>
+                        <a class="collapse-item" href="managecar.php?msg=">Manage Details</a>
                     </div>
                 </div>
             </li>
@@ -95,7 +95,7 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>
 
@@ -205,6 +205,7 @@
                     <h1 class="h3 mb-4 text-gray-800">Manage Car</h1>
 
                     <div class="card shadow mb-4">
+                    <span style="color:#008000; margin-left:20px" id="error"><?php echo $msg;?></span><br>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -226,7 +227,7 @@
                                     </tfoot>
                                     <tbody>
                                     <?php
-                                        $sql="select car_id,name from tbl_car";
+                                        $sql="select car_id,name from tbl_car where status=1";
                                         $res=mysqli_query($con,$sql);
                                         $count=1;
                                         while($row=mysqli_fetch_array($res))

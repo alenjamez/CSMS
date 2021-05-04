@@ -71,8 +71,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addemp.php">Add Employee</a>
-                        <a class="collapse-item" href="viewemp.php">View Details</a>
+                        <a class="collapse-item" href="addemp.php?msg=">Add Employee</a>
+                        <a class="collapse-item" href="viewemp.php?msg=">View Details</a>
                     </div>
                 </div>
             </li>
@@ -86,23 +86,23 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addcar.php">Add car</a>
-                        <a class="collapse-item" href="managecar.php">Manage Details</a>
+                        <a class="collapse-item" href="addcar.php?msg=">Add car</a>
+                        <a class="collapse-item" href="managecar.php?msg=">Manage Details</a>
                     </div>
                 </div>
             </li>
 
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Service -->
             <li class="nav-item">
             <a class="nav-link" href="">
                     <span>Service</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>
                     <!-- Nav Item - Sales -->
@@ -265,7 +265,7 @@
                                             $fuel=$row6["fuel"];
                                                 echo "<tr><td>";
                                                 echo $count;
-                                                ?></td><td><a href="editcar.php?cid=<?php echo $carid;?>&mid=<?php echo $mid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>"><?php echo $name," ", $model," (",$trans," | ",$fuel,")";?></a></td>
+                                                ?></td><td><a href="editcar.php?cid=<?php echo $carid;?>&mid=<?php echo $mid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>&msg="><?php echo $name," ", $model," (",$trans," | ",$fuel,")";?></a></td>
                                                 <tr><?php
                                                 $count=$count+1;
                                             }

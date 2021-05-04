@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
+ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
+ $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
  ?>
@@ -57,6 +59,166 @@
         return true;
       }
   }
+  function len(value)
+        {
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>99) && (ph<5001))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 100 and 5000";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+        function len1(value)
+        {
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>1) && (ph<10))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 1 and 10";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+        function fuel(value)
+        {
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>30) && (ph<100))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 30 and 100";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }   
+        function rname(value)
+        {
+        var nam=value;
+        var nam1=/^[a-zA-Z][a-zA-Z ]+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+        function des(value)
+        {
+        var nam=value;
+        var nam1=/^[a-zA-Z ]+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+        function emmis(value)
+        {
+        var nam=value;
+        var nam1=/^[B]{1}[S]{1}[a-zA-Z ]{2}+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+        function mill(value)
+        {
+        var ph=value;
+        var ph1=/^([0-9])+$/;
+        if((ph.match(ph1))&& (ph>0) && (ph<40))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be between 1 and 40";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }    
+        function engbhp(value)
+        {
+        var ph=value;
+        var ph1=/^[a-zA-Z0-9@ ]+$/;;
+        if(ph.match(ph1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value can contain number charecter and @ ";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
+        function engty(value)
+        {
+        var ph=value;
+        var ph1=/^[a-zA-Z0-9 ]+$/;;
+        if(ph.match(ph1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value can contain number and charecter";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
+        function cash(value)
+        {
+        var ph=value;
+        var ph1=/^[0-9 ]+$/;;
+        if((ph.match(ph1))&& (ph>100000))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be grater than 100000";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
 </script>
 </head>
 
@@ -95,8 +257,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addemp.php">Add Employee</a>
-                        <a class="collapse-item" href="viewemp.php">View Details</a>
+                        <a class="collapse-item" href="addemp.php?msg=">Add Employee</a>
+                        <a class="collapse-item" href="viewemp.php?msg=">View Details</a>
                     </div>
                 </div>
             </li>
@@ -110,8 +272,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="addcar.php">Add car</a>
-                        <a class="collapse-item" href="managecar.php">Manage Details</a>
+                        <a class="collapse-item" href="addcar.php?msg=">Add car</a>
+                        <a class="collapse-item" href="managecar.php?msg=">Manage Details</a>
                     </div>
                 </div>
             </li>
@@ -126,10 +288,9 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>
-
             <!-- Nav Item - Sales -->
             <li class="nav-item">
               <a class="nav-link" href="sales.php">
@@ -239,15 +400,14 @@
       <button class="tablinks" onclick="openCity(event, 'colour')">Colour</button>
       <button class="tablinks" onclick="openCity(event, 'Image')">Image</button>
       <button class="tablinks" onclick="openCity(event, 'fuel')">Transmission</button>
-      <span id="error"></span>
-    </div>
+    </div><span style="color:#008000; margin-left:20px" id="error"><?php echo $msg;?></span><br>
 
     <div id="car" class="tabcontent">
       <div class="container bootstrap snippet">
         <div class="row">
   	      <div class="col-sm-6">
             <form class="form" method="post" id="details1" enctype="multipart/form-data">
-	          <label style="margin-top:45px;">Name</label><input type="text" name="name" style="margin-top:50px;" required><br>
+	          <label style="margin-top:45px;">Name</label><input type="text" name="name" onblur="rname(this.value)" style="margin-top:50px;" required><br>
             <label >Car Type</label><select name="cartype" required>
               <option value="">Choose car Type</option>
               <option value="Sedan">Sedan</option>
@@ -255,19 +415,18 @@
               <option value="SUV">SUV</option>
               <option value="MUV">MUV</option>
               <option value="Luxury">Luxury</option></select>
-		        <label>Ground</label><input type="text" name="bodytype" required><br>
-            <label>Car Lenght</label><input type="text" name="length" required><br>
-  	        <label>Car Width</label><input type="text" name="width" required><br>
-            <label>Car Height</label><input type="text" name="heigth" required><br>
-            <label>No of seats</label><input type="text" name="seat" required><br>
+		        <label>Ground</label><input type="text" name="bodytype" onblur="len(this.value)" required><br>
+            <label>Car Lenght</label><input type="text" name="length" onblur="len(this.value)" required><br>
+  	        <label>Car Width</label><input type="text" name="width" onblur="len(this.value)" required><br>
+            <label>Car Height</label><input type="text" name="heigth" onblur="len(this.value)" required><br>
+            <label>No of seats</label><input type="text" name="seat" required onblur="len1(this.value)"><br>
           </div>
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
-
-                <label>No of Airbag</label><input type="text" name="airbag" required><br>
-                <label>Boot Space</label><input type="text" name="boot" required><br>
-                <label>Fuel Capacity</label><input style="margin-top:10px" type="text" name="capacity" required><br>
+                <label>No of Airbag</label><input type="text" style="margin-top:10px" name="airbag" required onblur="len1(this.value)"><br>
+                <label>Boot Space</label><input type="text" name="boot" onblur="len(this.value)" required><br>
+                <label>Fuel Capacity</label><input  type="text" name="capacity" onblur="fuel(this.value)" required><br>
                 <div class="radio">
                   <label>Air Conditioner</label>
                   <input style="margin-left:20px;" type="radio" name="ac" value="Yes" required>&nbsp;Yes
@@ -278,8 +437,8 @@
                   <input style="margin-left:20px;" type="radio" name="display" value="Yes" required>&nbsp;Yes
                   <input type="radio" name="display" value="No">&nbsp;No
                 </div>
-                <label>Emission Norm </label><input type="text" name="emmi" id="emmi" required><br>
-                <label>Description </label><textarea name="desc" id="desc" required></textarea><br><br>
+                <label>Emission Norm </label><input type="text" name="emmi" onblur="emmis(this.value)" id="emmi" required><br>
+                <label>Description </label><textarea name="desc" id="desc" onblur="des(this.value)" required></textarea><br><br>
 	              <input type="submit" name="Add1" value="Add">
                 </form>
 
@@ -307,8 +466,8 @@
             </select><br>
 
 
-            <label>Car Model</label><input type="text" name="model" required><br>
-            <label>Wheel</label><input type="text" name="wheel" required><br>
+            <label>Car Model</label><input type="text" name="model" onblur="rname(this.value)" required><br>
+            <label>Wheel</label><input type="text" name="wheel" onblur="rname(this.value)" required><br>
             <div class="radio">
                   <label>Fog lamb</label><input type="radio" style="margin-left:20px;" name="fog" value="Yes" required>&nbsp;Yes
                   <input type="radio" name="fog" value="No">&nbsp;No
@@ -317,7 +476,7 @@
                   <label>Power start</label><input type="radio" style="margin-left:20px;" name="start" value="Yes" required>&nbsp;Yes
                   <input type="radio" name="start" value="No">&nbsp;No
             </div>
-            <label>Sterio</label><input type="text" name="sterio"><br>
+            <label>Sterio</label><input type="text" onblur="engty(this.value)" name="sterio"><br>
 
           </div>
     	    <div class="col-sm-6">
@@ -374,7 +533,7 @@
               echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
             }?>
             </select><br>
-            <label>Colour</label><input type="text" name="colour" required><br>
+            <label>Colour</label><input type="text" name="colour" onblur="rname(this.value)" required><br>
             <label>Car Image</label><input type="file" name="carimg"  id="carimg" onblur="Val(this.id)" required><br>
             <input type="submit" name="Add3" value="Add" ></form>
           </div>
@@ -450,18 +609,18 @@
               <option value="Automatic" >Automatic</option>
               <option value="Manual">Manual</option>
               <option value="Semi-Automatic and Dual Cluch">Semi-Automatic and Dual Cluch</option></select>     
-              <label>Engine Type</label><input style="margin-top:10px" type="text" name="engtype"><br>
+              <label>Engine Type</label><input style="margin-top:10px" onblur="engty(this.value)" type="text" name="engtype"><br>
               
           </div>
 
     	    <div class="col-sm-6">
             <div class="tab-content">
               <div class="tab-pane active" id="home"><br><br>
-                <label>No of Gear</label><input type="text" name="gearno" id="gearno" required><br>
-                <label>Millage</label><input type="text" name="millage" required><br>
-                <label>Engine CC</label><input type="text" name="power" required><br>
-  	            <label>BHP</label><input type="text" name="torque" required><br>
-                <label>Car Price</label><input type="text" name="price" required><br><br>     
+                <label>No of Gear</label><input type="text" name="gearno" id="gearno" onblur="len1(this.value)" required><br>
+                <label>Millage</label><input type="text" name="millage" onblur="mill(this.value)" required><br>
+                <label>Engine CC</label><input type="text" name="power" onblur="len(this.value)" required><br>
+  	            <label>BHP</label><input type="text" name="torque" onblur="engbhp(this.value)" required><br>
+                <label>Car Price</label><input type="text" name="price" onblur="cash(this.value)"  required><br><br>     
 	              <input type="submit" name="Add4" value="Add">
                 </form>    
               </div>
@@ -551,9 +710,19 @@
    $airbag=$_POST["airbag"];
    $emission=$_POST["emmi"];
    $desc=$_POST["desc"];
-
-   $sql1="insert into tbl_car (name,car_type,ground,steering,airbag,ac,capacity,length,width,heigth,bootspace,enc,seat,description) values ('$name','$cartype','$bodytype','$display',$airbag,'$ac',$capacity,$length,$width,$heigth,$boot,'$emission',$seat,'$desc')";
-   mysqli_query($con,$sql1);
+   $quer="select * from tbl_car where name='$name'";
+   $re=mysqli_query($con,$quer);
+   if(mysqli_num_rows($re)>0)
+   {
+       header("location:addcar.php?msg=* Car Already exist");
+   }
+   else{
+    $sql1="insert into tbl_car (name,car_type,ground,steering,airbag,ac,capacity,length,width,heigth,bootspace,enc,seat,description) values ('$name','$cartype','$bodytype','$display',$airbag,'$ac',$capacity,$length,$width,$heigth,$boot,'$emission',$seat,'$desc')";
+    $res=mysqli_query($con,$sql1);
+    if($res){
+      header("location:addcar.php?msg=* Successfully Added");
+      }
+    }
   }
   if(array_key_exists('Add2', $_POST))
   {
@@ -572,7 +741,10 @@
 
 
    $sql6="insert into tbl_model(model,wheel,fog_lamb,sensor,camera,powerstart,autoac,sunroof,headlamb,sterio,car_id,window) values('$model','$wheel','$fog','$sensor','$camera','$start','$auto','$sunroof','$headlamb','$sterio',$car,'$window')";
-   mysqli_query($con,$sql6);
+   $res1=mysqli_query($con,$sql6);
+   if($res1){
+    header("location:addcar.php?msg=* Successfully Added");
+    }
   }
 
   if(array_key_exists('Add3', $_POST))
@@ -582,10 +754,12 @@
    $carim=$_FILES["carimg"]["name"];
 
    $sql10="insert into colour(colour,image,car_id) values ('$colour','$carim','$car')";
-   mysqli_query($con,$sql10);
+   $res2=mysqli_query($con,$sql10);
    $ta="../upload/car/".$carim;
    move_uploaded_file($_FILES["carimg"]["tmp_name"],$ta);
-
+   if($res2){
+    header("location:addcar.php?msg=* Successfully Added");
+    }
   }
 
   if(array_key_exists('Add5', $_POST))
@@ -603,7 +777,7 @@
    $car10=$_FILES["car10"]["name"];
 
    $sql7="insert into tbl_carimage(main,image1,image2,image3,image4,image5,image6,image7,image8,image9,car_id) values ('$car1','$car2','$car3','$car4','$car5','$car6','$car7','$car8','$car9','$car10','$car')";
-   mysqli_query($con,$sql7);
+   $res3=mysqli_query($con,$sql7);
    $t="../upload/car/".$car1;
    move_uploaded_file($_FILES["car1"]["tmp_name"],$t);
    $v="../upload/car/".$car2;
@@ -624,7 +798,9 @@
    move_uploaded_file($_FILES["car9"]["tmp_name"],$n);
    $o="../upload/car/".$car10;
    move_uploaded_file($_FILES["car10"]["tmp_name"],$o);
-
+   if($res3){
+    header("location:addcar.php?msg=* Successfully Added");
+    }
   }
 
   if(array_key_exists('Add4', $_POST))
@@ -640,7 +816,10 @@
    $power=$_POST["power"];
    $torque=$_POST["torque"];
    $sql8="insert into tbl_transmission(type,fuel,enginecc,bhp,millage,price,car_id,model_id,gearno,engtype) values ('$gear','$fueltype',$power,'$torque',$millage,$price,$car,$model,$gearno,'$engtype')";
-   mysqli_query($con,$sql8);
+   $res4=mysqli_query($con,$sql8);
+   if($res4){
+    header("location:addcar.php?msg=* Successfully Added");
+    }
   }
  }
  else{

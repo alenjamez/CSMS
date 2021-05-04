@@ -195,6 +195,22 @@
                 document.getElementById("gen").focus();
             }
         }
+        function Val()
+        {
+            var fileInput = document.getElementById('img');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if(!allowedExtensions.exec(filePath)){
+            fileInput.value = '';
+            document.getElementById("error").innerHTML="* Must be only .jpg,.jepg,.png file";
+            document.getElementById("error").style.color = "red";
+	        return false;
+       }
+        else{
+            document.getElementById("error").innerHTML="";
+            return true;
+        }
+    }
         </script>
 
 </head>
