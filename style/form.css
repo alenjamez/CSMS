@@ -33,8 +33,7 @@ body{
   border-top: none;
   margin-bottom:20px;
   background-color: #fff;
-  margin-right:30px;
-  height:100%;
+  height:auto;
   position:relative;
   margin-left: 2%;
 }
@@ -46,18 +45,18 @@ body{
 
 .tabcontent input[type=text],[type=file],[type=email]{
   width:200px;
-  margin-right:70px;
+  margin-right:40px;
   float:right;
 }
 .tabcontent select{
   width:200px;
-  margin-right:70px;
+  margin-right:40px;
   float:right;
   height:35px;
 }
 .tabcontent textarea{
   width:200px;
-  margin-right:70px;
+  margin-right:40px;
   float:right;
 }
 .tabcontent .radio input[type=radio]{
