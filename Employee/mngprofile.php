@@ -1,6 +1,8 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+ ob_start();
  session_start();
+ $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {   
     $lid=$_SESSION['logid'];
@@ -242,7 +244,7 @@
 
             
             <li class="nav-item">
-              <a class="nav-link" href="mngprofile.php">
+              <a class="nav-link" href="mngprofile.php?msg=">
               <span>Profile</span></a>
             </li>
 
@@ -273,7 +275,7 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testapprove.php">
+                <a class="nav-link" href="testapprove.php?msg=">
                     <span>Test Drive</span></a>
             </li>
 
@@ -371,7 +373,7 @@
                     <div class="tab">
                     <button class="tablinks" style="margin-left:250px;" onclick="openCity(event, 'edit')" id="defaultOpen">Edit Details</button>
                     <button class="tablinks" onclick="openCity(event, 'change')">Change Password</button>
-                    </div>
+                    </div><span style="color:#008000; margin-left:20px" id="error"><?php echo $msg;?></span><br>
 
                     <div id="edit" class="tabcontent">
                     <div class="container bootstrap snippet">
@@ -379,7 +381,7 @@
                         <div class="col-sm-3">
                         <div class="text-center">
                         <form class="form" method="post" id="registrationForm1" enctype="multipart/form-data">
-                            <img  id="img1" src="<?php echo $propic;?>" class="avatar img-circle img-thumbnail" alt="avatar"><br>
+                            <img  id="img1" style="margin-top:50px" src="<?php echo $propic;?>" class="avatar img-circle img-thumbnail" alt="avatar"><br>
                             <input type="file"  class="text-center center-block file-upload" style="color:#141e30" name="img" id="img" onblur="Val()">
                         </div><br>
                             </div>

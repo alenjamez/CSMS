@@ -1,5 +1,6 @@
 <?php
-
+$file=$_GET['file'];
+$lid=$_GET['logid'];
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -20,43 +21,9 @@ $detectedImagesHtml = array();
 $numFeatures = 0;
 $uploadedImage = false;
 
-if (isset($_POST['upload_form_submitted']))
-{
-    if (! isset($_FILES['img_upload']) || empty($_FILES['img_upload']['name']))
-    {
-        $error = "<strong>Error:</strong> You didn't upload a file";
-    }
-    else
-    {
-        $allowedExtensions = array('jpg', 'jpeg', 'gif', 'png');
-        preg_match('/\\.(' . implode('|', $allowedExtensions) . ')$/i', $_FILES['img_upload']['name'], $fileExt);
-        if (! in_array(strtolower(substr($fileExt[0], 1)), $allowedExtensions))
-        {
-            $error = '<strong>Error:</strong> Invalid file format - please upload a picture (.jpg, .jpeg, .gif, .png) file';
-        }
-        $uploadedImage = $_FILES['img_upload']['tmp_name'];
-    }
-}
-
-
-if ($uploadedImage && !$error)
-{
-
-    // read image
-    switch(strtolower($fileExt[1]))
-    {
-        case 'jpg': case 'jpeg':
-            $origImage = imagecreatefromjpeg($uploadedImage);
-            break;
-
-        case 'gif':
-            $origImage = imagecreatefromgif($uploadedImage);
-            break;
-
-        case 'png':
-            $origImage = imagecreatefrompng($uploadedImage);
-            break;
-    }
+$fileExt=1;
+        $uploadedImage = "../bio/".$file;
+        $origImage = imagecreatefromjpeg($uploadedImage);
 
     // detect face/feature
     $faceDetector = new HaarDetector($haarcascade_frontalface_alt);
@@ -80,11 +47,6 @@ if ($uploadedImage && !$error)
             return $detectedImage;
         }, $faceDetector->objects);
 
-        // display images
-        switch(strtolower($fileExt[1]))
-        {
-            case 'jpg': case 'jpeg':
-
                 ob_start();
                 imagejpeg($origImage);
                 $origImageHtml='<img src="data:image/jpeg;base64,' . base64_encode(ob_get_clean()) . '" />';
@@ -94,62 +56,27 @@ if ($uploadedImage && !$error)
                     imagejpeg($detectedImage);
                     return '<img src="data:image/jpeg;base64,' . base64_encode(ob_get_clean()) . '" />';
                 }, $detectedImages);
-                break;
-
-            case 'gif':
-
-                ob_start();
-                imagegif($origImage);
-                $origImageHtml='<img src="data:image/gif;base64,' . base64_encode(ob_get_clean()) . '" />';
-
-                $detectedImagesHtml = array_map(function($detectedImage){
-                    ob_start();
-                    imagegif($detectedImage);
-                    return '<img src="data:image/gif;base64,' . base64_encode(ob_get_clean()) . '" />';
-                }, $detectedImages);
-                break;
-
-            case 'png':
-
-                ob_start();
-                imagepng($origImage);
-                $origImageHtml='<img src="data:image/png;base64,' . base64_encode(ob_get_clean()) . '" />';
-
-                $detectedImagesHtml = array_map(function($detectedImage){
-                    ob_start();
-                    imagepng($detectedImage);
-                    return '<img src="data:image/png;base64,' . base64_encode(ob_get_clean()) . '" />';
-                }, $detectedImages);
-                break;
-        }
     }
     else
     {
-        $error .= "<br /><strong>Nothing Found!</strong>";
-
-        // display image
-        switch($fileExt[1])
-        {
-            case 'jpg': case 'jpeg':
-
-                ob_start();
-                imagejpeg($origImage);
-                $origImageHtml = '<img src="data:image/jpeg;base64,' . base64_encode(ob_get_clean()) . '" />';
-                break;
-
-            case 'gif':
-
-                ob_start();
-                imagegif($origImage);
-                $origImageHtml = '<img src="data:image/gif;base64,' . base64_encode(ob_get_clean()) . '" />';
-                break;
-
-            case 'png':
-
-                ob_start();
-                imagepng($origImage);
-                $origImageHtml = '<img src="data:image/png;base64,' . base64_encode(ob_get_clean()) . '" />';
-                break;
-        }
+        header("location:../../att.php?msg=* Face not Found");
     }
-}
+?>
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="css.css" />
+    </head>
+    <body>
+    <h2>Original Image</h2>
+    <?php echo $origImageHtml; ?>
+
+    <h2>Detected Features ( <?php echo $numFeatures; ?> )</h2>
+    <ul style="list-style-type:none">
+    <?php foreach ($detectedImagesHtml as $img) { ?>
+        <li><?php echo $img; ?></li>
+    <?php } ?>
+    </ul>
+
+</body>
+
+</html>

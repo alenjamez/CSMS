@@ -1,13 +1,4 @@
 <?php
-/**
-*
-* HaarDetector: Feature Detection Library based on Viola-Jones / Lienhart et al. Haar Detection algorithm
-* modified port of jViolaJones for Java (http://code.google.com/p/jviolajones/) and OpenCV for C++ (https://github.com/opencv/opencv) to PHP
-*
-* https://github.com/foo123/HAARPHP
-* @version: 1.0.2
-*
-**/
 
 if (! class_exists('HaarDetector'))
 {
@@ -78,6 +69,7 @@ class HaarDetector
             // copy image data
             $this->canvas = imagecreatetruecolor($sw, $sh);
             imagecopyresampled($this->canvas, $image, 0, 0, 0, 0, $sw, $sh, $w, $h);
+            //imagecopyresampled($this->canvas, $image, 0, 0, 0, 0, $sw, $sh, $w, $h);
 
             // compute image data now, once per image change
             $gray =& $this->integralImage($this->canvas, $sw, $sh);
