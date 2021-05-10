@@ -46,32 +46,8 @@ if(isset($_POST['send']))
     }
     </style>
      
-<script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
+<script src="assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
 <script>
-       function rname()
-        {
-        var nam=document.getElementById("name").value;
-        var nam1=/^[a-zA-Z]+$/;
-        
-        if(nam=="")
-            {
-                document.getElementById("name").style.borderColor = "red";
-                document.getElementById("name").focus();
-            return false;
-            }
-        if(nam.match(nam1))
-            {
-              document.getElementById("name").style.borderColor = "#dddddd";
-        
-            }
-        else
-            {
-                document.getElementById("name").style.borderColor = "red";
-                document.getElementById("name").focus();
-            return false;
-        
-            }
-        }
         function loca()
         {
         var loc=document.getElementById("loc").value;
@@ -92,9 +68,34 @@ if(isset($_POST['send']))
                 document.getElementById("loc").focus();
             }
         }
+        function dates(){
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            a=d+10;
+            if(d<10){
+              var d=""+0+d;
+            }
+            if(m<10){
+              var m=""+0+m;
+            }
+            if(a<10){
+              var a=""+0+a;
+            }
+            document.getElementById("date").max = y+ "-" + m + "-" + a;
+            document.getElementById("date").min = y + "-" + m + "-" + d;
+        }
+        function msge(){
+          document.getElementById("err").innerHTML = "Book testdrive on your location";
+        }
+        function on(){
+          var dat=document.getElementById("date").value;
+          alert(dat);
+        }
 </script>
   </head>
-  <body class="page">
+  <body class="page" onload="dates()">
                
     <!-- Loader-->
       <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
@@ -178,7 +179,8 @@ while ($row=mysqli_fetch_array($query)) {
                           $quer=mysqli_query($con,"select * from colour where car_id='$carid' order by rand()");
                           while($row1=mysqli_fetch_array($quer)){?>
                       <div class="item">                  
-                      <img width="100" height="100" src="upload/car/<?php echo $row1['image'];?>" alt="<?php echo $row1['colour'];?>" onclick="myFunction(this);">
+                      <img width="50" height="50" style="border:25px;background-color:<?php echo $row1['colour'];?>"src="upload/car/<?php echo $row1['image'];?>" alt="<?php echo $row1['colour'];?>" onclick="myFunction(this);">
+                      <button style="background-color:red">Hello</button>
                     </div>
                       <?php
                           }
@@ -254,9 +256,9 @@ while ($row=mysqli_fetch_array($query)) {
                             // $query8=mysqli_query($con,"select * from tbl_transmission where model_id=$row[model_id]");
                             // while($row2=mysqli_fetch_array($query8)){?>
                               <a href="viewmodeldetail.php?cid=<?php echo $carid;?>&mid=<?php echo $mid;?>&tran=<?php echo $trans;?>&fuel=<?php echo $fuel;?>"><li><?php echo $name," ", $model," (",$trans," | ",$fuel,")";?>&nbsp;&nbsp;&nbsp;&#x20B9;<?php echo $price;?><i>Lacs.</i> </li></a>
-                        
-<?php }
-}?>
+                                              
+                      <?php }
+                      }?>
                     </ul>
                   </div>
              
@@ -275,8 +277,8 @@ while ($row=mysqli_fetch_array($query)) {
                       <div class="b-seller__title">
                              <h3 class="widget-title bg-dark">Showroom Details </h3>
                         <div class="b-seller__category" align="center" style="margin-top:4%;font-size:17px;">
-<i class="b-seller__ic fas fa-map-marker text-primary"></i>
-URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
+                      <i class="b-seller__ic fas fa-map-marker text-primary"></i>
+                      URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
                       </div>
                     </div>
                     <div class="b-seller__main" style="font-size:22px;" align="center">
@@ -290,17 +292,17 @@ URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
                   <div class="widget section-sidebar bg-gray widget-selecr-contact" style="margin-top:3%">
                       <h3 class="widget-title bg-dark"><i class="ic icon_mail_alt"></i>Book for Test Drive</h3>
                     <div class="widget-content">
+                    <label id="err" style="color:red;"></label>
                       <div class="widget-inner">
                    <form method="post" enctype="multipart/form-data">
+
                           <div class="form-group">
-                            <input class="form-control" type="date"  name="date" required="true" placeholder="date of appoinment" max="2021-4-30" min="2021-4-27"/>
+                          <input class="form-control" type="text" autocomplete="off" name="loc" id="loc" onclick="msge()" placeholder="Location" onblur="loca()" required="true"/>
                           </div>
                           <div class="form-group">
-                            <input class="form-control" type="text" autocomplete="off" name="name" id="name" onblur="rname()" required="true" placeholder="Name"/>
+                            <input class="form-control" type="date"  name="date" id="date" max="" min="" onblur="on()" required/>
                           </div>
-                          <div class="form-group">
-                          <input class="form-control" type="text" autocomplete="off" name="loc" id="loc" onblur="loca()" placeholder="Location" required="true"/>
-                          </div>
+                      
                           <div class="form-group">
                           <select name="trans" class="form-control" required>
                           <option value="" disabled selected>Choose Transmission Type</option>
