@@ -98,7 +98,7 @@ if(isset($_POST['send']))
   <body class="page" onload="dates()">
                
     <!-- Loader-->
-      <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
+      <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div> -->
     <!-- Loader end-->
 
       
@@ -177,10 +177,10 @@ while ($row=mysqli_fetch_array($query)) {
                   <div class="grid-container">
                       <?php
                           $quer=mysqli_query($con,"select * from colour where car_id='$carid' order by rand()");
-                          while($row1=mysqli_fetch_array($quer)){?>
+                          while($row1=mysqli_fetch_array($quer)){
+                            $arr = explode(' ', trim($row1['colour']));?>
                       <div class="item">                  
-                      <img width="50" height="50" style="border:25px;background-color:<?php echo $row1['colour'];?>"src="upload/car/<?php echo $row1['image'];?>" alt="<?php echo $row1['colour'];?>" onclick="myFunction(this);">
-                      <button style="background-color:red">Hello</button>
+                      <button style="background-color:<?php echo $arr[count($arr)-1];?>" id="btn_color" value="upload/car/<?php echo $row1['image'];?>"  title="<?php echo $row1['colour'];?>" onclick="myFunction(this);"></button>
                     </div>
                       <?php
                           }
@@ -384,8 +384,8 @@ while ($row=mysqli_fetch_array($query)) {
     function myFunction(imgs) {
       var expandImg = document.getElementById("expandedImg");
       var imgText = document.getElementById("imgtext");
-      expandImg.src = imgs.src;
-      imgText.innerHTML = imgs.alt;
+      expandImg.src = imgs.value;
+      imgText.innerHTML = imgs.title;
       expandImg.parentElement.style.display = "block";
     }
     </script>
