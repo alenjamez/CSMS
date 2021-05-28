@@ -62,7 +62,7 @@ while ($row=mysqli_fetch_array($query)) {
               
 
             <div class="row">
-              <div class="col-lg-8">
+              <div class="col-lg-12">
                 
                 <div class="b-goods-f__slider">
                   <div class="ui-slider-main js-slider-for">

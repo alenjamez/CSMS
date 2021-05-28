@@ -60,13 +60,13 @@
 	    left:0;
     } */
     .loginform{
-      margin-top: 12%;
+      margin-top: 8%;
       padding: 20px 5px 20px 5px;
       border: 2px solid  #c1c8e4;
       border-radius: 10px;
       box-shadow: rgba(133, 133, 133, 0.603) 10px 10px 10px;
-      margin-left: 30%;
-      margin-right: 30%;
+      margin-left: 35%;
+      margin-right: 35%;
 
     }
     .loginform .input{
@@ -87,7 +87,7 @@
         <div class="loginform">
             <form method="post" action="php/fpEmailValidation.php" enctype="multipart/form-data">
             <center><h3 style="color:#f2f2f2"><b>Verify Email</h3></b></center><br><br>
-            <div class="input-group">
+            <div class="form-group">
             <?php
 						if(isset($_GET['err'])){
 							if($_GET["err"]=="MailError"){

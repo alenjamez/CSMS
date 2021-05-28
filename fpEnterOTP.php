@@ -52,13 +52,13 @@
 	    left:0;
     } */
     .loginform{
-      margin-top: 12%;
+      margin-top: 8%;
       padding: 20px 5px 20px 5px;
       border: 2px solid  #c1c8e4;
       border-radius: 10px;
       box-shadow: rgba(133, 133, 133, 0.603) 10px 10px 10px;
-      margin-left: 30%;
-      margin-right: 30%;
+      margin-left: 35%;
+      margin-right: 35%;
 
     }
     .loginform .input{
@@ -79,7 +79,7 @@
         <div class="loginform">
             <form method="post" action="php/fpOtpValidation.php" enctype="multipart/form-data">
             <center><h3 style="color:#f2f2f2"><b>Verify OTP</h3></b></center><br><br>
-            <div class="input-group">
+            <div class="form-group">
 			<?php
 						if(isset($_GET['err'])){
 							echo '<input type="text" class="form-control" placeholder="Invalid OTP" name ="otp" id="otp" onclick=ee() onblur="uname()" required><br>';
@@ -89,9 +89,10 @@
 						}
             		?>
 
-					<br><a href="php/fpEmailValidation.php" style="color:#f2f2f2;">Resend</a><br>
+					<br><br>
             <div class="form-group"><input type="submit" value="Verify" class="form-control" name="button"></div>
-            <footer><a href="login.php?msg=" style="color:#f2f2f2;">Home</a></footer>
+            <footer><a href="php/fpEmailValidation.php" style="color:#f2f2f2;">Resend</a><br>
+            <a href="login.php?msg=" style="color:#f2f2f2;">Home</a></footer>
             </form>
           </div>
         <div>

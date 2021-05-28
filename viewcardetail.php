@@ -44,6 +44,20 @@ if(isset($_POST['send']))
     #model:hover{
       text-decoration:none;
     }
+    a.moreim {
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    border-top-left-radius: 4px;
+    color: #fff;
+    font-size: 13px;
+    height: 32px;
+    padding: 0 8px;
+    right: 0;
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    position: absolute;
+}
     </style>
      
 <script src="assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
@@ -78,20 +92,26 @@ if(isset($_POST['send']))
               var d=""+0+d;
             }
             if(m<10){
-              var m=""+0+m;
+              var mn=""+0+m;
+            }
+            document.getElementById("date").min = y + "-" + mn + "-" + d;
+            if(a>30){
+              a=a-30;
+              m=m+1;
+              if(m>12){
+                m=m-12;
+               }
+               if(m<10){
+              var mn=""+0+m;
+              }
             }
             if(a<10){
               var a=""+0+a;
             }
-            document.getElementById("date").max = y+ "-" + m + "-" + a;
-            document.getElementById("date").min = y + "-" + m + "-" + d;
+            document.getElementById("date").max = y+ "-" + mn + "-" + a;
         }
         function msge(){
           document.getElementById("err").innerHTML = "Book testdrive on your location";
-        }
-        function on(){
-          var dat=document.getElementById("date").value;
-          alert(dat);
         }
 </script>
   </head>
@@ -163,9 +183,20 @@ while ($row=mysqli_fetch_array($query)) {
                      $image=$rows['main'];
                     }
                     ?>
-                   <a href="carimage.php?carid=<?php echo $carid;?>"> <img class="img-scale" src="upload/car/<?php echo $image;?>"  /></a>
+                   <a href="carimage.php?carid=<?php echo $carid;?>"> <img class="img-scale" src="upload/car/<?php echo $image;?>"  />
+                   <spam ig="ggg">More images</spam></a>
                   </div>
-                </div><h6>*Click on image to view more image</h6><br> 
+                </div> 
+                <ul class="nav nav-tabs nav-vehicle-detail-tabs" id="myTab" role="tablist">
+                  <li class="nav-item"><a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true"><strong>Overview</strong></a></li>
+              
+               
+                 
+                </ul>
+                <hr />
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                    <p><?php echo $row['description'];?></p>
                 <h2 class="b-goods-f__title">Colours</h2>
                 <div class="container" id="bat">
                     <img id="expandedImg" style="width:80%">
@@ -179,7 +210,7 @@ while ($row=mysqli_fetch_array($query)) {
                           $quer=mysqli_query($con,"select * from colour where car_id='$carid' order by rand()");
                           while($row1=mysqli_fetch_array($quer)){
                             $arr = explode(' ', trim($row1['colour']));?>
-                      <div class="item">                  
+                      <div class="collu">                  
                       <button style="background-color:<?php echo $arr[count($arr)-1];?>" id="btn_color" value="upload/car/<?php echo $row1['image'];?>"  title="<?php echo $row1['colour'];?>" onclick="myFunction(this);"></button>
                     </div>
                       <?php
@@ -223,20 +254,6 @@ while ($row=mysqli_fetch_array($query)) {
                     </dl>
                   </div>
                 </div>
-
-
-
-                
-                <ul class="nav nav-tabs nav-vehicle-detail-tabs" id="myTab" role="tablist">
-                  <li class="nav-item"><a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true"><strong>Overview</strong></a></li>
-              
-               
-                 
-                </ul>
-                <hr />
-                <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                    <p><?php echo $row['description'];?></p>
                     <h3 class="b-goods-f__title-inner">Versions</h3>
                     <ul class="list list-mark-2">
                     <?php

@@ -70,13 +70,13 @@
 	    left:0;
     } */
     .loginform{
-      margin-top: 12%;
+      margin-top: 8%;
       padding: 20px 5px 20px 5px;
       border: 2px solid  #c1c8e4;
       border-radius: 10px;
       box-shadow: rgba(133, 133, 133, 0.603) 10px 10px 10px;
-      margin-left: 30%;
-      margin-right: 30%;
+      margin-left: 35%;
+      margin-right: 35%;
 
     }
     .loginform .input{
@@ -97,12 +97,12 @@
         <div class="loginform">
             <form method="post" action="php/fpPasswordUpdation.php" enctype="multipart/form-data">
             <center><h3 style="color:#f2f2f2"><b>Create New Password</h3></b></center><br><br>
-            <div class="input-group">
+            <div class="form-group">
 			<center>
 					<!-- <p>Enter a new password including uppercase, lowercase,numbers and special charecters with minimum of 8 length</p> -->
 					<!-- <input type="password" id="pass" class="inputs" name="password" placeholder="New password" onblur="email_id(this.id)"/> -->
 
-					<input type="password" class="form-control" placeholder="Enter New Password" name ="password" id="p1"  onblur="pass()"required><br><br>
+					<input type="password" class="form-control" placeholder="Enter New Password" name ="password" id="p1"  onblur="pass()"required><br>
 					<input type="password" class="form-control" placeholder="Confirm Password" name ="pass2" id="p2"  onblur="check()"required><br>
 					<!-- <a href="ForgotPassword.php">Resend</a> -->
 					<br>

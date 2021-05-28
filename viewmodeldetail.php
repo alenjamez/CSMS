@@ -192,7 +192,24 @@ while ($row=mysqli_fetch_array($query)) {
               <div class="col-lg-4">
                 
 
-
+              <div class="b-seller" style="border: solid #000 1px; height:200px;">
+                    <div class="b-seller__header">
+                     
+                      <div class="b-seller__title">
+                             <h3 class="widget-title bg-dark">Offers </h3>
+                             <?php
+                             $sql1="select * from tbl_offer where car_id=$carid and status=1"
+                             ?>
+                        <div class="b-seller__category" align="center" style="margin-top:4%;font-size:17px;">
+                      <i class="b-seller__ic fas fa-map-marker text-primary"></i>
+                      URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
+                      </div>
+                    </div>
+                    <div class="b-seller__main" style="font-size:22px;" align="center">
+                      <div class="b-seller__contact"><i class="b-seller__ic fas fa-phone text-primary"></i> &nbsp;+91 999 888 9990</div>
+                     
+                    </div>
+                  </div>
                   <!-- The expanding image container -->
 
              

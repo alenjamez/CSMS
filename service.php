@@ -2,17 +2,101 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-?>
+if(isset($_POST['send']))
+ {
+
+    if(isset($_SESSION['user']))
+      {
+        $lid=$_SESSION['logid'];
+        $car=$_POST['name'];
+        $date=$_POST['date'];
+        $km=$_POST['km'];
+        $trans=$_POST['trans'];
+        $enquirynumber = mt_rand(100000000, 999999999);
+        $carid=$_GET['carid'];
+        $que="insert into  tbl_ltestdrive(name,date,location,gear,login_id,car_id,enquiryno) value('$fullname','$date','$location','$trans',$lid,$carid,'$enquirynumber')";
+        $query3=mysqli_query($con,$que);
+            if ($query3) {
+            echo '<script>alert("Your booking has successfully send.")</script>';
+            echo "<script>window.location.href='car-list.php'</script>";
+              }
+              else{
+                  $msg="Something Went Wrong. Please try again";
+                }
+      }
+        else{
+          header("location:login.php?msg=");
+        }
+    }
+
+  ?>
 
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
-      
-      <title>Car Showroom Management System / Car List</title>
-     
-      <link rel="stylesheet" href="assets/css/master.css">
+    <title>Car Showroom Management System </title>
+    <link rel="stylesheet" href="assets/css/master.css">
+    <script src="assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
+    <script>
+          function dates(){
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            a=d+30;
+            if(d<10){
+              var d=""+0+d;
+            }
+            if(m<10){
+              var mn=""+0+m;
+            }
+            document.getElementById("dat").min = y + "-" + mn + "-" + d;
+            if(a>30){
+              a=a-30;
+              m=m+1;
+              if(m>12){
+                m=m-12;
+               }
+               if(m<10){
+              var mn=""+0+m;
+              }
+            }
+            if(a<10){
+              var a=""+0+a;
+            }
+            document.getElementById("dat").max = y+ "-" + mn + "-" + a;
+        }
+      function msge(){
+          document.getElementById("err").innerHTML = "Book for your vehicle sevice";
+        }
+      function test3(value)
+        {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function()
+          {
+              if (this.readyState == 4 && this.status == 200) 
+              {
+                document.getElementById("mod").innerHTML=this.responseText;
+              }
+          };
+          xhttp.open("GET", "Admin/selectmodel.php?id="+value, true);
+          xhttp.send();
+        }
+        function kilmtr()
+        {
+          var k=document.getElementById("km").value;
+          if ((k>1) && (k<300000)){
+            document.getElementById("err").innerHTML="";
+            document.getElementById("km").style.borderColor = "";
+          }
+          else{
+            document.getElementById("err").innerHTML="* Enter a valid Kilometre";
+            document.getElementById("km").style.borderColor = "red";
+          }
+        }
+    </script>
   </head>
-  <body class="page">
+  <body class="page" onload="dates()">
               
     <!-- Loader-->
       <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
@@ -27,11 +111,11 @@ include('includes/dbconnection.php');
               <div class="row">
                 <div class="col offset-lg-3">
                   <div class="b-title-page__wrap">
-                    <h1 class="b-title-page">Car Listings</h1>
+                    <h1 class="b-title-page">Service</h1>
                     <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Listing</li>
+                        <li class="breadcrumb-item active" aria-current="page">Service</li>
                       </ol>
                       <!-- end breadcrumb-->
                     </nav>
@@ -45,10 +129,60 @@ include('includes/dbconnection.php');
         <div class="l-main-content">
           <div class="container">
             <div class="row">
-              <div class="col-lg-3">
-         <?php include_once("includes/sidebar.php");?>
+              <div class="col-lg-5">
+              <div class="widget section-sidebar bg-gray widget-selecr-contact">
+                      <h3 class="widget-title bg-dark"><i class="ic icon_mail_alt"></i>Book for Service</h3>
+                    <div class="widget-content">
+                    <label id="err" style="color:red;"></label>
+                      <div class="widget-inner">
+                   <form method="post" enctype="multipart/form-data">
+                          <div class="form-group">
+                              <select class="form-control" id="seler" name="car" onChange="test3(this.value)" onclick="msge()" required>
+                              <option value="" disabled selected>Choose Car</option> 
+                                <?php 
+                                  $sql3="select car_id,name from tbl_car where status=1";
+                                  $res=mysqli_query($con,$sql3);
+                                  while($row=mysqli_fetch_array($res))
+                                  {
+                                    echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+                                  }
+                                ?></select>
+                          </div>
+                          <div class="form-group">
+                            <select class="form-control" name="mod" id="mod" required>
+                            <option value="" disabled selected>Choose model</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" type="text" autocomplete="off" name="km" id="km" placeholder="Kilometres" onblur="kilmtr()" required="true"/>
+                          </div>
+                          <div class="form-group">
+                            <input class="form-control" type="date"  name="dat" id="dat" max="" min="" onblur="on()" required/>
+                          </div>
+                      
+                          <div class="form-group">
+                            <select name="ser" class="form-control" required>
+                              <option value="" disabled selected>Choose service Type</option>
+                              <option value="First Service" >First Service</option>
+                              <option value="Second Service">Second Service</option>
+                              <option value="Third Service">Third Service</option>
+                              <option value="Half  Yearly">Half  Yearly</option>
+                              <option value="Yearly">Yearly</option>
+                              <option value="Special Case">Special Case</option>
+                            </select>  
+                          </div>
+                          <div class="form-group">
+                            <p>Do you need a pickup.(*charges applied)</p>
+                            <input type="radio" style="margin-left:20px" id="pick" name="pick"  >Yes&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" id="pick" name="pick"  >No
+                          </div>
+                          <input class="btn btn-red btn-lg w-100" name="send" type="submit" value="Book now" onsubmit="rname();loca();">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
               </div>
-              <div class="col-lg-9">
+              <div class="col-lg-7">
                 <div class="b-filter-goods">
                   <div class="row justify-content-between align-items-center">
              
