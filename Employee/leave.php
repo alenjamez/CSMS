@@ -1,13 +1,7 @@
 <?php
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
-$file=$_GET['file'];
-$lid=$_GET['logid'];
-
-error_reporting(E_ALL);
-set_time_limit(0);
-ob_start();
+ $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- //$msg=$_GET['msg'];
+ $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
     $lid=$_SESSION['logid'];
@@ -16,87 +10,12 @@ ob_start();
     $res=mysqli_query($con,$sql);
     while($row=mysqli_fetch_array($res))
       {
-        $propic='../../../upload/profile/'.$row["pic"];
-        $face=$row["face"];
+        $propic='../upload/profile/'.$row["pic"];
       }
 
-define('ABSPATH', dirname(dirname(__FILE__)));
-
-global $error, $origImageHtml, $numFeatures, $detectedImagesHtml, $haarcascade_frontalface_alt;
-
-require(ABSPATH.'/cascades/haarcascade_frontalface_alt.php');
-require(ABSPATH.'/src/HaarDetector.php');
-
-
-
-/* ------------------------------------------------
-| UPLOAD FORM - validate form and handle submission
--------------------------------------------------- */
-$error = false;
-$origImageHtml = '';
-$detectedImagesHtml = array();
-$numFeatures = 0;
-$uploadedImage = false;
-$fileName="";
-
-$fileExt=1;
-        $uploadedImage = "../bio/".$file;
-        $origImage = imagecreatefromjpeg($uploadedImage);
-
-    // detect face/feature
-    $faceDetector = new HaarDetector($haarcascade_frontalface_alt);
-    // cannyPruning sometimes depends on the image scaling, small image scaling seems to make canny pruning fail (if doCannyPruning is true)
-    // optionally different canny thresholds can be set to overcome this limitation
-    $found = $faceDetector
-                /* normalise image to some standard dimensions eg. 150 px width so that detection parameters below remain relatively standard as well */
-                ->image($origImage, 150 / imagesx($origImage))
-                ->cannyThreshold(array('low'=>80, 'high'=>200))
-                ->detect(1, 1.1 /*1.25*/, 0.12 /*0.2*/, 1, 0.2, false)
-            ;
-
-    // if detected
-    if ($found)
-    {
-        $numFeatures = count($faceDetector->objects);
-        // create feature images from original image
-        $detectedImages = array_map(function($feature) use($origImage) {
-            $detectedImage = imagecreatetruecolor($feature->width, $feature->height);
-            imagecopy($detectedImage, $origImage, 0, 0, $feature->x, $feature->y, $feature->width, $feature->height);
-            return $detectedImage;
-        }, $faceDetector->objects);
-
-                ob_start();
-                imagejpeg($origImage);
-                $origImageHtml='<img src="data:image/jpeg;base64,' . base64_encode(ob_get_clean()) . '" />';
-
-                $detectedImagesHtml = array_map(function($detectedImage){
-                    ob_start();
-                    imagejpeg($detectedImage);
-                    return '<img src="data:image/jpeg;base64,' . base64_encode(ob_get_clean()) . '" />';
-                }, $detectedImages);
-
-                $folderPath = "../bio/";
-                $image="admin.php";
-                foreach ($detectedImagesHtml as $img) { 
-                    $image=$img; 
-                     }
-    
-                $image_parts = explode(";base64,", $image);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-             
-                $image_base64 = base64_decode($image_parts[1]);
-                $fileName = uniqid() . '.jpeg';
-                $file = $folderPath . $fileName;
-                file_put_contents($file, $image_base64);
-    }
-    else
-    {
-        header("location:../../att.php?msg=* Face not Found");
-    }
-    
-?>
-<!DOCTYPE html>
+   
+ ?>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -116,11 +35,48 @@ $fileExt=1;
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../../../Admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <script>
+        function update(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","levdelete.php?id="+id);
+            frm.submit();
+        }
+        function dates(){
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            a=d+10;
+            if(d<10){
+              var d=""+0+d;
+            }
+            if(m<10){
+              var mn=""+0+m;
+            }
+            document.getElementById("date").min = y + "-" + mn + "-" + d;
+        }
+        function reason()
+        {
+        var rsn=document.getElementById("rsn").value;
+        var rsn1=/^[a-zA-Z]+(\s[a-zA-Z]+)+(\s[a-zA-Z]+)?$/;
+        if(rsn.match(rsn1))
+            {
+                document.getElementById("err").innerHTML = "";
+                document.getElementById("rsn").style.borderColor="#dddddd";
+        
+            }
+        else
+            {
+                document.getElementById("err").innerHTML = "* Must only contain letters";
+                document.getElementById("rsn").style.borderColor = "red";
+                document.getElementById("rsn").focus();
+            }
+        }
+  </script>
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="dates()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -141,13 +97,13 @@ $fileExt=1;
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="../../mngdash.php">
+                <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="../../mngprofile.php">
+                        <!-- Nav Item - Sales -->
+                        <li class="nav-item">
+              <a class="nav-link" href="mngprofile.php">
               <span>Profile</span></a>
             </li>
 
@@ -167,6 +123,7 @@ $fileExt=1;
                 </div>
             </li>
 
+
             <!-- Nav Item - Service -->
             <li class="nav-item">
             <a class="nav-link" href="">
@@ -176,13 +133,13 @@ $fileExt=1;
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="../../testapprove.php">
+                <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
             </li>
-
+            
             <!-- Nav Item - Sales -->
             <li class="nav-item">
-              <a class="nav-link" href="../../sales.php">
+              <a class="nav-link" href="sales.php">
               <span>Sales</span></a>
             </li>
             <!-- Divider -->
@@ -209,6 +166,20 @@ $fileExt=1;
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
+
+                    <!-- Topbar Search -->
+                    <!-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -243,13 +214,11 @@ $fileExt=1;
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                        <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $usr;?></span>
                                 <img class="img-profile rounded-circle"
                                     src="<?php echo $propic;?>">
-                            </a>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -270,61 +239,91 @@ $fileExt=1;
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+                    <h1 class="h3 mb-4 text-gray-800">Leave</h1>
+
+                    <div class="card shadow mb-4"><br>
+                    <h3 class="h5 mb-4 text-gray-800" style="margin-left:10px">Apply for Leave</h3>
+                        <div class="card-body"> 
+                        <label id="err" style="color:red;float:right"><?php echo $msg; ?></label>
+                        <form method="post" enctype="multipart/form-data" action="addleave.php">
+                          <div class="form-group">
+                           <input class="form-control" type="text" autocomplete="off" name="rsn" id="rsn" placeholder="Reason" onblur="reason()" required="true"/>
+                          </div>
+                          <div class="form-group">
+                            <input class="form-control" type="date"  name="date" id="date" max="" min="" onblur="on()" required/>
+                          </div>
+                          <div class="form-group">
+                          <select name="sessn" id="sessn" class="form-control" required>
+                          <option value="" disabled selected>Choose Session</option>
+                          <option value="Full day" >Full day</option>
+                          <option value="Till Noon">Till Noon</option>
+                          <option value="After Noon">After Noon</option></select>  
+                          </div>
+                          <input class="btn btn-sm btn-primary" style="float:right;margin-right:50px;" name="request" type="submit" value="Request" onsubmit="reason();">
+                          </form>
+                        </div>
                     </div>
-                    <?php
-                    if(is_null($face))
-{
-  ?>
-                    <p style="color:#008000;">* Ensure that your face is clear.</p>
-                    <!-- <label id="msg" style="color:red;"><?php echo $msg?></label> -->
-                    <!-- Content Row -->
-                    <div class="row">
-                    <form method="POST">
-                            <div class="row">
-                            <center>
-                                <div class="col-md-12">
-                                   <img style="margin-left: 50%;" name="facedt" src=" <?php  echo $file; ?>">
-                                   <input type="text" name="facedetct" id="facedetct" value="<?php  echo $file; ?>" hidden>
-                                </div>
-                                <div class="col-md-12 text-center">
-                                    <br/>
-                                    <input type="submit" name="submit" class="btn btn-success" value="Save">
-                                </div>
-                            </div></center>
-                        </form>
-                        <?php
-}
-else{
-?>
 
-                        <?php }
-?>
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th >Sl no</th>
+                                        <th >Date</th>
+                                        <th >Reason</th>
+                                        <th >Session</th>
+                                        <th >Status</th>
+                                        <th ></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $count=1;
+                                        $query=mysqli_query($con,"select * from tbl_leave where login_id=$lid");
+                                        while ($rows=mysqli_fetch_array($query)) {
+                                            $leaveid=$rows['leave_id'];
+                                            echo "<tr><td>";
+                                            echo $count;
+                                            echo "</td><td>";
+                                            echo $rows['date'];
+                                            echo "</td><td>";
+                                            echo $rows['reason'];
+                                            echo "</td><td>";
+                                            echo $rows['session'];
+                                            echo "</td><td>";
+                                            echo $rows['status'];
+                                            ?><form action="approv.php" method="POST" id="frmm">
+                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="Delete" id="<?php echo $leaveid; ?>" onclick="update(this.id)" >
+                                            </td></tr></form><?php
+                                        }
+                                    ?>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Content Row -->
- 
-
+                
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
-<b><br>
+
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <!-- <a class="scroll-to-top rounded" href="#page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a> -->
-     <!-- Logout Modal-->
-     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -361,25 +360,13 @@ else{
     <!-- Page level custom scripts -->
     <script src="../Admin/js/demo/chart-area-demo.js"></script>
     <script src="../Admin/js/demo/chart-pie-demo.js"></script>
+
 </body>
 
 </html>
 <?php
-if(array_key_exists('submit', $_POST))
- { 
-   $facedt=$_POST["facedetct"];
-   $sql="update tbl_emp set face='$facedt' where login_id=$lid";
-   if(mysqli_query($con,$sql)){
-    
-    header("Location:att.php");
-    }
-    else{
-        echo "somthing went wrong !";
-    }    
-  }
 }
 else{
   header("location:../login.php?msg=");
 }
 ?>
-

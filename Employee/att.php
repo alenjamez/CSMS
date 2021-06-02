@@ -12,10 +12,11 @@
     while($row=mysqli_fetch_array($res))
       {
         $propic='../upload/profile/'.$row["pic"];
+        $face=$row["face"];
       }
    
  ?>
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -197,7 +198,35 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-
+                    <?php
+                    if(is_null($face))
+{
+  ?>
+                    <p style="color:#008000;">* Register your face.</p>
+                    <label id="msg" style="color:red;"><?php echo $msg?></label>
+                    <!-- Content Row -->
+                    <div class="row">
+                    <form method="POST">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="my_camera"></div>
+                                    <br/>
+                                    <input type="button" value="Take Snapshot" onClick="take_snapshot()">
+                                    <input type="hidden" name="image" class="image-tag">
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="results"></div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <br/>
+                                    <input type="submit" name="submit" class="btn btn-success" value="Submit">
+                                </div>
+                            </div>
+                        </form>
+                        <?php
+}
+else{
+?>
                     <p style="color:#008000;">* Make sure that the image is clear and perfect</p>
                     <label id="msg" style="color:red;"><?php echo $msg?></label>
                     <!-- Content Row -->
@@ -219,7 +248,8 @@
                                 </div>
                             </div>
                         </form>
-
+                        <?php }
+?>
 
                     <!-- Content Row -->
  

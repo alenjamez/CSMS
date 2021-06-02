@@ -10,6 +10,7 @@
   while($row=mysqli_fetch_array($res))
     {
       $propic='../upload/profile/'.$row["pic"];
+      $face=$row["face"];
     }
     
 ?>
@@ -150,7 +151,34 @@
 <div class="name">
 <h6 style="margin-left:10px;"><a href="#"style="text-decoration:none;color:black;">Home</a>&nbsp;/&nbsp;Attendance</h6>
 </div><br>
-
+<?php
+if(is_null($face))
+{
+  ?>
+  <div class="table"> 
+  <label id="msg" style="color:#008000;"></label>
+  <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="my_camera"></div>
+                <br/>
+                <input type="button" value="Take Snapshot" onClick="take_snapshot()">
+                <input type="hidden" name="image" class="image-tag">
+            </div>
+            <div class="col-md-6">
+                <div id="results"></div>
+            </div>
+            <div class="col-md-12 text-center">
+                <br/>
+                <input type="submit" class="btn btn-success" value="Submit">
+            </div>
+        </div>
+    </form>
+   </div>
+  <?php
+}
+else{
+?>
 <div class="table"> 
   <label id="msg" style="color:#008000;"></label>
   <form method="POST">
@@ -171,7 +199,8 @@
         </div>
     </form>
    </div>
-
+<?php }
+?>
 
 
   <script type="text/javascript">
