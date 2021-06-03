@@ -1,7 +1,6 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
     $lid=$_SESSION['logid'];
@@ -95,9 +94,16 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="empdash.php">
+                <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
+            </li>
+
+                        <!-- Nav Item - Sales -->
+                        <li class="nav-item">
+              <a class="nav-link" href="mngprofile.php">
+              <span>Profile</span></a>
             </li>
 
             <!-- Divider -->
@@ -110,17 +116,12 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="leave.php?msg=">Leave</a>
+                        <a class="collapse-item" href="">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="empprofile.php">
-              <span>Profile</span></a>
-            </li>
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
@@ -131,8 +132,14 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
+            </li>
+            
+            <!-- Nav Item - Sales -->
+            <li class="nav-item">
+              <a class="nav-link" href="sales.php">
+              <span>Sales</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -231,31 +238,8 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Apply for Leave</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Pickup</h1>
 
-                    <div class="card shadow mb-4"><br>
-                        <div class="card-body"> 
-                        <label id="err" style="color:red;float:right"><?php echo $msg; ?></label>
-                        <form method="post" enctype="multipart/form-data" action="addleave.php">
-                          <div class="form-group">
-                           <input class="form-control" type="text" autocomplete="off" name="rsn" id="rsn" placeholder="Reason" onblur="reason()" required="true"/>
-                          </div>
-                          <div class="form-group">
-                            <input class="form-control" type="date"  name="date" id="date" max="" min="" onblur="on()" required/>
-                          </div>
-                          <div class="form-group">
-                          <select name="sessn" id="sessn" class="form-control" required>
-                          <option value="" disabled selected>Choose Session</option>
-                          <option value="Full day" >Full day</option>
-                          <option value="Till Noon">Till Noon</option>
-                          <option value="After Noon">After Noon</option></select>  
-                          </div>
-                          <input class="btn btn-sm btn-primary" style="float:right;margin-right:50px;" name="request" type="submit" value="Request" onsubmit="reason();">
-                          </form>
-                        </div>
-                    </div>
-
-                    <h1 class="h3 mb-4 text-gray-800">Leave Status</h1>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -263,17 +247,58 @@
                                     <thead>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Date</th>
-                                        <th >Reason</th>
-                                        <th >Session</th>
-                                        <th >Status</th>
+                                        <th >Name</th>
+                                        <th >Place</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $count=1;
+                                        $date=date("Y-m-d");
+                                        $query1=mysqli_query($con,"select * from tbl_emp where login_id=$lid");
+                                        $empid=mysqli_fetch_array($query1)['reg_id'];
+                                        $query=mysqli_query($con,"select * from tbl_service where emp_id=$empid and date='$date'");
+                                        while ($rows=mysqli_fetch_array($query)) {
+                                            $logid=$rows['login_id'];
+                                            echo "<tr><td>";
+                                            echo $count;
+                                            echo "</td><td>";
+                                            $query2=mysqli_query($con,"select * from tbl_registration where login_id=$logid");
+                                            while(mysqli_fetch_array($query1)){
+                                                $name=$rows['name'];
+                                                $location=$rows['location'];
+                                            }
+                                            echo $name;
+                                            echo "</td><td>";
+                                            echo $location;
+                                            ?>
+                                            </td></tr><?php
+                                        }
+                                    ?>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="h3 mb-4 text-gray-800">Service</h1>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th >Sl no</th>
+                                        <th >Car name</th>
+                                        <th >Service type</th>
                                         <th ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_leave where login_id=$lid");
+                                        $query=mysqli_query($con,"select * from tbl_service where login_id=$lid");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             $leaveid=$rows['leave_id'];
                                             echo "<tr><td>";
@@ -287,7 +312,7 @@
                                             echo "</td><td>";
                                             echo $rows['status'];
                                             ?><form action="approv.php" method="POST" id="frmm">
-                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="Delete" id="<?php echo $leaveid; ?>" onclick="update(this.id)" >
+                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="More" id="<?php echo $leaveid; ?>" onclick="update(this.id)" >
                                             </td></tr></form><?php
                                         }
                                     ?>

@@ -39,44 +39,19 @@
     <script>
         function update(id){
             var frm = document.getElementById("frmm")
-            frm.setAttribute("action","levdelete.php?id="+id);
+            frm.setAttribute("action","approval.php?id="+id);
             frm.submit();
         }
-        function dates(){
-            n =  new Date();
-            y = n.getFullYear();
-            m = n.getMonth() + 1;
-            d = n.getDate();
-            a=d+10;
-            if(d<10){
-              var d=""+0+d;
-            }
-            if(m<10){
-              var mn=""+0+m;
-            }
-            document.getElementById("date").min = y + "-" + mn + "-" + d;
-        }
-        function reason()
-        {
-        var rsn=document.getElementById("rsn").value;
-        var rsn1=/^[a-zA-Z]+(\s[a-zA-Z]+)+(\s[a-zA-Z]+)?$/;
-        if(rsn.match(rsn1))
-            {
-                document.getElementById("err").innerHTML = "";
-                document.getElementById("rsn").style.borderColor="#dddddd";
-        
-            }
-        else
-            {
-                document.getElementById("err").innerHTML = "* Must only contain letters";
-                document.getElementById("rsn").style.borderColor = "red";
-                document.getElementById("rsn").focus();
-            }
+        function cancel(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","cancel.php?id="+id);
+            frm.submit();
         }
   </script>
+
 </head>
 
-<body id="page-top" onload="dates()">
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -95,9 +70,16 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="empdash.php">
+                <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
+            </li>
+
+                        <!-- Nav Item - Sales -->
+                        <li class="nav-item">
+              <a class="nav-link" href="mngprofile.php">
+              <span>Profile</span></a>
             </li>
 
             <!-- Divider -->
@@ -110,17 +92,12 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="leave.php?msg=">Leave</a>
+                        <a class="collapse-item" href="leaveapprove.php?msg=">Leave Approval</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="empprofile.php">
-              <span>Profile</span></a>
-            </li>
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
@@ -131,8 +108,14 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
+            </li>
+            
+            <!-- Nav Item - Sales -->
+            <li class="nav-item">
+              <a class="nav-link" href="sales.php">
+              <span>Sales</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -231,53 +214,36 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Apply for Leave</h1>
-
-                    <div class="card shadow mb-4"><br>
-                        <div class="card-body"> 
-                        <label id="err" style="color:red;float:right"><?php echo $msg; ?></label>
-                        <form method="post" enctype="multipart/form-data" action="addleave.php">
-                          <div class="form-group">
-                           <input class="form-control" type="text" autocomplete="off" name="rsn" id="rsn" placeholder="Reason" onblur="reason()" required="true"/>
-                          </div>
-                          <div class="form-group">
-                            <input class="form-control" type="date"  name="date" id="date" max="" min="" onblur="on()" required/>
-                          </div>
-                          <div class="form-group">
-                          <select name="sessn" id="sessn" class="form-control" required>
-                          <option value="" disabled selected>Choose Session</option>
-                          <option value="Full day" >Full day</option>
-                          <option value="Till Noon">Till Noon</option>
-                          <option value="After Noon">After Noon</option></select>  
-                          </div>
-                          <input class="btn btn-sm btn-primary" style="float:right;margin-right:50px;" name="request" type="submit" value="Request" onsubmit="reason();">
-                          </form>
-                        </div>
-                    </div>
-
-                    <h1 class="h3 mb-4 text-gray-800">Leave Status</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Leave Applications</h1>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
+                            <span style="color:#008000; float:right" id="error"><?php echo $msg;?></span><br><br>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th >Sl no</th>
+                                        <th >Name</th>
                                         <th >Date</th>
                                         <th >Reason</th>
                                         <th >Session</th>
-                                        <th >Status</th>
+                                        <th ></th>
                                         <th ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_leave where login_id=$lid");
+                                        $query=mysqli_query($con,"select * from tbl_leave where status='Not Approved'");
                                         while ($rows=mysqli_fetch_array($query)) {
-                                            $leaveid=$rows['leave_id'];
+                                            $serid=$rows['leave_id'];
                                             echo "<tr><td>";
                                             echo $count;
+                                            echo "</td><td>";
+                                            $lnid=$rows['login_id'];
+                                            $qu=mysqli_query($con,"select name from tbl_emp where login_id='$lnid'");
+                                            $raw=mysqli_fetch_array($qu)['name'];
+                                            echo $raw;
                                             echo "</td><td>";
                                             echo $rows['date'];
                                             echo "</td><td>";
@@ -285,10 +251,13 @@
                                             echo "</td><td>";
                                             echo $rows['session'];
                                             echo "</td><td>";
-                                            echo $rows['status'];
-                                            ?><form action="approv.php" method="POST" id="frmm">
-                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="Delete" id="<?php echo $leaveid; ?>" onclick="update(this.id)" >
-                                            </td></tr></form><?php
+                                            ?>
+                                            <form action="approv.php" method="POST" id="frmm">
+                                            <input type="Button" class="btn btn-sm btn-primary" value="Approve" id="<?php echo $serid; ?>" onclick="update(this.id)" >
+                                            </td><td>
+                                           <input type="Button" class="btn btn-sm btn-primary" value="Cancel" id="<?php echo $serid; ?>" onclick="cancel(this.id)" ></form><?php
+                                            echo "</td></tr>";
+                                            $count=$count+1;
                                         }
                                     ?>
                                     </form>
@@ -298,7 +267,6 @@
                         </div>
                     </div>
 
-                
                 </div>
                 <!-- /.container-fluid -->
             </div>

@@ -26,6 +26,21 @@
 	 while($row1=mysqli_fetch_array($res)){
      $test2=$row1['count'];
    }
+   $que3="select COUNT(*) as count from tbl_service where status='Not Approved'";
+   $res = mysqli_query($con,$que3);
+	 while($row1=mysqli_fetch_array($res)){
+     $test3=$row1['count'];
+   }
+   $que4="select COUNT(*) as count from tbl_leave where status='Not Approved'";
+   $res = mysqli_query($con,$que4);
+	 while($row1=mysqli_fetch_array($res)){
+     $test4=$row1['count'];
+   }
+   $que5="select COUNT(*) as count from tbl_service where status='Not Approved' and pickup='yes'";
+   $res = mysqli_query($con,$que5);
+	 while($row1=mysqli_fetch_array($res)){
+     $test5=$row1['count'];
+   }
    
  ?>
  <!DOCTYPE html>
@@ -93,7 +108,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="leaveapprove.php?msg=">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
@@ -275,6 +290,67 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $test2; ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                        <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Service(Not Assigned)
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $test3; ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                        <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pickup(Not Approved)
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $test5; ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                        <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Leave Application(Not Approved)
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $test4; ?></div>
                                                 </div>
                                             </div>
                                         </div>

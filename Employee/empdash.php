@@ -62,7 +62,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="mngdash.php">
+                <a class="nav-link" href="empdash.php">
                     <span>Dashboard</span></a>
             </li>
 
@@ -76,7 +76,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="leave.php?msg=">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
@@ -97,14 +97,8 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testapprove.php">
+                <a class="nav-link" href="testdrive.php">
                     <span>Test Drive</span></a>
-            </li>
-
-            <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="testdrive.php">
-              <span>Sales</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

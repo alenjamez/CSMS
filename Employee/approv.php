@@ -8,10 +8,10 @@ $sql="UPDATE tbl_ltestdrive SET status='Approved',reg_id=$eid WHERE tid =$id";
 
 if(mysqli_query($con,$sql)){
     
-    header("Location:testapprove.php");
+    header("Location:testapprove.php?msg=* Request approved");
 }
 else{
-    echo "somthing went wrong !";
+    header("Location:testapprove.php?msg=* somthing went wrong !");
 }
 mysqli_close($con);
 ?>
