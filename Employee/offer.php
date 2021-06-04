@@ -1,7 +1,6 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
     $lid=$_SESSION['logid'];
@@ -36,20 +35,76 @@
 
     <!-- Custom styles for this template-->
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
-    <script>
-        function update(id){
-
-            var empl=document.getElementById("desig").value;
-            
-            var frm = document.getElementById("frmm")
-            frm.setAttribute("action","approv.php?id="+id+"&empid="+empl);
-            frm.submit();
-        }
   </script>
+      <style>
+        #adddet{
+  width:100%x;
+  margin-left:50px;
+}
+input[type=text]{
+  width:600px;
+}
+select,textarea{
+  width:600px;
+}
+input[type=file]{ 
+  font-size: 15px;
+  color: rgb(153,153,153);
+}
+input[type=submit] {
+        width: 35%;
+        height:15%;
+        color: #f2f2f2;
+        background-color:  #469fbd;
+        border-radius: 10px;
+        border: solid #f2f2f2;
+        opacity: 1;
+        font-weight: bold;
+        margin-left:250px;
+    }
+    .table{
+        padding:30px;
+        background-color:  #fff;
+        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    }
+    </style>
+    <script>
+     function dates(){
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            a=d+10;
+            if(d<10){
+              var d=""+0+d;
+            }
+            if(m<10){
+              var mn=""+0+m;
+            }
+            document.getElementById("date").min = y + "-" + mn + "-" + d;
+            document.getElementById("date1").min = y + "-" + mn + "-" + d;
+        }
+        function rname(value)
+        {
+        var nam=value;
+        var nam1=/^[a-zA-Z ]+$/;
+        if(nam.match(nam1))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* Must only contain characters";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        }
+    </script>
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="dates()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -95,6 +150,7 @@
                     </div>
                 </div>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -225,76 +281,50 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Test Drives</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Add Offer</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                            <span style="color:#008000; float:right" id="error"><?php echo $msg;?></span><br>
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Name</th>
-                                        <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Staff</th>
-                                        <th >Approve</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_ltestdrive where status='Not Approved'");
-                                        while ($rows=mysqli_fetch_array($query)) {
-                                            $testid=$rows['tid'];
-                                            echo "<tr><td>";
-                                            echo $count;
-                                            echo "</td><td>";
-                                            $lnid=$rows['login_id'];
-                                            $qu=mysqli_query($con,"select username from tbl_login where login_id='$lnid'");
-                                            $raw=mysqli_fetch_array($qu)['username'];
-                                            echo $raw;
-                                            echo "</td><td>";
-                                            $id=$rows['car_id'];
-                                            $quer=mysqli_query($con,"select name from tbl_car where car_id='$id'");
-                                            $ro=mysqli_fetch_array($quer)['name'];
-                                            echo $ro;
-                                            echo "</td><td>";
-                                            echo $rows['gear'];
-                                            echo "</td><td>";
-                                            echo $rows['date'];
-                                            echo "</td><td>";
-                                            $query1=mysqli_query($con,"select * from tbl_ltestdrive where status='Not Approved'");
-                                            $rows1=mysqli_fetch_array($query1)['date'];
-                                            
-                                            //$q=mysqli_query($con,"select * from tbl_login where type='E'");
-                                            $q1="SELECT reg_id FROM tbl_emp WHERE status=1 and reg_id!=(select reg_id from tbl_ltestdrive where date='$rows1')";
-                                            $see1=mysqli_query($con,$q1);
-                                            ?>
-                                            <form action="approv.php" method="POST" id="frmm">
-                                            <select name="desig" id="desig"  required>
-                                            <option value="" disabled selected>Choose Employee</option><?php
-                                            while($word1=mysqli_fetch_array($see1)){
-                                                $id=$word1['reg_id'];
-                                                $q2=mysqli_query($con,"select name from tbl_emp where reg_id='$id'");
-                                                
-                                                $nm=mysqli_fetch_array($q2)['name'];
-                                            ?>
-                                            <option value="<?php echo $id;?>" ><?php echo $nm; ?></option>
-                                            <?php
-                                            }
-                                            echo " </select></td><td>";
-                                            ?><input type="Button" class="btn btn-sm btn-primary" value="Approve" id="<?php echo $testid; ?>" onclick="update(this.id)" ></form><?php
-                                            echo "</td></tr>";
-                                            $count=$count+1;
-                                        }
-                                    ?>
-                                    </form>
-                                    </tbody>
-                                </table>
-                            </div>
+            
+                            <div class="table"> 
+                        <form id="adddet" method="post" enctype="multipart/form-data">
+                        
+                        <table >
+                        <tr><td>
+                            <label for="icon"><b>Car</b></label></td><td>
+                            <select  id="car" class="form-control" name="car" onChange="test3(this.value)" onclick="msge()" required>
+                              <option value="" disabled selected>Choose Car</option> 
+                                <?php 
+                                  $sql3="select car_id,name from tbl_car where status=1";
+                                  $res=mysqli_query($con,$sql3);
+                                  while($row=mysqli_fetch_array($res))
+                                  {
+                                    echo '<option value="'.$row['car_id'].'">'.$row['name'].'</option>';
+                                  }
+                                ?></select>
+                        </td></tr>
+                        <tr><td>
+                            <label for="icon"><b>Offer Name</b></label></td>
+                            <td><input type="text" class="form-control" name="ofname" id="ofname" onblur="rname(this.value)"  title="Only Alphabets" required>
+                        </td></tr>
+                        <tr><td>
+                            <label for="icon"><b>Start Date</b></label></td>
+                            <td><input class="form-control" type="date"  name="date" id="date" max="" min=""  required/>
+                        </td></tr>
+                        <tr><td>
+                            <label for="icon"><b>End Date</b></label></td>
+                            <td><input class="form-control" type="date"  name="date1" id="date1" max="" min=""  required/>
+                        </td></tr>
+                        <tr><td>
+                        <tr><td>
+                            <label for="icon"><b>Description</b></label></td>
+                            <td><textarea class="form-control" name="dec" id="dec" onblur="rname(this.value)" required></textarea>
+                        </td></tr>
+                        <tr><td></td><td><input type="submit" value="Save" name="submit"></td></tr>
+                    </table>
+                    </form>
+                    </div>
                         </div>
                     </div>
 
@@ -356,6 +386,22 @@
 
 </html>
 <?php
+if(isset($_POST['submit'])){
+    
+        $ofname=$_POST['ofname'];
+        $sdate=$_POST['date'];
+        $edate=$_POST['date1'];
+        $car=$_POST['car'];
+        $desc=$_POST['dec'];
+        $que="insert into  tbl_offer(offr_nme, start_date, end_date, description, car_id) value('$ofname','$sdate','$edate',$car,'$desc')";
+        $query3=mysqli_query($con,$que);
+            if ($query3) {
+            echo '<script>alert("Offer has been added successfully.")</script>';
+              }
+              else{
+                  $msg="Something Went Wrong. Please try again";
+                }
+}
 }
 else{
   header("location:../login.php?msg=");

@@ -72,7 +72,7 @@
                 <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
             </li>
-            
+
             <!-- Nav Item - Sales -->
             <li class="nav-item">
               <a class="nav-link" href="mngprofile.php">
@@ -89,8 +89,21 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="offer.php?msg=">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <span>Offer</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="leaveapprove.php?msg=">Add Offer</a>
+                        <a class="collapse-item" href="viewoffer.php">View offer</a>
                     </div>
                 </div>
             </li>
@@ -98,14 +111,15 @@
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="serviceapp.php?msg=">
                     <span>Service</span>
                 </a>
             </li>
 
+
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testapprove.php">
+                <a class="nav-link" href="testapprove.php?msg=">
                     <span>Test Drive</span></a>
             </li>
 
@@ -231,16 +245,6 @@
                                         <th >fuel</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Customer</th>
-                                        <th >PIN code</th>
-                                        <th >Car name</th>
-                                        <th >fuel</th>
-                                        </tr>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <?php
                                         $count=1;

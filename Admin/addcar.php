@@ -174,7 +174,7 @@ ob_start();
         function engbhp(value)
         {
         var ph=value;
-        var ph1=/^[a-zA-Z0-9@ ]+$/;;
+        var ph1=/^[a-zA-Z0-9@ ]+$/;
         if(ph.match(ph1))
             {
                 document.getElementById("error").innerHTML="";
@@ -190,7 +190,7 @@ ob_start();
         function engty(value)
         {
         var ph=value;
-        var ph1=/^[a-zA-Z0-9 ]+$/;;
+        var ph1=/^[a-zA-Z0-9 ]+$/;
         if(ph.match(ph1))
             {
                 document.getElementById("error").innerHTML="";
@@ -206,7 +206,7 @@ ob_start();
         function cash(value)
         {
         var ph=value;
-        var ph1=/^[0-9 ]+$/;;
+        var ph1=/^[0-9 ]+$/;
         if((ph.match(ph1))&& (ph>100000))
             {
                 document.getElementById("error").innerHTML="";

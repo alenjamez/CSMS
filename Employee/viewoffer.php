@@ -1,7 +1,6 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
  {
     $lid=$_SESSION['logid'];
@@ -38,11 +37,8 @@
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
     <script>
         function update(id){
-
-            var empl=document.getElementById("desig").value;
-            
             var frm = document.getElementById("frmm")
-            frm.setAttribute("action","approv.php?id="+id+"&empid="+empl);
+            frm.setAttribute("action","delete.php?id="+id);
             frm.submit();
         }
   </script>
@@ -74,8 +70,8 @@
                     <span>Dashboard</span></a>
             </li>
 
-                        <!-- Nav Item - Sales -->
-                        <li class="nav-item">
+            <!-- Nav Item - Sales -->
+            <li class="nav-item">
               <a class="nav-link" href="mngprofile.php?msg=">
               <span>Profile</span></a>
             </li>
@@ -90,20 +86,19 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="offer.php?msg=">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
                     <span>Offer</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="leaveapprove.php?msg=">Add Offer</a>
+                        <a class="collapse-item" href="leaveapprove.php?msg=">Add Offer</a>
                         <a class="collapse-item" href="viewoffer.php">View offer</a>
                     </div>
                 </div>
@@ -117,12 +112,15 @@
                 </a>
             </li>
 
+
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
                 <a class="nav-link" href="testapprove.php?msg=">
                     <span>Test Drive</span></a>
             </li>
-            
+
+
+
             <!-- Nav Item - Sales -->
             <li class="nav-item">
               <a class="nav-link" href="sales.php">
@@ -206,6 +204,7 @@
                                 <img class="img-profile rounded-circle"
                                     src="<?php echo $propic;?>">
                             </a>
+                            </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -225,73 +224,48 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Test Drives</h1>
+                    <h1 class="h3 mb-4 text-gray-800">View Offer</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                            <span style="color:#008000; float:right" id="error"><?php echo $msg;?></span><br>
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Name</th>
-                                        <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Staff</th>
-                                        <th >Approve</th>
+                                        <th >Car Name</th>
+                                        <th >Offer Name</th>
+                                        <th >End date</th>
+                                        <th >status</th>
+                                        <th ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_ltestdrive where status='Not Approved'");
+                                        $query=mysqli_query($con,"select * from tbl_offer where status='Active'");
                                         while ($rows=mysqli_fetch_array($query)) {
-                                            $testid=$rows['tid'];
+                                            $offrid=$rows['offr_id'];
                                             echo "<tr><td>";
                                             echo $count;
                                             echo "</td><td>";
-                                            $lnid=$rows['login_id'];
-                                            $qu=mysqli_query($con,"select username from tbl_login where login_id='$lnid'");
-                                            $raw=mysqli_fetch_array($qu)['username'];
+                                            $carid=$rows['car_id'];
+                                            $qu=mysqli_query($con,"select name from tbl_car where car_id='$carid'");
+                                            $raw=mysqli_fetch_array($qu)['name'];
                                             echo $raw;
                                             echo "</td><td>";
-                                            $id=$rows['car_id'];
-                                            $quer=mysqli_query($con,"select name from tbl_car where car_id='$id'");
-                                            $ro=mysqli_fetch_array($quer)['name'];
-                                            echo $ro;
+                                            echo $rows['offr_nme'];
                                             echo "</td><td>";
-                                            echo $rows['gear'];
+                                            echo $rows['end_date'];
                                             echo "</td><td>";
-                                            echo $rows['date'];
+                                            echo $rows['status'];
                                             echo "</td><td>";
-                                            $query1=mysqli_query($con,"select * from tbl_ltestdrive where status='Not Approved'");
-                                            $rows1=mysqli_fetch_array($query1)['date'];
-                                            
-                                            //$q=mysqli_query($con,"select * from tbl_login where type='E'");
-                                            $q1="SELECT reg_id FROM tbl_emp WHERE status=1 and reg_id!=(select reg_id from tbl_ltestdrive where date='$rows1')";
-                                            $see1=mysqli_query($con,$q1);
-                                            ?>
-                                            <form action="approv.php" method="POST" id="frmm">
-                                            <select name="desig" id="desig"  required>
-                                            <option value="" disabled selected>Choose Employee</option><?php
-                                            while($word1=mysqli_fetch_array($see1)){
-                                                $id=$word1['reg_id'];
-                                                $q2=mysqli_query($con,"select name from tbl_emp where reg_id='$id'");
-                                                
-                                                $nm=mysqli_fetch_array($q2)['name'];
-                                            ?>
-                                            <option value="<?php echo $id;?>" ><?php echo $nm; ?></option>
-                                            <?php
-                                            }
-                                            echo " </select></td><td>";
-                                            ?><input type="Button" class="btn btn-sm btn-primary" value="Approve" id="<?php echo $testid; ?>" onclick="update(this.id)" ></form><?php
+                                            ?> <form action="approv.php" method="POST" id="frmm">
+                                            <input type="Button" class="btn btn-sm btn-primary" value="Delete" id="<?php echo $offrid; ?>" onclick="update(this.id)" ></form><?php
                                             echo "</td></tr>";
                                             $count=$count+1;
                                         }
                                     ?>
-                                    </form>
                                     </tbody>
                                 </table>
                             </div>

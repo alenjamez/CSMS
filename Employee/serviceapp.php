@@ -42,7 +42,7 @@
             var empl=document.getElementById("desig").value;
             
             var frm = document.getElementById("frmm")
-            frm.setAttribute("action","approv.php?id="+id+"&empid="+empl);
+            frm.setAttribute("action","serapp.php?id="+id+"&empid="+empl);
             frm.submit();
         }
   </script>
@@ -74,8 +74,8 @@
                     <span>Dashboard</span></a>
             </li>
 
-                        <!-- Nav Item - Sales -->
-                        <li class="nav-item">
+            <!-- Nav Item - Sales -->
+            <li class="nav-item">
               <a class="nav-link" href="mngprofile.php?msg=">
               <span>Profile</span></a>
             </li>
@@ -90,7 +90,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Leave</a>
+                        <a class="collapse-item" href="offer.php?msg=">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
@@ -117,12 +117,15 @@
                 </a>
             </li>
 
+
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
                 <a class="nav-link" href="testapprove.php?msg=">
                     <span>Test Drive</span></a>
             </li>
-            
+
+
+
             <!-- Nav Item - Sales -->
             <li class="nav-item">
               <a class="nav-link" href="sales.php">
@@ -225,7 +228,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Test Drives</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Service</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -237,18 +240,18 @@
                                         <th >Sl no</th>
                                         <th >Name</th>
                                         <th >Car name</th>
-                                        <th >Transmission</th>
+                                        <th >Service type</th>
                                         <th >Date</th>
                                         <th >Staff</th>
-                                        <th >Approve</th>
+                                        <th ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_ltestdrive where status='Not Approved'");
+                                        $query=mysqli_query($con,"select * from tbl_service where status='Not Approved'");
                                         while ($rows=mysqli_fetch_array($query)) {
-                                            $testid=$rows['tid'];
+                                            $testid=$rows['sr_id'];
                                             echo "<tr><td>";
                                             echo $count;
                                             echo "</td><td>";
@@ -262,7 +265,7 @@
                                             $ro=mysqli_fetch_array($quer)['name'];
                                             echo $ro;
                                             echo "</td><td>";
-                                            echo $rows['gear'];
+                                            echo $rows['service_no'];
                                             echo "</td><td>";
                                             echo $rows['date'];
                                             echo "</td><td>";
