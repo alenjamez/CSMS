@@ -1,6 +1,7 @@
 <?php
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
+ $id=$_GET['id'];
  if(isset($_SESSION['user']))
  {
     $lid=$_SESSION['logid'];
@@ -11,21 +12,25 @@
       {
         $propic='../upload/profile/'.$row["pic"];
       }
-   $que1="select COUNT(*) as count from tbl_ltestdrive where reg_id='$lid'";
-   $res = mysqli_query($con,$que1);
-	 while($row1=mysqli_fetch_array($res)){
-     $test1=$row1['count'];
-   }
-   $que2="select COUNT(*) as count from tbl_service where reg_id='$lid' and status='Approved'";
-   $res1 = mysqli_query($con,$que1);
-	 while($row1=mysqli_fetch_array($res1)){
-     $test2=$row1['count'];
-   }
-      $que5="select COUNT(*) as count from tbl_service where status='Not Approved' and pickup='yes'";
-   $res = mysqli_query($con,$que5);
-	 while($row1=mysqli_fetch_array($res)){
-     $test5=$row1['count'];
-   }
+    $query=mysqli_query($con,"select * from tbl_service where sr_id=$id");
+    while ($rows=mysqli_fetch_array($query)) {
+        $logid=$rows['login_id'];
+        $carid=$rows['car_id'];
+        $km=$rows['kilomtrs'];
+        $date=$rows['date'];
+        $service=$rows['service_no'];
+        $query2=mysqli_query($con,"select * from tbl_registration where login_id=$logid");
+        while($row1=mysqli_fetch_array($query2)){
+            $name=$row1['name'];
+            $location=$row1['location'];
+            $email=$row1['email'];
+            $phone=$row1['phone'];
+        }
+        $query3=mysqli_query($con,"select * from tbl_car where car_id=$carid");
+        $carnme=mysqli_fetch_array($query3)['name'];
+    }
+
+   
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -48,10 +53,30 @@
 
     <!-- Custom styles for this template-->
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script>
+        function update(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","levdelete.php?id="+id);
+            frm.submit();
+        }
+        function dates(){
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            a=d+10;
+            if(d<10){
+              var d=""+0+d;
+            }
+            if(m<10){
+              var mn=""+0+m;
+            }
+            document.getElementById("date").min = y + "-" + mn + "-" + d;
+        }
+  </script>
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="dates()" class="">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -76,6 +101,9 @@
                     <span>Dashboard</span></a>
             </li>
 
+                        <!-- Nav Item - Sales -->
+
+
             <!-- Divider -->
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -86,30 +114,29 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="leave.php?msg=">Leave</a>
+                        <a class="collapse-item" href="">Leave</a>
                         <a class="collapse-item" href="">View Details</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Sales -->
             <li class="nav-item">
               <a class="nav-link" href="empprofile.php">
               <span>Profile</span></a>
             </li>
-
             <!-- Nav Item - Service -->
             <li class="nav-item">
-            <a class="nav-link" href="service.php">
+            <a class="nav-link" href="">
                     <span>Service</span>
                 </a>
             </li>
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testdrive.php">
+                <a class="nav-link" href="testapprove.php">
                     <span>Test Drive</span></a>
             </li>
+            
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -188,7 +215,6 @@
                                 <img class="img-profile rounded-circle"
                                     src="<?php echo $propic;?>">
                             </a>
-                            </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -208,173 +234,70 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Test Drive Allotted</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $test1; ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa fa-car fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Services</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $test2; ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-wrench fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pickups</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $test5; ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="	fas fa-paper-plane fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <h1 class="h3 mb-4 text-gray-800">Service</h1>
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <h3>Personal Details</h3><br>
+                            <div class="row">
+                            <div class="col-md-6">
+                            <label for="fname"style="margin-right:60px"><i class="fa fa-user"></i> Full Name</label>:
+                            <label for="fname" style="margin-left:30px"><?php echo $name;?></label><br>
+                            <label for="email" style="margin-right:92px"><i class="fa fa-envelope"></i> Email</label>:
+                            <label for="email" style="margin-left:30px"><?php echo $email;?></label><br>
+                            <label for="phone" style="margin-right:24px"><i class="fa fa-phone"></i> Phone Number</label>:
+                            <label for="phone" style="margin-left:30px"><?php echo $phone;?></label></div>
+                            <div class="col-md-6">
+            
+                            <label for="city" style="margin-right:30px"><i class="fa fa-location"></i> Location</label>:
+                            <label for="city" style="margin-left:30px"><?php echo $location;?></label><br>
+                            <label for="state" style="margin-right:54px"><i class="fa fa-location"></i> State</label>:
+                            <label for="state" style="margin-left:30px">Kerala</label></div>
                         </div>
                     </div>
+                </div>
 
-
-
-                    <!-- Content Row -->
-
-                    <!-- <div class="row">
-
-                     
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                             
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        
-                        <!-- <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <h3>Vehicle Details</h3><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <label for="car"style="margin-right:60px"><i class="fa fa-car"></i> Car Name</label>:
+                            <label for="car" style="margin-left:30px"><?php echo $carnme;?></label><br>
+                            <label for="Service no" style="margin-right:45px"><i class="fa fa-wrench"></i>Service Type</label>:
+                            <label for="Service no" style="margin-left:30px"><?php echo $service;?></label><br></div>
+                            <div class="col-md-6">
+            
+                            <label for="Kilometre" style="margin-right:30px"><i class="fa fa-tachometer"></i> Kilometre</label>:
+                            <label for="Kilometre" style="margin-left:30px"><?php echo $km;?></label><br>
+                            <label for="date" style="margin-right:66px"><i class="fa fa-calender"></i> Date</label>:
+                            <label for="date" style="margin-left:30px"><?php echo $date;?></label></div>
                         </div>
-                    </div> -->
+                    </div>
+                </div>
+                            
+                        </div>
 
-                    <!-- Content Row -->
- 
+                    </div>
+                    </div>
 
+                
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
-<b><br>
+
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <!-- <a class="scroll-to-top rounded" href="#page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a> -->
-     <!-- Logout Modal-->
-     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

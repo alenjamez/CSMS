@@ -38,7 +38,7 @@
     <script>
         function update(id){
             var frm = document.getElementById("frmm")
-            frm.setAttribute("action","levdelete.php?id="+id);
+            frm.setAttribute("action","serdetails.php?id="+id);
             frm.submit();
         }
         function dates(){
@@ -54,23 +54,6 @@
               var mn=""+0+m;
             }
             document.getElementById("date").min = y + "-" + mn + "-" + d;
-        }
-        function reason()
-        {
-        var rsn=document.getElementById("rsn").value;
-        var rsn1=/^[a-zA-Z]+(\s[a-zA-Z]+)+(\s[a-zA-Z]+)?$/;
-        if(rsn.match(rsn1))
-            {
-                document.getElementById("err").innerHTML = "";
-                document.getElementById("rsn").style.borderColor="#dddddd";
-        
-            }
-        else
-            {
-                document.getElementById("err").innerHTML = "* Must only contain letters";
-                document.getElementById("rsn").style.borderColor = "red";
-                document.getElementById("rsn").focus();
-            }
         }
   </script>
 </head>
@@ -96,15 +79,12 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="mngdash.php">
+                <a class="nav-link" href="empdash.php">
                     <span>Dashboard</span></a>
             </li>
 
                         <!-- Nav Item - Sales -->
-                        <li class="nav-item">
-              <a class="nav-link" href="mngprofile.php">
-              <span>Profile</span></a>
-            </li>
+
 
             <!-- Divider -->
 
@@ -122,7 +102,10 @@
                 </div>
             </li>
 
-
+            <li class="nav-item">
+              <a class="nav-link" href="empprofile.php">
+              <span>Profile</span></a>
+            </li>
             <!-- Nav Item - Service -->
             <li class="nav-item">
             <a class="nav-link" href="">
@@ -136,11 +119,6 @@
                     <span>Test Drive</span></a>
             </li>
             
-            <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="sales.php">
-              <span>Sales</span></a>
-            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -254,19 +232,20 @@
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $date=date("Y-m-d");
+                                        $date=date('Y-m-d');
+                                        $date=date('Y-m-d', strtotime($date. ' +1 day'));
                                         $query1=mysqli_query($con,"select * from tbl_emp where login_id=$lid");
                                         $empid=mysqli_fetch_array($query1)['reg_id'];
-                                        $query=mysqli_query($con,"select * from tbl_service where emp_id=$empid and date='$date'");
+                                        $query=mysqli_query($con,"select * from tbl_service where reg_id=$empid and date='$date'");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             $logid=$rows['login_id'];
                                             echo "<tr><td>";
                                             echo $count;
                                             echo "</td><td>";
                                             $query2=mysqli_query($con,"select * from tbl_registration where login_id=$logid");
-                                            while(mysqli_fetch_array($query1)){
-                                                $name=$rows['name'];
-                                                $location=$rows['location'];
+                                            while($row1=mysqli_fetch_array($query2)){
+                                                $name=$row1['name'];
+                                                $location=$row1['location'];
                                             }
                                             echo $name;
                                             echo "</td><td>";
@@ -290,7 +269,7 @@
                                     <thead>
                                         <tr>
                                         <th >Sl no</th>
-                                        <th >Car name</th>
+                                        <th >Name</th>
                                         <th >Service type</th>
                                         <th ></th>
                                         </tr>
@@ -298,21 +277,23 @@
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_service where login_id=$lid");
+                                        $date=date('Y-m-d');
+                                        $query=mysqli_query($con,"select * from tbl_service where reg_id=$empid and date='$date'");
                                         while ($rows=mysqli_fetch_array($query)) {
-                                            $leaveid=$rows['leave_id'];
+                                            $sr_id=$rows['sr_id'];
+                                            $log=$rows['login_id'];
                                             echo "<tr><td>";
                                             echo $count;
+                                            $query3=mysqli_query($con,"select * from tbl_registration where login_id=$log");
+                                            $nme=mysqli_fetch_array($query3)['name'];
+                                            
                                             echo "</td><td>";
-                                            echo $rows['date'];
+                                            echo $nme;
                                             echo "</td><td>";
-                                            echo $rows['reason'];
+                                            echo $rows['service_no'];
                                             echo "</td><td>";
-                                            echo $rows['session'];
-                                            echo "</td><td>";
-                                            echo $rows['status'];
                                             ?><form action="approv.php" method="POST" id="frmm">
-                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="More" id="<?php echo $leaveid; ?>" onclick="update(this.id)" >
+                                            <input class="btn btn-sm btn-primary" type="Button" value="More" id="<?php echo $sr_id; ?>" onclick="update(this.id)" >
                                             </td></tr></form><?php
                                         }
                                     ?>

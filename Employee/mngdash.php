@@ -328,7 +328,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                        <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        <i class="fas fa-wrench fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -348,7 +348,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                        <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -368,7 +368,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                        <i class="fa fa-car fa-2x text-gray-300"></i>
+                                        <i class="fas fa-comment-alt fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>

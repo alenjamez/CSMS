@@ -73,15 +73,10 @@ include('includes/dbconnection.php');
       
             function fun(){
                 var car=document.getElementById("car").value;
-                alert(car);
                 var date=document.getElementById("dat").value;
-                alert(date);
                 var km=document.getElementById("km").value;
-                alert(km);
                 var ser=document.getElementById("ser").value;
-                alert(ser);
                 var pick=document.getElementById("pick").value;
-                alert(pick);
             var frm = document.getElementById("servfrm")
             frm.setAttribute("action","servadd.php?car="+car+"&date="+date+"&km="+km+"&ser="+ser+"&pick="+pick);
             frm.submit();
