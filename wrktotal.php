@@ -11,15 +11,23 @@ include('includes/dbconnection.php');
     <link rel="stylesheet" href="assets/css/master.css">
     <script src="assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
     <script>
-            function update1(id){
+            function update(id){
+                var ser="service";
+            var amt=document.getElementById("value").value;
             var frm = document.getElementById("frmm1")
-            // frm.setAttribute("action","payment.php?id="+id);
-            frm.setAttribute("action","payment.html");
+            frm.setAttribute("action","payment.php?id="+id+"&amt="+amt+"&typ="+ser);
             frm.submit();
             }
+                    
     </script>
     <style>
-  #fnsh{
+  input[name="fnsh"]{
+    color:white;
+    background-color:green;
+    margin-left:1000px;
+    border:none;
+  }
+  input[name="fnsh"]:hover{
     color:white;
     background-color:green;
     margin-left:1000px;
@@ -64,7 +72,7 @@ include('includes/dbconnection.php');
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr border=collapse>
+                                        <tr >
                                         <th >Sl no</th>
                                         <th >Work</th>
                                         <th >Price(&#x20B9;)</th>
@@ -106,7 +114,8 @@ include('includes/dbconnection.php');
                                     $totchrg=mysqli_fetch_array($query5)['summ'];
                                     echo $totchrg;
                                     echo "</td><td>";
-                                    echo $totrt+$totchrg;
+                                    $total=$totrt+$totchrg;
+                                    echo $total;
                                     ?>
                                     </td></tr>
                                     </tbody>
@@ -114,16 +123,17 @@ include('includes/dbconnection.php');
                             </div>
                             </div>
                             <div class="row">
-                            <form id="frmm1">
+                            <form id="frmm1" method="post">
+                                <input type="text" id="value" value="<?php echo $total;?>" hidden>
                             <?php 
                             $query5=mysqli_query($con,"select status from tbl_service where sr_id=$ids");
                             $sts=mysqli_fetch_array($query5)['status'];
                             if($sts=="Finished"){
                               ?>
-                              <input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="<?php echo $sr; ?>" onclick="update1(this.id)" ><?php
+                              <input class="btn btn-sm btn-primary" type="Button" name="fnsh" value="Pay Now" id="<?php echo $sr; ?>" onclick="update(this.id)" ><?php
                             }
                             else{
-                              ?><input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="" onclick=""disabled><?php
+                              ?><input class="btn btn-sm btn-primary" type="Button" name="fnsh" value="Pay Now" id="" onclick=""disabled><?php
                             }
                             ?>
                     </div>
