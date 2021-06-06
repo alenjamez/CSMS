@@ -54,26 +54,62 @@
     <!-- Custom styles for this template-->
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
     <script>
+        function rates()
+        {
+          var k=document.getElementById("rate").value;
+          if ((k>0) && (k<50000)){
+            document.getElementById("err").innerHTML="";
+          }
+          else{
+            document.getElementById("err").innerHTML="* Enter a valid amount";
+            document.getElementById("rate").innerHTML="";
+          }
+        }
+        function chrg()
+        {
+          var k=document.getElementById("charges").value;
+          if ((k>0) && (k<2000)){
+            document.getElementById("err").innerHTML="";
+          }
+          else{
+            document.getElementById("err").innerHTML="* Enter a valid amount";
+            document.getElementById("charges").innerHTML="";
+          }
+        }
+        function wor()
+        {
+          var k=document.getElementById("work").value;
+          var r=/^[a-zA-Z]+(\s[a-zA-Z]+)+(\s[a-zA-Z]+)?$/;
+          if(k.match(r))
+            {
+            document.getElementById("err").innerHTML="";
+          }
+          else{
+            document.getElementById("err").innerHTML="* Enter a valid work";
+            document.getElementById(work).innerHTML="";
+          }
+        }
         function update(id){
-            var frm = document.getElementById("frmm")
-            frm.setAttribute("action","levdelete.php?id="+id);
-            frm.submit();
+        var frm = document.getElementById("frmm")
+        frm.setAttribute("action","deletewrk.php?id="+id);
+        frm.submit();
         }
-        function dates(){
-            n =  new Date();
-            y = n.getFullYear();
-            m = n.getMonth() + 1;
-            d = n.getDate();
-            a=d+10;
-            if(d<10){
-              var d=""+0+d;
-            }
-            if(m<10){
-              var mn=""+0+m;
-            }
-            document.getElementById("date").min = y + "-" + mn + "-" + d;
+        function update1(id){
+        var frm = document.getElementById("frmm1")
+        frm.setAttribute("action","finishwrk.php?id="+id);
+        frm.submit();
         }
+
   </script>
+  <style>
+  .same {
+  width: 50%;
+  padding: 3px 5px;
+  margin: 8px 0;
+  box-sizing: border-box;
+    }
+
+  </style>
 </head>
 
 <body id="page-top" onload="dates()" class="">
@@ -253,11 +289,7 @@
                             <label for="state" style="margin-right:54px"><i class="fa fa-location"></i> State</label>:
                             <label for="state" style="margin-left:30px">Kerala</label></div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="card shadow mb-4">
-                    <div class="card-body">
+                        <br><br>
                         <h3>Vehicle Details</h3><br>
                         <div class="row">
                             <div class="col-md-6">
@@ -274,7 +306,77 @@
                         </div>
                     </div>
                 </div>
-                            
+
+                <div class="card shadow mb-4">
+                        <div class="card-body">
+                        <form method="post" action="workadd.php?id=<?php echo $id;?>">
+                            <h3>Service works</h3>
+                            <span id="err" style="float:right;color:green"></span><br>
+                            <div class="row">
+                            <div class="col-md-6">
+                            <label for="fname"style="margin-right:60px"></i> Work</label>:
+                            <input list="works" class="same" style="margin-left:20px" onblur="wor()" id="work" name="works" required />
+                            <datalist id="works">
+                            <option value="Full Wash">
+                            <option value="Oil Change">
+                            <option value="Wheel Alignment">
+                            <option value="Break Pad Change">
+                            <option value="Full Checkup">
+                            </datalist><br>
+                            <label for="email"  style="margin-right:46px"></i>Priority</label>:
+                            <select class="same" style="margin-left:20px;" name="priority" id="priority" required>
+                            <option value="" default>Choose priority</option>
+                            <option value="T">Top</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Low</option></select>
+                            <br></div>
+                            <div class="col-md-6">
+                            <label for="city"  style="margin-right:92px"></i> Rate</label>:
+                            <input type="text" class="same" style="margin-left:20px;" name="rate" id="rate" onblur="rates()" required> <br>
+                            <label for="state" style="margin-right:20px"></i> Labour Charge</label>:
+                            <input type="text" class="same" style="margin-left:20px;" name="charges" id="charges" onblur="chrg()" required></div>
+                        </div>
+                        <input type="submit" class="btn btn-sm btn-primary" style="margin-right:80px;margin-top:10px;float:right">
+                    </div>
+                </div>
+                <div class="card shadow mb-4">
+                        <div class="card-body">
+                        <h3>Service works</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th >Sl no</th>
+                                        <th >Work</th>
+                                        <th >Status</th>
+                                        <th ></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $count=1;
+                                        $query4=mysqli_query($con,"select * from tbl_serwork where sr_id=$id and value=0");
+                                        while ($rows=mysqli_fetch_array($query4)) {
+                                            $sr=$rows['wrk_id'];
+                                            echo "<tr><td>";
+                                            echo $count;
+                                            echo "</td><td>";
+                                            echo $rows['work'];
+                                            echo "</td><td>";
+                                            echo $rows['status'];
+                                            ?><form action="approv.php" method="POST" id="frmm">
+                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="Delete" id="<?php echo $sr; ?>" onclick="update(this.id)" >
+                                            </td></tr></form><?php
+                                        }
+                                    ?>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <form action="approv.php" method="POST" id="frmm1">
+                                </td><td><input class="btn btn-sm btn-primary" style="float:right;margin-right:50px"type="Button" value="Finish" id="<?php echo $id; ?>" onclick="update1(this.id)" >
+                                </td></tr></form>
+                        </div>  
                         </div>
 
                     </div>

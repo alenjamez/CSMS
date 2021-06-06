@@ -252,6 +252,7 @@
                                             echo $location;
                                             ?>
                                             </td></tr><?php
+                                             $count=$count+1;
                                         }
                                     ?>
                                     </form>
@@ -295,6 +296,7 @@
                                             ?><form action="approv.php" method="POST" id="frmm">
                                             <input class="btn btn-sm btn-primary" type="Button" value="More" id="<?php echo $sr_id; ?>" onclick="update(this.id)" >
                                             </td></tr></form><?php
+                                            $count=$count+1;
                                         }
                                     ?>
                                     </form>

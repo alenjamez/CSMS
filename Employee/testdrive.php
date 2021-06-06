@@ -229,17 +229,6 @@
 
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Name</th>
-                                        <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Time</th>
-                                        <th ></th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <?php
                                         $count=1;

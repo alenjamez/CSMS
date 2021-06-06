@@ -82,11 +82,29 @@ include('includes/dbconnection.php');
             frm.submit();
             }
             
+            function update(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","wrkup.php?id="+id);
+            frm.submit();
+            }
+            function update1(id){
+            var frm = document.getElementById("frmm1")
+            frm.setAttribute("action","billser.php?id="+id);
+            frm.submit();
+            }
     </script>
+    <style>
+  #fnsh{
+    color:white;
+    background-color:green;
+    margin-left:500px;
+    border:none;
+  }
+    </style>
   </head>
   <body class="page" onload="dates()">
       <!-- Loader-->
-    <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
+    <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div> -->
         <!-- Loader end-->
 
       
@@ -173,8 +191,77 @@ include('includes/dbconnection.php');
                     <div class="col-lg-7">
                         <div class="b-filter-goods">
                             <div class="row justify-content-between align-items-center">
+
+                            <h3>Service works</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th >Sl no</th>
+                                        <th >Work</th>
+                                        <th >Priority</th>
+                                        <th >Price(&#x20B9;)</th>
+                                        <th >Labour charges(&#x20B9;)</th>
+                                        <th >Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $count=1;
+                                        $sql4="select sr_id from tbl_service where login_id=$lid";
+                                        $res1=mysqli_query($con,$sql4);
+                                        $ids=mysqli_fetch_array($res1)['sr_id'];
+                                        $query4=mysqli_query($con,"select * from tbl_serwork where sr_id=$ids and status='pending'");
+                                        while ($rows=mysqli_fetch_array($query4)) {
+                                            $sr=$rows['wrk_id'];
+                                            echo "<tr><td>";
+                                            echo $count;
+                                            echo "</td><td>";
+                                            echo $rows['work'];
+                                            echo "</td><td>";
+                                            if($rows['priority']==T){
+                                              echo "Top";
+                                            }
+                                            if($rows['priority']==M){
+                                              echo "Medium";
+                                            }
+                                            if($rows['priority']==L){
+                                              echo "Low";
+                                            }
+                                            echo "</td><td>";
+                                            echo $rows['rate'];
+                                            echo "</td><td>";
+                                            echo $rows['charge'];
+
+                                            ?><form action="approv.php" method="POST" id="frmm">
+                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="Approve" id="<?php echo $sr; ?>" onclick="update(this.id)" >
+                                            </td></tr></form><?php
+                                            $count=$count+1;
+                                        }
+                                    ?>
+                                    </form>
+                                    </tbody>
+                                </table>
+                                <p style="color:green">* Priorities<br>
+                                Top    - Work should be done immediatly.<br>
+                                Medium - If the work is done it will be good for car.<br>
+                                Low    - Can be skipped for next service.</p>
                             </div>
-                        </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <form id="frmm1">
+                            <?php 
+                            $query5=mysqli_query($con,"select status from tbl_service where sr_id=$ids");
+                            $sts=mysqli_fetch_array($query5)['status'];
+                            if($sts=="Finished"){
+                              ?>
+                              <input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="<?php echo $sr; ?>" onclick="update1(this.id)" ><?php
+                            }
+                            else{
+                              ?><input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="" onclick=""disabled><?php
+                            }
+                            ?>
                     </div>
                 </div>
             </div>
@@ -217,32 +304,3 @@ include('includes/dbconnection.php');
     <script src="assets/js/custom.js"></script>
   </body>
 </html>
-<?php
-// if(isset($_POST['submit']))
-// {
-//    if(isset($_SESSION['user']))
-//      {
-//        $lid=$_SESSION['logid'];
-//        $car=$_POST['car'];
-//        $date=$_POST['dat'];
-//        $km=$_POST['km'];
-//        $ser=$_POST['ser'];
-//        $pick=$_POST['pick'];
-//        $query1=mysqli_query($con,"select * from tbl_car where name=$car");
-//        $carid=mysqli_fetch_array($query1)['car_id'];
-//        $que="insert into  tbl_service(car_id,kilomtrs,service_no,date,pickup,login_id) value($carid,$km,'$ser','$date','$pick',$lid)";
-//        die($que);
-//        $query3=mysqli_query($con,$que);
-//            if ($query3) {
-//            echo '<script>alert("Your booking has successfully send.")</script>';
-//            echo "<script>window.location.href='car-list.php'</script>";
-//              }
-//              else{
-//                  $msg="Something Went Wrong. Please try again";
-//                }
-//      }
-//        else{
-//          header("location:login.php?msg=");
-//        }
-//    }
-?>

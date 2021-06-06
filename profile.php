@@ -35,8 +35,8 @@ if(isset($_SESSION['user']))
 .tab {
   overflow: hidden;
   color: white;
-  margin-top:100px;
-  margin-left:500px;
+  margin-top:10px;
+  margin-left:350px;
   margin-right:30px;
 }
 
@@ -55,12 +55,14 @@ if(isset($_SESSION['user']))
 /* Change background color of buttons on hover */
 .tab button:hover {
     border-bottom: 3px solid red; 
+    outline: none;
     border-radius:10px;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
     border-bottom: 3px solid red; 
+    outline: none;
     border-radius:10px;
 }
 
