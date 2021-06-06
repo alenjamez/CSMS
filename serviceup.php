@@ -89,7 +89,7 @@ include('includes/dbconnection.php');
             }
             function update1(id){
             var frm = document.getElementById("frmm1")
-            frm.setAttribute("action","billser.php?id="+id);
+            frm.setAttribute("action","wrktotal.php?id="+id);
             frm.submit();
             }
     </script>
@@ -104,7 +104,7 @@ include('includes/dbconnection.php');
   </head>
   <body class="page" onload="dates()">
       <!-- Loader-->
-    <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div> -->
+    <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
         <!-- Loader end-->
 
       
@@ -256,7 +256,7 @@ include('includes/dbconnection.php');
                             $sts=mysqli_fetch_array($query5)['status'];
                             if($sts=="Finished"){
                               ?>
-                              <input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="<?php echo $sr; ?>" onclick="update1(this.id)" ><?php
+                              <b>Work completed pay now -></b><input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="<?php echo $sr; ?>" onclick="update1(this.id)" ><?php
                             }
                             else{
                               ?><input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="" onclick=""disabled><?php

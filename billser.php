@@ -3,8 +3,9 @@ $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't conne
 session_start();
 error_reporting(0);
 $serid=$_GET['id'];
+$lid=$_SESSION['logid'];
 $invoice=rand(100000,999999);
-$sql="select * from tbl_registration where login_id='$uid'";
+$sql="select * from tbl_registration where login_id='$lid'";
 $res=mysqli_query($con,$sql);
 while($row=mysqli_fetch_array($res))
 {
@@ -80,7 +81,7 @@ $colour=$row5['colour'];
 	<body onload="time()">
     <div id="test">
 		<header>
-			<h1>Invoice</h1>
+			<h1>URCARZ</h1>
 			<address>
 				<p><?php echo $uname;?></p>
                 <p><?php echo $house;?>(H)</p>
