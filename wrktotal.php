@@ -84,9 +84,12 @@ include('includes/dbconnection.php');
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $sql4="select sr_id from tbl_service where login_id=$lid";
+                                        $sql4="select * from tbl_service where login_id=$lid";
                                         $res1=mysqli_query($con,$sql4);
-                                        $ids=mysqli_fetch_array($res1)['sr_id'];
+                                        while($raw=mysqli_fetch_array($res1)){
+                                            $ids=$raw['sr_id'];
+                                            $pick=$raw['pickup'];
+                                        }
                                         $query4=mysqli_query($con,"select * from tbl_serwork where sr_id=$ids and status='Finished'");
                                         while ($rows=mysqli_fetch_array($query4)) {
                                             $sr=$rows['wrk_id'];
@@ -101,14 +104,29 @@ include('includes/dbconnection.php');
                                             echo "</td><td>";
                                             echo $rows['charge']+$rows['rate'];
                                             $count=$count+1;
-                                        }
+                                    
+                                    }
+                                    if($pick=="Yes"){
+                                        ?></tr><tr>
+                                            <td><?php echo $count;?></td>
+                                            <td>Pickup Charge</td>
+                                            <td>400</td>
+                                            <td>-</td>
+                                            <td>400</td><?php
+
+                                    }
                                     ?>
+                                    
                                     </tr><tr><td colspan="2"></td>
                                     <td>
                                     <?php
                                     $query6=mysqli_query($con,"select sum(rate) as sumr from tbl_serwork where sr_id=$ids and status='Finished'");
                                     $totrt=mysqli_fetch_array($query6)['sumr'];
+                                    if($pick=="Yes"){
+                                        $totrt=$totrt+400;  
+                                    }
                                     echo $totrt;
+
                                     echo "</td><td>";
                                     $query5=mysqli_query($con,"select sum(charge) as summ from tbl_serwork where sr_id=$ids and status='Finished'");
                                     $totchrg=mysqli_fetch_array($query5)['summ'];
@@ -117,6 +135,8 @@ include('includes/dbconnection.php');
                                     $total=$totrt+$totchrg;
                                     echo $total;
                                     ?>
+                                    
+
                                     </td></tr>
                                     </tbody>
                                 </table>
@@ -130,7 +150,7 @@ include('includes/dbconnection.php');
                             $sts=mysqli_fetch_array($query5)['status'];
                             if($sts=="Finished"){
                               ?>
-                              <input class="btn btn-sm btn-primary" type="Button" name="fnsh" value="Pay Now" id="<?php echo $sr; ?>" onclick="update(this.id)" ><?php
+                              <input class="btn btn-sm btn-primary" type="Button" name="fnsh" value="Pay Now" id="<?php echo $ids; ?>" onclick="update(this.id)" ><?php
                             }
                             else{
                               ?><input class="btn btn-sm btn-primary" type="Button" name="fnsh" value="Pay Now" id="" onclick=""disabled><?php

@@ -8,6 +8,7 @@ $type=$_GET['typ'];
 $name=$_SESSION['user'];
 $_SESSION['amt']=$amount;
 $_SESSION['id']=$sr_id;
+$_SESSION['typ']=$type;
 if(isset($_SESSION['user']))
 {	
 ?>

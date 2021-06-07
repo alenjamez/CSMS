@@ -1,9 +1,10 @@
 <?php
+include("includes/dbconnection.php");
 session_start();
-include("dbfile.php");
-$amount=$_SESSION['amt']
-$id=$_SESSION['id'];
-$xid=$_SESSION['logi'];
+$sr_id=$_SESSION['id'];
+$amount=$_SESSION['amt'];
+$name=$_SESSION['user'];
+	
 
 //details from previous page
 $cname=$_POST['cardname'];
@@ -12,16 +13,18 @@ $date=$_POST['expyear'];
 $ccvn=$_POST['cvv'];
 //$old=$_POST['amountt'];
 
-$sel="select * from table_bank where Name='$cname' and Cardno='$cnumb'and Exp_date='$date'and ccv='$ccvn'";
-
+$sel="select * from tbl_bank where name='$cname' and cardno='$cnumb'and exp_date='$date'and ccv='$ccvn'";
 $results=mysqli_query($con,$sel);
 
 
-$sel1="select * from table_bank where Cardno='$cnumb'";
+$sel1="select * from tbl_bank where cardno='$cnumb'";
 $results1=mysqli_query($con,$sel1);
 if(mysqli_num_rows($results)>0)
 {
-$o=mysqli_fetch_array($results1)['Amount'];
+    while($row=mysqli_fetch_array($results1)){
+        $o=$row['amount'];
+        $bid=$row['bank_id'];
+}
 }
 else{
     echo ("<script LANGUAGE='JavaScript'>
@@ -45,20 +48,31 @@ if(mysqli_num_rows($results)>0)
 
 $dat=$_POST["date"];
 $n=$_SESSION['logi'];*/
+$dat=date("Y-m-d");
 
-$er="select max(pryid) as max from table_prequest where loginid='$xid'";
+$ere="select * from tbl_service where sr_id=$sr_id";
+$res3=mysqli_query($con,$ere);
+$type=mysqli_fetch_array($res3)['service_no'];
+
+
+$er="INSERT INTO tbl_serordr(servicetype,dates,total,sr_id,bank_id) VALUES ('$type','$dat',$amount,$sr_id,$bid)";
 $res=mysqli_query($con,$er);
-$rv=mysqli_fetch_array($res)['max'];
 
-$er1="select max(prid) as max from table_prequest where loginid='$xid'";
+$er1="select max(ordr_id) as max from  tbl_serordr where sr_id=$sr_id";
 $res1=mysqli_query($con,$er1);
-$rv1=mysqli_fetch_array($res1)['max'];
+$_SESSION['order']=mysqli_fetch_array($res1)['max'];
 
-$er2="select * from table_prayer where prid='$rv1'";
+
+$er2="select * from tbl_serwork where sr_id=$sr_id";
 $res2=mysqli_query($con,$er2);
-$rv2=mysqli_fetch_array($res2)['Amount'];
-$new=$o-$rv2;
-$in="update table_prequest set Payment_Status='1' where pryid='$rv' and loginid='$xid' ";
+while($rv12=mysqli_fetch_array($res2)){
+    $wid=$rv12['wrk_id'];
+    $er3="update tbl_serwork set status='Payed' where wrk_id=$wid";
+    $res3=mysqli_query($con,$er3);
+}
+
+$new=$o-$amount;
+$in="update tbl_service set status='Payed' where sr_id=$sr_id and status='Finished'";
 
 if(mysqli_query($con,$in))
 {
@@ -74,21 +88,21 @@ $pdf->Cell(100,10,$dat,1,0,'C');
 
 
 $pdf->Output();*/
-$ina="update table_bank set Amount='$new' where Cardno='$cnumb' ";
+$ina="update tbl_bank set Amount='$new' where cardno='$cnumb' ";
 	
 if(mysqli_query($con,$ina))
 {
 	
 	
 echo ("<script LANGUAGE='JavaScript'>
-window.alert('Payment Done Successfully. You will be directed to home page');
-window.location.href='index2.php';
+window.alert('Payment Done Successfully. You will be directed to Invoice');
+window.location.href='billser.php';
 </script>");
 }}}
 else{
     echo ("<script LANGUAGE='JavaScript'>
     window.alert('Bank Details Not Found in server');
-    window.location.href='prayer.php';
+    window.location.href='wrktotal.php';
     </script>");
 }}
 mysqli_close($con);
