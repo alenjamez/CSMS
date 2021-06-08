@@ -182,45 +182,6 @@ include('includes/dbconnection.php');
                                             <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-1.jpg" alt="foto"/></span></cite>
                                         </blockquote>
                                     </div>
-                                    <div class="b-reviews">
-                                        <blockquote class="b-reviews__blockquote">
-                                            <div class="b-reviews__wrap">
-                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua uat enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit. Slyly babbled much partook this much in in thus the sauc.</p>
-                                            </div>
-                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Tina Olivia</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-2.jpg" alt="foto"/></span></cite>
-                                        </blockquote>
-                                    </div>
-                                    <div class="b-reviews">
-                                        <blockquote class="b-reviews__blockquote">
-                                            <div class="b-reviews__wrap">
-                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
-                                            </div>
-                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-3.jpg" alt="foto"/></span></cite>
-                                        </blockquote>
-                                    </div>
-                                    <div class="b-reviews">
-                                        <blockquote class="b-reviews__blockquote">
-                                            <div class="b-reviews__wrap">
-                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
-                                            </div>
-                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-1.jpg" alt="foto"/></span></cite>
-                                        </blockquote>
-                                    </div>
-                                    <div class="b-reviews">
-                                        <blockquote class="b-reviews__blockquote">
-                                            <div class="b-reviews__wrap">
-                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua uat enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit. Slyly babbled much partook this much in in thus the sauc.</p>
-                                            </div>
-                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Tina Olivia</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-2.jpg" alt="foto"/></span></cite>
-                                        </blockquote>
-                                    </div>
-                                    <div class="b-reviews">
-                                        <blockquote class="b-reviews__blockquote">
-                                            <div class="b-reviews__wrap">
-                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
-                                            </div>
-                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-3.jpg" alt="foto"/></span></cite>
-                                        </blockquote>
                                     </div>
                                 </div>
                             </div>

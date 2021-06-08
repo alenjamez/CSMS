@@ -45,10 +45,10 @@ include('includes/dbconnection.php');
         <div class="l-main-content">
           <div class="container">
             <div class="row">
-              <div class="col-lg-3">
+              <!-- <div class="col-lg-2">
          <?php include_once("includes/sidebar.php");?>
-              </div>
-              <div class="col-lg-9">
+              </div> -->
+              <div class="col-lg-12">
                 <div class="b-filter-goods">
                   <div class="row justify-content-between align-items-center">
              

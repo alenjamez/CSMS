@@ -6,6 +6,10 @@ $carid=$_GET['cid'];
 $modid=$_GET['mid'];
 $trans=$_GET['tran'];
 $fuel=$_GET['fuel'];
+$_GET['cid']=$carid;
+$_GET['mid']=$modid;
+$_GET['tran']=$trans;
+$_GET['fuel']=$fuel;
 if(isset($_POST['send']))
  {
     if(isset($_SESSION['user']))
@@ -17,10 +21,11 @@ if(isset($_POST['send']))
         $color=$_POST['color'];
         $que="insert into tbl_order(car_id,login_id,model_id,color_id,gear,fuel,house,post,pin,price) VALUES ('$carid','$uid','$modid','$color','$trans','$fuel','$house','$post',$pin,'$price')";
         $query3=mysqli_query($con,$que);
+        $li=mysqli_insert_id($con);
         
             if ($query3) {
                 $li=mysqli_insert_id($con);
-                header("location:billgen.php?cid=$carid&mid=$modid&tran=$trans&fuel=$fuel&oid=$li&lodid=$uid"); 
+                header("location:payment.php?id=$li&amt=$price&type='Purchase'"); 
               }
               else{
                 echo '<script>alert("Something Went Wrong. Please try again")</script>';
