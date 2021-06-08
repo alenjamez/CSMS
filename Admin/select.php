@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+ include("../includes/dbconnection.php");
 $date1=$_GET['d1'];
 $date2=$_GET['d2'];?>
 <thead>

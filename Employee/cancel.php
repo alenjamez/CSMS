@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include("../includes/dbconnection.php");
 $id=$_GET['id'];
 $sql="UPDATE tbl_leave SET status='Cancelled' WHERE leave_id =$id";
 

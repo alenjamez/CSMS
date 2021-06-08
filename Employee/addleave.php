@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include("../includes/dbconnection.php");
     $lid=$_SESSION['logid'];
     $rsn=$_POST["rsn"];
     $date=$_POST["date"];

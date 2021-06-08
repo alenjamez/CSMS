@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include("../includes/dbconnection.php");
 $id=$_GET['id'];
 $wrk=$_POST['works'];
 $prty=$_POST['priority'];

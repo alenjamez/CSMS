@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include("../includes/dbconnection.php");
 $id=$_GET['id'];
 $sql="delete from tbl_leave where leave_id=$id";
 // die($sql);

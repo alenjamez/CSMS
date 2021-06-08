@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
-ob_start();
+ ob_start();
+ include("../includes/dbconnection.php");
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
  $msg=$_GET['msg'];

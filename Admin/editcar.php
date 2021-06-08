@@ -1,6 +1,6 @@
 <?php
 ob_start();
- $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include("../includes/dbconnection.php");
  session_start();
  $carid=$_GET['cid'];
  $mid=$_GET['mid'];

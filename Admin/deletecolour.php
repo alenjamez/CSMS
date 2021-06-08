@@ -4,7 +4,7 @@
  $modid=$_GET['mid'];
  $trans=$_GET['tran'];
  $fuel=$_GET['fuel'];
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+ include("../includes/dbconnection.php");
 $ids=$_GET['id'];
 $sql="update colour set status=0 where color_id=$ids";
 $res=mysqli_query($con,$sql);

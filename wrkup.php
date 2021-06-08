@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include('includes/dbconnection.php');
 $id=$_GET['id'];
 $sql="UPDATE tbl_serwork SET status='Approved' WHERE wrk_id=$id";
 $res=mysqli_query($con,$sql);

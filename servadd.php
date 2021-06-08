@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include('includes/dbconnection.php');
    if(isset($_SESSION['user']))
      {
        $lid=$_SESSION['logid'];

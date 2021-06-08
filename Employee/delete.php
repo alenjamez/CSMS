@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+ include("../includes/dbconnection.php");
 $ids=$_GET['id'];
 $sql="update tbl_offer set status='Inactive' where offr_id=$ids";
 $res=mysqli_query($con,$sql);

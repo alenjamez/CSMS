@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+ include("../includes/dbconnection.php");
 $ids=$_GET['id'];
 $sql="DELETE FROM tbl_serwork WHERE wrk_id=$id";
 $res=mysqli_query($con,$sql);

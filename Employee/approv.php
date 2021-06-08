@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include("../includes/dbconnection.php");
 $id=$_GET['id'];
 $eid=$_GET['empid'];
 $sql="UPDATE tbl_ltestdrive SET status='Approved',reg_id=$eid WHERE tid =$id";

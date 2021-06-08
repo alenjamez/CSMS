@@ -1,6 +1,6 @@
 <?php
 session_start();
- $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
+include('includes/dbconnection.php');
     $name=$_POST["nme"];
     $gender=$_POST["gender"];
     $loc=$_POST["location"];
