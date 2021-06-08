@@ -116,7 +116,7 @@ if(isset($_SESSION['user']))
         function rname()
         {
         var nam=document.getElementById("name").value;
-        var nam1=/^[a-zA-Z]+$/;
+        
         
         if(nam=="")
             {
@@ -190,7 +190,7 @@ if(isset($_SESSION['user']))
         function usr()
         {
         var un=document.getElementById("user").value;
-        var un1=/^[a-zA-Z]+$/;
+        var un1=/^[a-zA-Z]+ [a-zA-Z]+$/;
         if(un=="")
             {
             document.getElementById("error").innerHTML="* Enter Username";
@@ -256,7 +256,7 @@ if(isset($_SESSION['user']))
         function loca()
         {
         var loc=document.getElementById("loc").value;
-        var loc1=/^[a-zA-Z]+$/;
+        var loc1=/^[a-zA-Z ]+$/;
         if(loc=="")
            {
                 document.getElementById("error").innerHTML="* Enter location";
@@ -304,7 +304,7 @@ if(isset($_SESSION['user']))
         }
         function Val()
         {
-            var fileInput = document.getElementById('img');
+            var fileInput = document.getElementById('img1');
             var filePath = fileInput.value;
             var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
             if(!allowedExtensions.exec(filePath)){
@@ -370,7 +370,7 @@ if(isset($_SESSION['user']))
       <div class="text-center">
       <form class="form" method="post" id="registrationForm1" enctype="multipart/form-data">
         <img src="<?php echo $propic;?>" id="img" class="avatar img-circle img-thumbnail" alt="avatar"><br>
-        <input type="file" class="text-center center-block file-upload" style="color:#141e30" name="img" id="img" onblur="Val()">
+        <input type="file" class="text-center center-block file-upload" style="color:#141e30" name="img1" id="img1" onblur="Val()">
       </div><br>
         </div>
     	    <div class="col-sm-9">
@@ -550,11 +550,11 @@ document.getElementById("defaultOpen").click();
     $loc=$_POST["location"];
     $email=$_POST["mail"];
     $phno=$_POST["phne"];
-    $photo=$_FILES["img"]["name"];
+    $photo=$_FILES["img1"]["name"];
     $sql1="update tbl_registration set name='$name',gender='$gender',email='$email',phone='$phno',location='$loc',propic='$photo' where login_id='$lid'";
     mysqli_query($con,$sql1);
     $t="upload/profile/".$photo;
-    move_uploaded_file($_FILES["img"]["tmp_name"],$t); 
+    move_uploaded_file($_FILES["img1"]["tmp_name"],$t); 
     
   } 
   else if(array_key_exists('change', $_POST)) { 

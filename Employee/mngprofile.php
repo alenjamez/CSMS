@@ -45,7 +45,7 @@
     function rname()
         {
         var nam=document.getElementById("name").value;
-        var nam1=/^[a-zA-Z]+$/;
+        var nam1=/^[a-zA-Z\s]+$/;
         
         if(nam=="")
             {

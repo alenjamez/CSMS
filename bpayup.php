@@ -1,9 +1,11 @@
 <?php
 session_start();
-include("dbfile.php");
+include('includes/dbconnection.php');
 $name=$_SESSION['nam'];
-$username=$_SESSION['usr'];
-$xid=$_SESSION['logi'];
+$carid=$_POST['cid'];
+$modid=$_POST['mid'];
+$trans=$_POST['tran'];
+$fuel=$_POST['fuel'];
 
 
 //details from previous page
