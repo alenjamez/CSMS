@@ -2,7 +2,7 @@
 $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
 session_start();
 error_reporting(0);
-
+$date=date('Y-m-d');
 ?>
 <html>
 	<head>
@@ -28,16 +28,7 @@ error_reporting(0);
             });
             }
         </script>
-        <script>
-            function time(){
-            n =  new Date();
-            y = n.getFullYear();
-            m = n.getMonth() + 1;
-            d = n.getDate();
-            document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
-            }
-        </script>
-	<body onload="time()">
+	<body >
     <div id="test">
 		<header>
 			<h1>Sales Report</h1>
@@ -54,7 +45,7 @@ error_reporting(0);
 			<table class="meta">
 				<tr>
 					<th><span  >Date</span></th>
-					<td><span id="date"></span></td>
+					<td><span id="date"><?php echo $date;?></span></td>
 				</tr>
 			</table>
 			<table class="inventory">
@@ -68,21 +59,10 @@ error_reporting(0);
                                         <th >Price</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Customer</th>
-                                        <th >Pincode</th>
-                                        <th >Car name</th>                                   
-                                        <th >fuel</th>
-                                        <th >Price</th>
-                                        </tr>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <?php
-                                        $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_order");
+                                   $count=1;
+                                        $query=mysqli_query($con,"select * from tbl_order where status=1 and date='$date'");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             echo "<tr><td>";
                                             echo $count;
@@ -114,7 +94,7 @@ error_reporting(0);
             <table class="balance">
 				<tr>
                 <?php
-                    $query1=mysqli_query($con,"select sum(price) as price from tbl_order");
+                    $query1=mysqli_query($con,"select sum(price) as price from tbl_order where status=1 and date='$date'");
                     $rows1=mysqli_fetch_array($query1)['price'];?>
 					<th><span  >Total</span></th>
 					<td><span data-prefix>&#x20B9;</span><span  ><?php echo $rows1;?>.000</span></td>

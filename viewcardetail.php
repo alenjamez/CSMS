@@ -150,12 +150,11 @@ if(isset($_POST['send']))
                   <div class="l-main-content">
         <div class="container">
           <?php 
-
-$carid=$_GET['carid'];
-$query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
-while ($row=mysqli_fetch_array($query)) {
-  $name=$row['name'];
-?>
+          $carid=$_GET['carid'];
+          $query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
+          while ($row=mysqli_fetch_array($query)) {
+            $name=$row['name'];
+          ?>
           <section class="b-goods-f">
               
               

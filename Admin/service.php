@@ -1,11 +1,8 @@
-<!DOCTYPE html>
 <?php
- ob_start();
  $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
  session_start();
- $msg=$_GET['msg'];
  if(isset($_SESSION['user']))
- {
+ {   
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -27,65 +24,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <style>
-        #adddet{
-  width:100%x;
-  margin-left:50px;
-}
-input[type=text]{
-  width:600px;
-}
-select{
-  width:600px;
-}
-input[type=file]{ 
-  font-size: 15px;
-  color: rgb(153,153,153);
-}
-input[type=submit] {
-        width: 35%;
-        height:15%;
-        color: #f2f2f2;
-        background-color:  #469fbd;
-        border-radius: 10px;
-        border: solid #f2f2f2;
-        opacity: 1;
-        font-weight: bold;
-        margin-left:250px;
-    }
-    .table{
-        padding:30px;
-        background-color:  #fff;
-        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
-    }
-    </style>
-    <script>
-    function ema()
-        {
-        var emi=document.getElementById("mail").value;
-        var emi1=/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})+$/;
-        if(emi=="")
-            {
-                document.getElementById("error").innerHTML="* Enter email";
-                document.getElementById("error").style.color = "black";
-                document.getElementById("mail").focus();
-            return false;
-            }
-        if(emi.match(emi1))
-            {
-                document.getElementById("error").innerHTML="";
-        
-            }
-        else
-            {
-                document.getElementById("error").innerHTML="* Enter valid email";
-                document.getElementById("error").style.color = "red";
-                document.getElementById("mail").focus();
-            return false;
-            }
-        }
-    </script>
+    <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -98,7 +37,7 @@ input[type=submit] {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="mngdash.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                  <i class="fal fa-car"></i>
                 </div>
@@ -107,6 +46,7 @@ input[type=submit] {
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
+
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -148,7 +88,7 @@ input[type=submit] {
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
-            <a class="nav-link" href="service.php">
+            <a class="nav-link" href="">
                     <span>Service</span>
                 </a>
             </li>
@@ -171,6 +111,7 @@ input[type=submit] {
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
         </ul>
         <!-- End of Sidebar -->
 
@@ -188,7 +129,19 @@ input[type=submit] {
                         <i class="fa fa-bars"></i>
                     </button>
 
-
+                    <!-- Topbar Search -->
+                    <!-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -217,14 +170,15 @@ input[type=submit] {
                             </div>
                         </li>
 
-
+                        <!-- Nav Item - Alerts -->
+                        
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['user'];?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 <img class="img-profile rounded-circle"
                                     src="../upload/profile/admin.jpg">
                             </a>
@@ -248,61 +202,73 @@ input[type=submit] {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Add Employee</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Sales</h1>
+                </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th >Sl no</th>
+                                        <th >Name</th>
+                                        <th >Service type</th>
+                                        <th >Employee</th>
+                                        <th >Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $count=1;
+                                        $date=date('Y-m-d');
+                                        $query=mysqli_query($con,"select * from tbl_service where date='$date'");
+                                        while ($rows=mysqli_fetch_array($query)) {
+                                            $sr_id=$rows['sr_id'];
+                                            $log=$rows['login_id'];
+                                            echo "<tr><td>";
+                                            echo $count;
+                                            $query3=mysqli_query($con,"select * from tbl_registration where login_id=$log");
+                                            $nme=mysqli_fetch_array($query3)['name'];
+                                            echo "</td><td>";
+                                            echo $nme;
+                                            echo "</td><td>";
+                                            echo $rows['service_no'];
+                                            echo "</td><td>";
+                                            $lig=$rows['reg_id'];
+                                            $query4=mysqli_query($con,"select * from tbl_emp where reg_id=$lig");
+                                            $nme1=mysqli_fetch_array($query4)['name'];
+                                            echo $nme1;
+                                            echo "</td><td>";
+                                            echo $rows['status'];
+                                            echo "</td></tr>";
+                                            $count=$count+1;
+                                        }
+                                    ?>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="table"> 
-                    <span id="error"  style="color:#008000;"><?php echo $msg; ?></span><br>
-                        <form id="adddet" method="post" enctype="multipart/form-data">
-                        
-                        <table >
-                        <tr><td>
-                            <label for="icon"><b>Mail</b></label></td>
-                            <td><input type="text" name="mail" id="mail"  title="Only Alphabets" onblur="ema()" required>
-                        </td></tr>
-                        <tr><td>
-                            <label for="icon"><b>Username</b></label></td>
-                            <td><input type="text" name="uname" id="uname"   title="Only Alphabets" required>
-                        </td></tr>
-                        <tr><td>
-                            <label for="icon"><b>Password</b></label></td>
-                            <td><input type="text" name="pword" id="pword"   title="Only Alphabets" required>
-                        </td></tr>
-                        <tr><td>
-                        <label for="icon"><b>Position</b></label></td>
-                        <td><select name="desig" required>
-                        <option value="" disabled selected>Choose designation</option>
-                        <option value="M" >Manager</option>
-                        <option value="E">Employee</option>
-                        </select></td></tr>
-                        <tr><td></td><td><input type="submit" value="Sent" onclick="sendEmail();" name="submit"></td></tr>
-                    </table>
-                    </form>
-                    </div>
-
-
-                    <!-- Content Row -->
- 
 
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
-<b><br>
+
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-     <!-- Logout Modal-->
-     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -315,7 +281,7 @@ input[type=submit] {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../logout">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -331,48 +297,23 @@ input[type=submit] {
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../Admin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="../Admin/js/demo/chart-area-demo.js"></script>
+    <script src="../Admin/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
 </html>
 <?php
- $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
- if(isset($_POST['submit']))
- {
-    $email=$_POST["mail"];
-    $name=$_POST["uname"];
-    $pass=$_POST["pword"];
-    $des=$_POST["desig"];
-    $sql="select email from tbl_emp where email='$email'";
-    $res=mysqli_query($con,$sql);
-    if(mysqli_num_rows($res)>0)
-    {
-        header("location:addemp.php?msg=* Email already exist");
-    }
-    else{
-        $sql1="insert into tbl_login(username,password,type) values('$name','md5($pass)','$des')";
-        $res=mysqli_query($con,$sql1);
-        $li=mysqli_insert_id($con);
-        $res=$sql2="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";
-        mysqli_query($con,$sql2);
-        $_SESSION['user']=$name;
-        $_SESSION['pass']=$pass;
-        $_SESSION['email']=$email;
-        if($res){
-        header("location:SendMail.php");
-        }
-    }
- }
 }
 else{
   header("location:../login.php?msg=");
 }
 ?>
+
+

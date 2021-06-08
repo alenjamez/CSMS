@@ -87,7 +87,7 @@
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="service.php">
                     <span>Service</span>
                 </a>
             </li>
@@ -216,17 +216,6 @@
                                         <th >Status</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Name</th>
-                                        <th >Car name</th>
-                                        <th >Transmission</th>
-                                        <th >Date</th>
-                                        <th >Status</th>
-                                        </tr>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <?php
                                         $count=1;

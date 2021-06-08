@@ -25,6 +25,22 @@
 
     <!-- Custom styles for this template-->
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <script>
+        // function test3(value)
+        // {
+        //   var date=document.getElementById("sdate").value
+        //   var xhttp = new XMLHttpRequest();
+        //   xhttp.onreadystatechange = function()
+        //   {
+        //       if (this.readyState == 4 && this.status == 200) 
+        //       {
+        //         document.getElementById("mod").innerHTML=this.responseText;
+        //       }
+        //   };
+        //   xhttp.open("GET", "select.php?d1="+value"&d2="+date, true);
+        //   xhttp.send();
+        // }
+    </script>
 
 </head>
 
@@ -204,7 +220,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-4 text-gray-800">Sales</h1>
                         <a href="report.php" style="float:right" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                         class="fas fa-download fa-sm text-white-50"></i> Generate Report</a></div>
+                         class="fas fa-download fa-sm text-white-50"></i> Daily Report</a></div>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -220,21 +236,11 @@
                                         <th >Price</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Customer</th>
-                                        <th >Pincode</th>
-                                        <th >Car name</th>                                   
-                                        <th >fuel</th>
-                                        <th >Price</th>
-                                        </tr>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_order");
+                                        $date=date('Y-m-d');
+                                        $query=mysqli_query($con,"select * from tbl_order where status=1 and date='$date'");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             echo "<tr><td>";
                                             echo $count;
