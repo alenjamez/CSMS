@@ -61,7 +61,7 @@ include('includes/dbconnection.php');
     <div class="blackbox">
       <div class="main right">
         <div class="loginform">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" action="logcheck.php" enctype="multipart/form-data">
             <center><h3 style="color:#f2f2f2"><b>LOGIN</h3></b></center>
             <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -88,54 +88,54 @@ include('includes/dbconnection.php');
 
 
 <?php
- if(isset($_POST['button']))
- {
-    $usr=$_POST["usr"];
-    $psw=$_POST["psw"];
-    if($usr=="Admin")
-    {
-      $sql="select * from tbl_login where username='$usr'and password='$psw'";
-    }
-    else{
-      $sql="select * from tbl_login where username='$usr'and password=md5('$psw')";
-    }
-    $res=mysqli_query($con,$sql);
-    if(mysqli_num_rows($res)>0)
-    {
-        while($row=mysqli_fetch_array($res))
-        {
-          $type=$row['type'];
-          $uid=$row['login_id'];
-            if($type=='A')
-            {
-              $_SESSION['user']=$usr;
-              $_SESSION['logid']=$uid;
-             header("location:Admin/dashboard.php");
-            }
-            else if($type=='E')
-            {
-              $_SESSION['user']=$usr;
-              $_SESSION['logid']=$uid;
-             header("location:Employee/empdash.php");
-            }
-            else if($type=='M')
-            {
-              $_SESSION['user']=$usr;
-              $uid=$row['login_id'];
-              $_SESSION['logid']=$uid;
-             header("location:Employee/mngdash.php");
-            }
-            else
-            {
-              $_SESSION['user']=$usr;
-             $uid=$row['login_id'];
-             $_SESSION['logid']=$uid;
-            header("location:index.php");
-            }
-        }
-    }
-    else{
-      header("location:login.php?msg=* Invalid Username or Password");
-    }
-}
+//  if(isset($_POST['button']))
+//  {
+//     $usr=$_POST["usr"];
+//     $psw=$_POST["psw"];
+//     if($usr=="Admin")
+//     {
+//       $sql="select * from tbl_login where username='$usr'and password='$psw'";
+//     }
+//     else{
+//       $sql="select * from tbl_login where username='$usr'and password=md5('$psw')";
+//     }
+//     $res=mysqli_query($con,$sql);
+//     if(mysqli_num_rows($res)>0)
+//     {
+//         while($row=mysqli_fetch_array($res))
+//         {
+//           $type=$row['type'];
+//           $uid=$row['login_id'];
+//             if($type=='A')
+//             {
+//               $_SESSION['user']=$usr;
+//               $_SESSION['logid']=$uid;
+//              header("location:Admin/dashboard.php");
+//             }
+//             else if($type=='E')
+//             {
+//               $_SESSION['user']=$usr;
+//               $_SESSION['logid']=$uid;
+//              header("location:Employee/empdash.php");
+//             }
+//             else if($type=='M')
+//             {
+//               $_SESSION['user']=$usr;
+//               $uid=$row['login_id'];
+//               $_SESSION['logid']=$uid;
+//              header("location:Employee/mngdash.php");
+//             }
+//             else
+//             {
+//               $_SESSION['user']=$usr;
+//              $uid=$row['login_id'];
+//              $_SESSION['logid']=$uid;
+//             header("location:index.php");
+//             }
+//         }
+//     }
+//     else{
+//       header("location:login.php?msg=* Invalid Username or Password");
+//     }
+// }
 ?>
