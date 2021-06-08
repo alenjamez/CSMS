@@ -2,12 +2,15 @@
 $con=mysqli_connect("localhost","root","","car showroom") or die("couldn't connect");
 session_start();
 error_reporting(0);
-$carid=$_GET['cid'];
-$modid=$_GET['mid'];
-$trans=$_GET['tran'];
-$fuel=$_GET['fuel'];
-$ordr=$_GET['oid']; 
-$uid=$_GET['lodid'];
+$ordr=$_SESSION['id'];
+$amount=$_SESSION['amt'];
+$name=$_SESSION['user'];
+$carid=$_SESSION['cid'];
+$modid=$_SESSION['mid'];
+$trans=$_SESSION['tran'];
+$fuel=$_SESSION['fuel'];
+$offr=$_SESSION['offer'];
+$uid=$_SESSION['logid'];
 $invoice=rand(100000,999999);
 $sql="select * from tbl_registration where login_id='$uid'";
 $res=mysqli_query($con,$sql);
@@ -17,7 +20,7 @@ $uname=$row['name'];
 $email=$row['email'];
 $phno=$row['phone'];
 }
-$sql1="select * from tbl_order where order_id='$ordr'";
+$sql1="select * from tbl_order where order_id='$ordr' and status=1";
 $res2=mysqli_query($con,$sql1);
 while($row=mysqli_fetch_array($res2))
 {
@@ -70,6 +73,7 @@ $colour=$row5['colour'];
             function(a) 
             {
                 doc.save("HTML2PDF.pdf");
+				window.location.href='review.php';
             });
             }
         </script>
@@ -112,8 +116,8 @@ $colour=$row5['colour'];
 					<td><span id="date"></span></td>
 				</tr>
 				<tr>
-					<th><span  >Amount Due</span></th>
-					<td><span id="prefix"  >&#x20B9;<?php echo $price;?></span><span></span></td>
+					<th><span  >Offer</span></th>
+					<td><span id="prefix"  >&#x20B9;<?php echo $offr;?></span><span></span></td>
 				</tr>
 			</table>
 			<table class="inventory">
@@ -144,12 +148,12 @@ $colour=$row5['colour'];
 					<td><span data-prefix>&#x20B9;</span><span  ><?php echo $price;?>.000</span></td>
 				</tr>
 				<tr>
-					<th><span  >Amount Paid</span></th>
-					<td><span data-prefix>&#x20B9;</span><span  ><?php echo $price;?>.000</span></td>
+					<th><span  >Discount</span></th>
+					<td><span data-prefix>&#x20B9;</span><span  ><?php echo $offr;?>.000</span></td>
 				</tr>
 				<tr>
-					<th><span  >Balance Due</span></th>
-					<td><span data-prefix>&#x20B9;</span><span>0.00</span></td>
+					<th><span  >Sub total</span></th>
+					<td><span data-prefix>&#x20B9;</span><span><?php echo $amount;?>.000</span></td>
 				</tr>
 			</table>
 		</article>

@@ -207,7 +207,7 @@ ob_start();
         {
         var ph=value;
         var ph1=/^[0-9 ]+$/;
-        if((ph.match(ph1))&& (ph>100000))
+        if((ph.match(ph1))&& (ph>1000000))
             {
                 document.getElementById("error").innerHTML="";
         

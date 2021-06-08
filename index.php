@@ -13,7 +13,7 @@ include('includes/dbconnection.php');
     <link rel="stylesheet" href="assets/css/master.css">
     
 </head>
-<script>
+<!-- <script>
 		 var userPreference;
 
 		if (confirm("Do you want to save changes?") == true) {
@@ -22,7 +22,7 @@ include('includes/dbconnection.php');
 			userPreference = "Save Canceled!";
 		}
 
-    </script>
+    </script> -->
 
 <body class="page">
     
@@ -65,8 +65,8 @@ include('includes/dbconnection.php');
                                                                 <select class="selectpicker" data-width="100%" data-style="ui-select" name="cartype" id="cartype" required="true">
                                                                 <option value="" disabled>Choose car Type</option>
                                                                    <?php 
- $query3=mysqli_query($con,"select distinct car_type from tbl_car");
- while ($row3=mysqli_fetch_array($query3)) {
+                                                                    $query3=mysqli_query($con,"select distinct car_type from tbl_car");
+                                                                    while ($row3=mysqli_fetch_array($query3)) {
 
 
  ?>
@@ -106,13 +106,13 @@ include('includes/dbconnection.php');
                     </div>
                     <ul class="b-isotope-grid grid list-unstyled row">
                          <?php 
- $query=mysqli_query($con,"select * from tbl_car order by rand() limit 6");
- while ($row=mysqli_fetch_array($query)) {
-	 $n=$row['car_id'];
-	 $seats=$row['seat'];
-	 $query5=mysqli_query($con,"select main from tbl_carimage where car_id=$n");
-	 $nm=mysqli_fetch_array($query5)['main'];
- ?>
+                            $query=mysqli_query($con,"select * from tbl_car order by rand() limit 6");
+                            while ($row=mysqli_fetch_array($query)) {
+                                $n=$row['car_id'];
+                                $seats=$row['seat'];
+                                $query5=mysqli_query($con,"select main from tbl_carimage where car_id=$n");
+                                $nm=mysqli_fetch_array($query5)['main'];
+                            ?>
                         <li class="grid-sizer col-lg-4 col-md-6"></li>
                         <li class="b-isotope-grid__item grid-item col-lg-4 col-md-6 web honda">
                             <div class="b-goods-f b-goods-f_dark">
@@ -177,9 +177,25 @@ include('includes/dbconnection.php');
                                     <div class="b-reviews">
                                         <blockquote class="b-reviews__blockquote">
                                             <div class="b-reviews__wrap">
-                                                <p>Norem ipsum dolor sit amet consectetur adipisicing elit aliqua. Ut enim ad minim veniam, quis nostrud exercita Duis aute irure dolor reprehenderit.</p>
+                                                <?php
+                                                $sql="select * from tbl_review order by rand() limit 6";
+                                                $res=mysqli_query($con,$sql);
+                                                while($raw=mysqli_fetch_array($res)){
+                                                    $des=$raw['description'];
+                                                    $lid=$raw['login_id'];
+                                                    $sql1="select * from tbl_registration where login_id=$lid";
+                                                    $res1=mysqli_query($con,$sql1);
+                                                    while($raws=mysqli_fetch_array($res1)){
+                                                        $nme=$raws['name'];
+                                                        $img='upload/profile/'.$raws['propic'];
+                                                    ?>
+                                                <p><?php echo $des;?>.</p>
                                             </div>
-                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name">Alexa Cathy</span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" src="assets/media/content/b-reviews/face-1.jpg" alt="foto"/></span></cite>
+                                            <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name"><?php echo $nme;?></span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" width="60" height="60" src=" <?php echo $propic;?>" alt="foto"/></span></cite><?php
+                                                }
+                                            }
+
+                                                ?>
                                         </blockquote>
                                     </div>
                                     </div>

@@ -26,6 +26,35 @@ include('includes/dbconnection.php');
      #mod:hover{
       text-decoration:none;
      }
+     blink {
+  -webkit-animation: 2s linear infinite condemned_blink_effect; /* for Safari 4.0 - 8.0 */
+  animation: 2s linear infinite condemned_blink_effect;
+  }
+
+  /* for Safari 4.0 - 8.0 */
+  @-webkit-keyframes condemned_blink_effect {
+    0% {
+      visibility: hidden;
+    }
+    50% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
+  }
+
+  @keyframes condemned_blink_effect {
+    0% {
+      visibility: hidden;
+    }
+    50% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
+  }
 
      </style>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script>
@@ -34,7 +63,7 @@ include('includes/dbconnection.php');
   <body class="page">
                
     <!-- Loader-->
-      <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
+      <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div> -->
     <!-- Loader end-->
 
       
@@ -66,41 +95,40 @@ include('includes/dbconnection.php');
                   <div class="l-main-content">
         <div class="container">
           <?php 
+            $carid=$_GET['cid'];
+            $modid=$_GET['mid'];
+            $trans=$_GET['tran'];
+            $fuel=$_GET['fuel'];
 
-$carid=$_GET['cid'];
-$modid=$_GET['mid'];
-$trans=$_GET['tran'];
-$fuel=$_GET['fuel'];
+            $query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
+            while ($row=mysqli_fetch_array($query)) {
+              $name=$row['name'];
+            }
 
-$query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
-while ($row=mysqli_fetch_array($query)) {
-  $name=$row['name'];
-}
-
-  $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
-  while ($row1=mysqli_fetch_array($query1)) {
-        $model=$row1['model'];
-        $fog= $row1['fog_lamb'];
-        $wheel= $row1['wheel'];
-        $start= $row1['powerstart'];
-        $auto= $row1['autoac'];
-        $window= $row1['window'];
-        $sunroof= $row1['sunroof'];
-        $headlamb= $row1['headlamb'];
-        $camera= $row1['camera'];
-        $sensor= $row1['sensor'];
-        $sterio= $row1['sterio'];
-  }
-  $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel'";
-  $res6=mysqli_query($con,$sql6);
-  while($row6=mysqli_fetch_array($res6)){
-  $bhp=$row6["bhp"];
-  $millage=$row6["millage"];
-  $price=$row6["price"];
-  $cc=$row6["enginecc"];
-  $eng=$row6["engtype"];
-  }
-?>
+              $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
+              while ($row1=mysqli_fetch_array($query1)) {
+                    $model=$row1['model'];
+                    $fog= $row1['fog_lamb'];
+                    $wheel= $row1['wheel'];
+                    $start= $row1['powerstart'];
+                    $auto= $row1['autoac'];
+                    $window= $row1['window'];
+                    $sunroof= $row1['sunroof'];
+                    $headlamb= $row1['headlamb'];
+                    $camera= $row1['camera'];
+                    $sensor= $row1['sensor'];
+                    $sterio= $row1['sterio'];
+              }
+              $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel'";
+              $res6=mysqli_query($con,$sql6);
+              while($row6=mysqli_fetch_array($res6)){
+              $bhp=$row6["bhp"];
+              $millage=$row6["millage"];
+              $price=$row6["price"];
+              $cc=$row6["enginecc"];
+              $eng=$row6["engtype"];
+              }
+            ?>
           <section class="b-goods-f">
               
               <div class="row">
@@ -190,26 +218,47 @@ while ($row=mysqli_fetch_array($query)) {
               </div>
               </div>
               <div class="col-lg-4">
-                
-
               <div class="b-seller" style="border: solid #000 1px; height:200px;">
                     <div class="b-seller__header">
                      
                       <div class="b-seller__title">
                              <h3 class="widget-title bg-dark">Offers </h3>
                              <?php
-                             $sql1="select * from tbl_offer where car_id=$carid and status=1"
+                             $sql1="select * from tbl_offer where car_id=$carid and status='Active'";
+                             $res=mysqli_query($con,$sql1);
+                             while($raw=mysqli_fetch_array($res)){
+                               $sdate=$raw['start_date'];
+                               $edate=$raw['end_date'];
+                               $fname=$raw['offr_nme'];
+                               $descr=$raw['description'];
+                               $rup=$raw['rupee'];
+                             }
+                               $date1=date("Y-m-d");   
+                               if(($date1>=$sdate)&&($date1<=$edate)) {
+                                 $_SESSION['offer']=$rup;
                              ?>
-                        <div class="b-seller__category" align="center" style="margin-top:4%;font-size:17px;">
-                      <i class="b-seller__ic fas fa-map-marker text-primary"></i>
-                      URCARZ: ASV Ramana Towers,   52, Kottayam.</div>
-                      </div>
+                            
+                                    <div class="b-seller__main" style="font-size:22px;" align="center">
+                                      <div class="b-seller__contact"><blink>&nbsp;<?php echo $fname;?></blink></div>
+                                      </div>
+                                     </div>
+                                <div class="b-seller__category" align="center" style="margin-top:4%;font-size:17px;">
+                                  <?php echo $descr;?></div>
+                                  </div>
+                              <?php
+                               }
+                               else{
+                                $_SESSION['offer']=0;
+                                 ?>
+                                    <div class="b-seller__main" style="font-size:22px;" align="center">
+                                      <div class="b-seller__contact"> &nbsp;No offer available</div>
+                                      </div>
+                                     </div>
+                                 <?php
+                               }
+                               ?>
                     </div>
-                    <div class="b-seller__main" style="font-size:22px;" align="center">
-                      <div class="b-seller__contact"><i class="b-seller__ic fas fa-phone text-primary"></i> &nbsp;+91 999 888 9990</div>
-                     
-                    </div>
-                  </div>
+
                   <!-- The expanding image container -->
 
              

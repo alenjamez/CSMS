@@ -100,6 +100,22 @@ input[type=submit] {
             return false;
             }
         }
+        function cash(value)
+        {
+        var ph=value;
+        var ph1=/^[0-9 ]+$/;
+        if((ph.match(ph1))&& (ph>100000))
+            {
+                document.getElementById("error").innerHTML="";
+        
+            }
+        else
+            {
+                document.getElementById("error").innerHTML="* value must be grater than 100000";
+                document.getElementById("error").style.color = "red";
+            return false;
+            }
+        } 
     </script>
 
 </head>
@@ -317,6 +333,9 @@ input[type=submit] {
                             <td><input class="form-control" type="date"  name="date1" id="date1" max="" min=""  required/>
                         </td></tr>
                         <tr><td>
+                            <label for="icon"><b>Amount</b></label></td>
+                            <td><textarea class="form-control" name="rup" id="rup" onblur="cash(this.value)" required></textarea>
+                        </td></tr>
                         <tr><td>
                             <label for="icon"><b>Description</b></label></td>
                             <td><textarea class="form-control" name="dec" id="dec" onblur="rname(this.value)" required></textarea>
@@ -393,7 +412,8 @@ if(isset($_POST['submit'])){
         $edate=$_POST['date1'];
         $car=$_POST['car'];
         $desc=$_POST['dec'];
-        $que="insert into  tbl_offer(offr_nme, start_date, end_date, description, car_id) value('$ofname','$sdate','$edate',$car,'$desc')";
+        $rup=$_POST['rupe'];
+        $que="insert into  tbl_offer(offr_nme, start_date, end_date, description, car_id,rupee) value('$ofname','$sdate','$edate','$desc',$car.$rup)";
         $query3=mysqli_query($con,$que);
             if ($query3) {
             echo '<script>alert("Offer has been added successfully.")</script>';

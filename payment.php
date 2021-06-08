@@ -260,7 +260,7 @@ if($type=="service")
 else
 {?>
   <div class="container">
-  <form action="cpayup.php" method="post">
+  <form action="bpayup.php" method="post">
       
         
   <div class="col-50">

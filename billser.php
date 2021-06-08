@@ -42,7 +42,7 @@ $amount=$rows['total'];
             function(a) 
             {
                 doc.save("HTML2PDF.pdf");
-                window.location.href='contacts.php';
+                window.location.href='review.php';
             });
             }
         </script>

@@ -6,10 +6,12 @@ $carid=$_GET['cid'];
 $modid=$_GET['mid'];
 $trans=$_GET['tran'];
 $fuel=$_GET['fuel'];
-$_GET['cid']=$carid;
-$_GET['mid']=$modid;
-$_GET['tran']=$trans;
-$_GET['fuel']=$fuel;
+$_SESSION['cid']=$carid;
+$_SESSION['mid']=$modid;
+$_SESSION['tran']=$trans;
+$_SESSION['fuel']=$fuel;
+$_SESSION['typr']='Purchase';
+
 if(isset($_POST['send']))
  {
     if(isset($_SESSION['user']))
@@ -19,13 +21,14 @@ if(isset($_POST['send']))
         $pin=$_POST['pin'];
         $post=$_POST['post'];
         $color=$_POST['color'];
-        $que="insert into tbl_order(car_id,login_id,model_id,color_id,gear,fuel,house,post,pin,price) VALUES ('$carid','$uid','$modid','$color','$trans','$fuel','$house','$post',$pin,'$price')";
+        $price=$_SESSION['price'];
+        $que="insert into tbl_order(car_id,login_id,model_id,color_id,gear,fuel,house,post,pin,price) VALUES ('$carid','$uid','$modid','$color','$trans','$fuel','$house','$post',$pin,$price)";
         $query3=mysqli_query($con,$que);
         $li=mysqli_insert_id($con);
         
             if ($query3) {
                 $li=mysqli_insert_id($con);
-                header("location:payment.php?id=$li&amt=$price&type='Purchase'"); 
+                header("location:payment.php?id=$li&amt=$price&typ='Purchase'"); 
               }
               else{
                 echo '<script>alert("Something Went Wrong. Please try again")</script>';
@@ -136,7 +139,7 @@ if(isset($_POST['send']))
   <body class="page">
                
     <!-- Loader-->
-      <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
+      <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div> -->
     <!-- Loader end-->
 
       
@@ -165,21 +168,22 @@ if(isset($_POST['send']))
         <!-- end .b-title-page-->
         <?php 
         $query=mysqli_query($con,"select * from tbl_car where car_id='$carid'");
-while ($row=mysqli_fetch_array($query)) {
-  $name=$row['name'];
-  $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
-  while ($row1=mysqli_fetch_array($query1)) {
-        $model=$row1['model'];
-  }
-  $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel'";
-  $res6=mysqli_query($con,$sql6);
-  while($row6=mysqli_fetch_array($res6)){
-  $bhp=$row6["bhp"];
-  $price=$row6["price"];
-  $cc=$row6["enginecc"];
-  $eng=$row6["engtype"];
-  }
-}
+        while ($row=mysqli_fetch_array($query)) {
+          $name=$row['name'];
+          $query1=mysqli_query($con,"select * from tbl_model where model_id='$modid'");
+          while ($row1=mysqli_fetch_array($query1)) {
+                $model=$row1['model'];
+          }
+          $sql6="select * from tbl_transmission where type='$trans' and fuel='$fuel'";
+          $res6=mysqli_query($con,$sql6);
+          while($row6=mysqli_fetch_array($res6)){
+          $bhp=$row6["bhp"];
+          $price=$row6["price"]-$_SESSION['offer'];
+          $_SESSION['price']=$price;
+          $cc=$row6["enginecc"];
+          $eng=$row6["engtype"];
+          }
+        }
 ?>
 <?php
 

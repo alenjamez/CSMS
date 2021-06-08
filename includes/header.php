@@ -51,13 +51,14 @@ if(isset($_SESSION['user']))
                                         <li class="nav-item active"><a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a></li>
                                        
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="car-list.php">Car List</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="serviceup.php">Service</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="contacts.php">Contact</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
+                                        <li class="nav-item" ><a style="padding-right:0;"class="nav-link" href="car-list.php">Car List</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;"class="nav-link" href="serviceup.php">Service</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;" class="nav-link" href="contacts.php">Contact</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;"class="nav-link" href="profile.php">Profile</a></li>
                                         <li class="nav-item" >
-                                        <a href="logout.php" class="nav-link"><?php echo $_SESSION['user']; ?><span class="caret"></span>
+                                        <a href="logout.php" style="padding-right:0;" class="nav-link"><?php echo $_SESSION['user']; ?><span class="caret"></span>
                                         <img src="<?php echo $propic;?>" width="40" height="40"></a>
+                                        
                                     </li>
                                     </ul>
                                 </nav>
@@ -110,11 +111,11 @@ if(isset($_SESSION['user']))
                                         <li class="nav-item active"><a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a></li>
                                        
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="car-list.php">Car List</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="serviceup.php">Service</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="contacts.php">Contact</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="login.php?msg=">Sign-in</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="Registration.php?msg=">Sign-up</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;" class="nav-link" href="car-list.php">Car List</a></li>
+                                        <li class="nav-item"><a  style="padding-right:0;" class="nav-link" href="serviceup.php">Service</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;" class="nav-link" href="contacts.php">Contact</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;" class="nav-link" href="login.php?msg=">Sign-in</a></li>
+                                        <li class="nav-item"><a style="padding-right:0;" class="nav-link" href="Registration.php?msg=">Sign-up</a></li>
                                     </ul>
                                 </nav>
                             </div>
