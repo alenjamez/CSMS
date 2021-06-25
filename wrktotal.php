@@ -3,7 +3,6 @@ session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
   ?>
-
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
@@ -39,8 +38,6 @@ include('includes/dbconnection.php');
       <!-- Loader-->
     <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
         <!-- Loader end-->
-
-      
         <?php include_once('includes/header.php');?>
             <!-- end .header-->
         <div class="section-title-page area-bg area-bg_dark area-bg_op_60">
@@ -164,9 +161,6 @@ include('includes/dbconnection.php');
         </div>
         <?php include_once('includes/footer.php');?>
     </div>
-<!-- ++++++++++++-->
-    <!-- MAIN SCRIPTS-->
-    <!-- ++++++++++++-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
     <!-- Bootstrap-->

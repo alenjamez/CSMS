@@ -169,7 +169,7 @@
 
             <!-- Nav Item - Test Drives -->
             <li class="nav-item">
-                <a class="nav-link" href="testapprove.php">
+                <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>
             

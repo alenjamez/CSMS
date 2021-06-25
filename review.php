@@ -134,7 +134,6 @@ if(isset($_POST['send']))
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Select customization & Color scheme-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.5/js/bootstrap-select.min.js"></script>
-  
     <!-- Pop-up window-->
     <script src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
     <!-- Headers scripts-->
@@ -142,7 +141,6 @@ if(isset($_POST['send']))
     <script src="assets/plugins/headers/header.js"></script>
     <!-- Mail scripts-->
     <script src="assets/plugins/jqBootstrapValidation.js"></script>
-
     <!-- Video player-->
     <script src="assets/plugins/flowplayer/flowplayer.min.js"></script>
     <!-- Filter and sorting images-->
@@ -161,7 +159,5 @@ if(isset($_POST['send']))
     <script src="assets/plugins/slick/slick.js"></script>
     <!-- User customization-->
     <script src="assets/js/custom.js"></script>
-
   </body>
-
 </html>
