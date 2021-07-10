@@ -69,13 +69,13 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="mngdash.php">
+                <a class="nav-link" href="empdash.php">
                     <span>Dashboard</span></a>
             </li>
 
                         <!-- Nav Item - Sales -->
                         <li class="nav-item">
-              <a class="nav-link" href="mngprofile.php">
+              <a class="nav-link" href="empprofile.php">
               <span>Profile</span></a>
             </li>
 
@@ -109,11 +109,6 @@
                     <span>Test Drive</span></a>
             </li>
             
-            <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="sales.php">
-              <span>Sales</span></a>
-            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
