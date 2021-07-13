@@ -1,24 +1,9 @@
 <?php
  include("../includes/dbconnection.php");
  session_start();
- if(isset($_SESSION['logid']))
+ if(isset($_SESSION['user']))
  {
-   $que="select COUNT(name) as count from tbl_registration where status=1";
-   $result = mysqli_query($con,$que);
-	 while($row=mysqli_fetch_array($result)){
-     $usr=$row['count'];
-   }
-   $que1="select COUNT(name) as count from tbl_car where status=1";
-   $res = mysqli_query($con,$que1);
-	 while($row1=mysqli_fetch_array($res)){
-     $car=$row1['count'];
-   }
-   $que2="select COUNT(name) as count from tbl_emp where status=1";
-   $res = mysqli_query($con,$que2);
-	 while($row1=mysqli_fetch_array($res)){
-     $emp=$row1['count'];
-   }
- 
+    $msg=$_GET['msg'];
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +26,19 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="../style/form.css" rel="stylesheet">
+    <script>
+        function update(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","approval.php?id="+id);
+            frm.submit();
+        }
+        function cancel(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","cancel.php?id="+id);
+            frm.submit();
+        }
+  </script>
 </head>
 
 <body id="page-top">
@@ -64,7 +61,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="dashboard.php">
                     <span>Dashboard</span></a>
             </li>
@@ -99,12 +96,12 @@
                     </div>
                 </div>
             </li>
+
             <!-- Nav Item - Test Drives -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="leave.php?msg=">
                     <span>leave</span></a>
             </li>
-
             <!-- Nav Item - Service -->
             <li class="nav-item">
             <a class="nav-link" href="service.php">
@@ -113,7 +110,7 @@
             </li>
 
             <!-- Nav Item - Test Drives -->
-            <li class="nav-item">
+            <li class="nav-item ">
                 <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>
@@ -149,6 +146,18 @@
                     </button>
 
                     <!-- Topbar Search -->
+                    <!-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -185,7 +194,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['user'];?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 <img class="img-profile rounded-circle"
                                     src="../upload/profile/admin.jpg">
                             </a>
@@ -203,104 +212,75 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Leave Applications</h1>
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <span style="color:#008000; float:right" id="error"><?php echo $msg;?></span><br><br>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th >Sl no</th>
+                                        <th >Name</th>
+                                        <th >Date</th>
+                                        <th >Reason</th>
+                                        <th >Session</th>
+                                        <th ></th>
+                                        <th ></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $count=1;
+                                        $query=mysqli_query($con,"select * from tbl_leave where status='Not Approved' and type='M'");
+                                        while ($rows=mysqli_fetch_array($query)) {
+                                            $serid=$rows['leave_id'];
+                                            echo "<tr><td>";
+                                            echo $count;
+                                            echo "</td><td>";
+                                            $lnid=$rows['login_id'];
+                                            $qu=mysqli_query($con,"select name from tbl_emp where login_id='$lnid'");
+                                            $raw=mysqli_fetch_array($qu)['name'];
+                                            echo $raw;
+                                            echo "</td><td>";
+                                            echo $rows['date'];
+                                            echo "</td><td>";
+                                            echo $rows['reason'];
+                                            echo "</td><td>";
+                                            echo $rows['session'];
+                                            echo "</td><td>";
+                                            ?>
+                                            <form action="approv.php" method="POST" id="frmm">
+                                            <input type="Button" class="btn btn-sm btn-primary" value="Approve" id="<?php echo $serid; ?>" onclick="update(this.id)" >
+                                            </td><td>
+                                           <input type="Button" class="btn btn-sm btn-primary" value="Cancel" id="<?php echo $serid; ?>" onclick="cancel(this.id)" ></form><?php
+                                            echo "</td></tr>";
+                                            $count=$count+1;
+                                        }
+                                    ?>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Users</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $usr;?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i  class="fas fa-user-alt fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Car</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $car; ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa fa-car fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Employee
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $emp; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa fa-id-card fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <!-- Content Row -->
-
-                    
-
-                    <!-- Content Row -->
- 
-
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
-<b><br>
         </div>
         <!-- End of Content Wrapper -->
-
-    </div>
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <!-- <a class="scroll-to-top rounded" href="#page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a> -->
-     <!-- Logout Modal-->
-     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -318,9 +298,6 @@
             </div>
         </div>
     </div>
-
-
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -330,20 +307,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-
-</body>
+ </body>
 
 </html>
 <?php
-}
-else{
-  header("location:../login.php?msg=");
-}
+ }
+ else{
+	header("location:../login.php?msg=");
+  }
 ?>

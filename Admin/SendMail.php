@@ -6,9 +6,9 @@ require("../php/PHPMailer/src/Exception.php");
 // require("../../../../confidential.php");
 
 // function sentmail($otp_data,$rand,$email){
-if(isset($_SESSION['email']) && isset($_SESSION['user']) && isset($_SESSION['pass'])){
+if(isset($_SESSION['email']) && isset($_SESSION['usr']) && isset($_SESSION['pass'])){
     $email=$_SESSION['email'];
-    $user=$_SESSION['user'];
+    $user=$_SESSION['usr'];
     $pass=$_SESSION['pass'];
         
     $mail = new PHPMailer\PHPMailer\PHPMailer();

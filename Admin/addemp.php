@@ -109,7 +109,7 @@ input[type=submit] {
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="dashboard.php">
                     <span>Dashboard</span></a>
             </li>
@@ -117,7 +117,7 @@ input[type=submit] {
             <!-- Divider -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <span>Employee</span>
@@ -145,6 +145,11 @@ input[type=submit] {
                 </div>
             </li>
 
+            <!-- Nav Item - Test Drives -->
+            <li class="nav-item">
+                <a class="nav-link" href="leave.php?msg=">
+                    <span>leave</span></a>
+            </li>
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
@@ -315,7 +320,7 @@ input[type=submit] {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../logout">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -349,7 +354,7 @@ input[type=submit] {
  {
     $email=$_POST["mail"];
     $name=$_POST["uname"];
-    $pass=$_POST["pword"];
+    $pass=md5($_POST["pword"]);
     $des=$_POST["desig"];
     $sql="select email from tbl_emp where email='$email'";
     $res=mysqli_query($con,$sql);
@@ -358,13 +363,13 @@ input[type=submit] {
         header("location:addemp.php?msg=* Email already exist");
     }
     else{
-        $sql1="insert into tbl_login(username,password,type) values('$name','md5($pass)','$des')";
+        $sql1="insert into tbl_login(username,password,type) values('$name','$pass','$des')";
         $res=mysqli_query($con,$sql1);
         $li=mysqli_insert_id($con);
         $res=$sql2="insert into tbl_emp(name,gender,email,phone,login_id) values('-','-','$email','-',$li)";
         mysqli_query($con,$sql2);
-        $_SESSION['user']=$name;
-        $_SESSION['pass']=$pass;
+        $_SESSION['usr']=$name;
+        $_SESSION['pass']=$_POST["pword"];
         $_SESSION['email']=$email;
         if($res){
         header("location:SendMail.php");

@@ -48,7 +48,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="dashboard.php">
                     <span>Dashboard</span></a>
             </li>
@@ -84,7 +84,11 @@
                 </div>
             </li>
 
-
+            <!-- Nav Item - Test Drives -->
+            <li class="nav-item">
+                <a class="nav-link" href="leave.php?msg=">
+                    <span>leave</span></a>
+            </li>
             <!-- Nav Item - Service -->
             <li class="nav-item">
             <a class="nav-link" href="service.php">
@@ -93,7 +97,7 @@
             </li>
 
             <!-- Nav Item - Test Drives -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="testdrive.php?msg=">
                     <span>Test Drive</span></a>
             </li>

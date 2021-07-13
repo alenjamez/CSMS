@@ -49,7 +49,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="dashboard.php">
                     <span>Dashboard</span></a>
             </li>
@@ -57,7 +57,7 @@
             <!-- Divider -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <span>Employee</span>
@@ -85,6 +85,11 @@
                 </div>
             </li>
 
+            <!-- Nav Item - Test Drives -->
+            <li class="nav-item">
+                <a class="nav-link" href="leave.php?msg=">
+                    <span>leave</span></a>
+            </li>
 
             <!-- Nav Item - Service -->
             <li class="nav-item">
