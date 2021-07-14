@@ -80,35 +80,34 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="empdash.php">
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    <span>Attendance</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="leave.php?msg=">Leave</a>
-                        <a class="collapse-item" href="">View Details</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Sales -->
+            <!-- Nav Item - profile -->
             <li class="nav-item">
               <a class="nav-link" href="empprofile.php">
               <span>Profile</span></a>
             </li>
-
-            <!-- Nav Item - Service -->
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-            <a class="nav-link" href="">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
                     <span>Service</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="service.php">Service Assigned</a>
+                        <a class="collapse-item" href="">Upcomming</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Leave -->
+            <li class="nav-item active">
+            <a class="nav-link" href="leave.php?msg=">
+                    <span>Leave</span>
                 </a>
             </li>
 
@@ -232,7 +231,7 @@
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_leave where login_id=$lid);
+                                        $query=mysqli_query($con,"select * from tbl_leave where login_id=$lid");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             $leaveid=$rows['leave_id'];
                                             echo "<tr><td>";

@@ -77,31 +77,29 @@
             </li>
 
             <!-- Divider -->
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    <span>Attendance</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="leave.php?msg=">Leave</a>
-                        <a class="collapse-item" href="">View Details</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Sales -->
+            <!-- Nav Item - profile -->
             <li class="nav-item">
               <a class="nav-link" href="empprofile.php">
               <span>Profile</span></a>
             </li>
-
-            <!-- Nav Item - Service -->
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-            <a class="nav-link" href="service.php">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
                     <span>Service</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="service.php">Service Assigned</a>
+                        <a class="collapse-item" href="">Upcomming</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Leave -->
+            <li class="nav-item">
+            <a class="nav-link" href="leave.php?msg=">
+                    <span>Leave</span>
                 </a>
             </li>
 
