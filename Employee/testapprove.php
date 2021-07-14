@@ -69,7 +69,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
             </li>
@@ -86,12 +86,12 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="false" aria-controls="collapseTwo">
-                    <span>Attendance</span>
+                    <span>Leave</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Leave</a>
-                        <a class="collapse-item" href="">View Details</a>
+                        <a class="collapse-item" href="leaveapprove.php?msg=">Approve Leave</a>
+                        <a class="collapse-item" href="mngleave.php?msg=">Apply Leave</a>
                     </div>
                 </div>
             </li>
@@ -103,7 +103,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="leaveapprove.php?msg=">Add Offer</a>
+                    <a class="collapse-item" href="offer.php?msg=">Add Offer</a>
                         <a class="collapse-item" href="viewoffer.php">View offer</a>
                     </div>
                 </div>
@@ -118,15 +118,15 @@
             </li>
 
             <!-- Nav Item - Test Drives -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="testapprove.php?msg=">
                     <span>Test Drive</span></a>
             </li>
             
             <!-- Nav Item - Sales -->
             <li class="nav-item">
-              <a class="nav-link" href="sales.php">
-              <span>Sales</span></a>
+              <a class="nav-link" href="viewrvw.php">
+              <span>Review</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

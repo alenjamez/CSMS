@@ -7,10 +7,10 @@ $sql="UPDATE tbl_leave SET status='Cancelled' WHERE leave_id =$id";
 
 if(mysqli_query($con,$sql)){
     
-    header("Location:leaveapprove.php?msg=* Leave Cancelled");
+    header("Location:leave.php?msg=* Leave Cancelled");
 }
 else{
-    header("Location:leaveapprove.php?msg=* somthing went wrong !");
+    header("Location:leave.php?msg=* somthing went wrong !");
 }
 mysqli_close($con);
 ?>

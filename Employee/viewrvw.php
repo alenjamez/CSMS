@@ -37,11 +37,8 @@
     <link href="../Admin/css/sb-admin-2.min.css" rel="stylesheet">
     <script>
         function update(id){
-            // var ele=document.getElementById("desig").value;
-            // alert(ele);
             var frm = document.getElementById("frmm")
-        // var empl=document.getElementById("desig").value
-            frm.setAttribute("action","approv.php?id="+id);
+            frm.setAttribute("action","revwdelete.php?id="+id);
             frm.submit();
         }
   </script>
@@ -68,7 +65,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="mngdash.php">
                     <span>Dashboard</span></a>
             </li>
@@ -85,12 +82,12 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="false" aria-controls="collapseTwo">
-                    <span>Attendance</span>
+                    <span>Leave</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="offer.php?msg=">Leave</a>
-                        <a class="collapse-item" href="">View Details</a>
+                        <a class="collapse-item" href="leaveapprove.php?msg=">Approve Leave</a>
+                        <a class="collapse-item" href="mngleave.php?msg=">Apply Leave</a>
                     </div>
                 </div>
             </li>
@@ -102,7 +99,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="leaveapprove.php?msg=">Add Offer</a>
+                    <a class="collapse-item" href="offer.php?msg=">Add Offer</a>
                         <a class="collapse-item" href="viewoffer.php">View offer</a>
                     </div>
                 </div>
@@ -126,9 +123,9 @@
 
 
             <!-- Nav Item - Sales -->
-            <li class="nav-item">
-              <a class="nav-link" href="sales.php">
-              <span>Sales</span></a>
+            <li class="nav-item active">
+              <a class="nav-link" href="viewrvw.php">
+              <span>Review</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -228,9 +225,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Sales</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    <h1 class="h3 mb-4 text-gray-800">Review</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -240,16 +235,16 @@
                                         <tr>
                                         <th >Sl no</th>
                                         <th >Customer</th>
-                                        <th >PIN code</th>
-                                        <th >Car name</th>
-                                        <th >fuel</th>
+                                        <th >Review</th>
+                                        <th ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_order");
+                                        $query=mysqli_query($con,"select * from tbl_review");
                                         while ($rows=mysqli_fetch_array($query)) {
+                                            $rvwid=$rows['revw_id'];
                                             echo "<tr><td>";
                                             echo $count;
                                             echo "</td><td>";
@@ -258,16 +253,10 @@
                                             $raw=mysqli_fetch_array($qu)['username'];
                                             echo $raw;
                                             echo "</td><td>";
-                                            echo $rows['pin'];
-                                            echo "</td><td>";
-                                            $id=$rows['car_id'];
-                                            $quer=mysqli_query($con,"select name from tbl_car where car_id='$id'");
-                                            $ro=mysqli_fetch_array($quer)['name'];
-                                            echo $ro;
-
-                                            echo "</td><td>";
-                                            echo $rows['fuel'];
-                                            echo "</td></tr>";
+                                            echo $rows['description'];
+                                            ?><form action="approv.php" method="POST" id="frmm">
+                                            </td><td><input class="btn btn-sm btn-primary" type="Button" value="Delete" id="<?php echo $rvwid; ?>" onclick="update(this.id)" >
+                                            </form><?php echo "</td></tr>";
                                             $count=$count+1;
                                         }
                                     ?>

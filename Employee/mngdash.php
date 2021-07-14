@@ -104,12 +104,12 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="false" aria-controls="collapseTwo">
-                    <span>Attendance</span>
+                    <span>Leave</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="leaveapprove.php?msg=">Leave</a>
-                        <a class="collapse-item" href="">View Details</a>
+                        <a class="collapse-item" href="leaveapprove.php?msg=">Approve Leave</a>
+                        <a class="collapse-item" href="mngleave.php?msg=">Apply Leave</a>
                     </div>
                 </div>
             </li>
@@ -121,7 +121,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="leaveapprove.php?msg=">Add Offer</a>
+                    <a class="collapse-item" href="offer.php?msg=">Add Offer</a>
                         <a class="collapse-item" href="viewoffer.php">View offer</a>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Mark Attenance</a>
+                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Mark Attenance</a> -->
                     </div>
 
                     <!-- Content Row -->

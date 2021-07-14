@@ -6,13 +6,13 @@ include("../includes/dbconnection.php");
     $date=$_POST["date"];
     $sessn=$_POST["sessn"];
 
-    $sql="insert into tbl_leave(reason,date,session,login_id,status,type) values('$rsn','$date','$sessn',$lid,'Not Approved','E')";
+    $sql="insert into tbl_leave(reason,date,session,login_id,status,type) values('$rsn','$date','$sessn',$lid,'Not Approved','M')";
     // die($sql);
     if(mysqli_query($con,$sql)){    
-        header("Location:leave.php?msg=* Leave applied successfully");
+        header("Location:mngleave.php?msg=* Leave applied successfully");
     }
     else{
-        header("Location:leave.php?msg=*somthing went wrong !");
+        header("Location:mngleave.php?msg=*somthing went wrong !");
     }
     mysqli_close($con);
     ?>
