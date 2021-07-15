@@ -193,7 +193,7 @@
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_leave where status='Not Approved' and type="E");
+                                        $query=mysqli_query($con,"select * from tbl_leave where status='Not Approved' and type='E'");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             $serid=$rows['leave_id'];
                                             echo "<tr><td>";

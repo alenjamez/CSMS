@@ -224,7 +224,7 @@
                                     <tbody>
                                     <?php
                                         $count=1;
-                                        $query=mysqli_query($con,"select * from tbl_ltestdrive WHERE status='Approved'");
+                                        $query=mysqli_query($con,"select * from tbl_ltestdrive WHERE status='Not Approved'");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             $testid=$rows['tid'];
                                             echo "<tr><td>";

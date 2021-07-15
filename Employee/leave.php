@@ -247,6 +247,7 @@
                                             ?><form action="approv.php" method="POST" id="frmm">
                                             </td><td><input class="btn btn-sm btn-primary" type="Button" value="Delete" id="<?php echo $leaveid; ?>" onclick="update(this.id)" >
                                             </td></tr></form><?php
+                                            $count=$count+1;
                                         }
                                     ?>
                                     </form>

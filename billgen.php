@@ -72,7 +72,7 @@ $colour=$row5['colour'];
             },
             function(a) 
             {
-                doc.save("HTML2PDF.pdf");
+                doc.save("Bill.pdf");
 				window.location.href='review.php';
             });
             }

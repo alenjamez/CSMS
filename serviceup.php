@@ -121,6 +121,16 @@ if(isset($_POST['send']))
             document.getElementById("km").style.borderColor = "red";
           }
         }
+        function update(id){
+            var frm = document.getElementById("frmm")
+            frm.setAttribute("action","serapprv.php?id="+id);
+            frm.submit();
+        }
+        function update1(id){
+            var frm = document.getElementById("frmm1")
+            frm.setAttribute("action","wrktotal.php?id="+id);
+            frm.submit();
+        }
 </script>
 <style>
   #fnsh{
@@ -263,7 +273,7 @@ if(isset($_POST['send']))
                               echo "</td><td>";
                               echo $rows['charge'];
                               ?>
-                              <form action="approv.php" method="POST" id="frmm">
+                              <form action="servadd.php" method="POST" id="frmm">
                                   </td><td><input class="btn btn-sm btn-primary" type="Button" value="Approve" id="<?php echo $sr; ?>" onclick="update(this.id)" >
                                   </td></tr>
                               </form><?php
@@ -291,7 +301,7 @@ if(isset($_POST['send']))
                             else{
                               ?><input class="btn btn-sm btn-primary" type="Button" id="fnsh" value="Pay Now" id="" onclick=""disabled><?php
                             }
-                            ?>
+                            ?></form>
                   </div>
                 </div>
               </div>

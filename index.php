@@ -175,12 +175,14 @@ include('includes/dbconnection.php');
                             <div class="col-12">
                                 <div class="b-reviews-slider js-slider" data-slick="{&quot;slidesToShow&quot;: 3,  &quot;slidesToScroll&quot;: 3, &quot;centerMode&quot;: true, &quot;arrows&quot;: false, &quot;dots&quot;: true, &quot;responsive&quot;: [{&quot;breakpoint&quot;: 1400, &quot;settings&quot;: {&quot;slidesToShow&quot;: 2, &quot;slidesToScroll&quot;: 2, &quot;centerMode&quot;: false}}, {&quot;breakpoint&quot;: 768, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1, &quot;centerMode&quot;: false}}]}">
                                     <div class="b-reviews">
-                                        <blockquote class="b-reviews__blockquote">
-                                            <div class="b-reviews__wrap">
+                                     
                                                 <?php
                                                 $sql="select * from tbl_review order by rand() limit 6";
                                                 $res=mysqli_query($con,$sql);
                                                 while($raw=mysqli_fetch_array($res)){
+                                                    ?>
+                                                       <blockquote class="b-reviews__blockquote">
+                                                        <div class="b-reviews__wrap"><?php
                                                     $des=$raw['description'];
                                                     $lid=$raw['login_id'];
                                                     $sql1="select * from tbl_registration where login_id=$lid";
@@ -192,12 +194,13 @@ include('includes/dbconnection.php');
                                                 <p><?php echo $des;?>.</p>
                                             </div>
                                             <cite class="b-reviews__cite" title="Blockquote Title"><span class="b-reviews__inner"><span class="b-reviews__name"><?php echo $nme;?></span><span class="b-reviews__category">Customer</span></span><span class="b-reviews__author"><img class="img-fluid" width="60" height="60" src=" <?php echo $propic;?>" alt="foto"/></span></cite><?php
+                                                  ?></blockquote>
+                                                  </div><?php
                                                 }
                                             }
 
                                                 ?>
-                                        </blockquote>
-                                    </div>
+                                  
                                     </div>
                                 </div>
                             </div>
