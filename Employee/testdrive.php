@@ -88,7 +88,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="service.php">Service Assigned</a>
-                        <a class="collapse-item" href="">Upcomming</a>
+                        <a class="collapse-item" href="upcomming.php">Upcomming</a>
                     </div>
                 </div>
             </li>
@@ -231,6 +231,7 @@
                                             echo $count;
                                             echo "</td><td>";
                                             $lnid=$rows['login_id'];
+                                            $_SESSION['uid']=$lnid;
                                             $qu=mysqli_query($con,"select username from tbl_login where login_id='$lnid'");
                                             $raw=mysqli_fetch_array($qu)['username'];
                                             echo $raw;

@@ -102,7 +102,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="service.php">Service Assigned</a>
-                        <a class="collapse-item" href="">Upcomming</a>
+                        <a class="collapse-item" href="upcomming.php">Upcomming</a>
                     </div>
                 </div>
             </li>
@@ -280,7 +280,7 @@
                                     <?php
                                         $count=1;
                                         $date=date('Y-m-d');
-                                        $query=mysqli_query($con,"select * from tbl_service where reg_id=$empid and date='$date'");
+                                        $query=mysqli_query($con,"select * from tbl_service where reg_id=$empid and date='$date'and status='Approved'");
                                         while ($rows=mysqli_fetch_array($query)) {
                                             $sr_id=$rows['sr_id'];
                                             $log=$rows['login_id'];
@@ -288,7 +288,6 @@
                                             echo $count;
                                             $query3=mysqli_query($con,"select * from tbl_registration where login_id=$log");
                                             $nme=mysqli_fetch_array($query3)['name'];
-                                            
                                             echo "</td><td>";
                                             echo $nme;
                                             echo "</td><td>";

@@ -51,7 +51,6 @@ include('includes/dbconnection.php');
                             <div class="b-find">
                                 <ul class="b-find-nav nav nav-tabs" id="findTab" role="tablist">
                                     <li class="b-find-nav__item nav-item"><a class="b-find-nav__link nav-link active" id="tab-allCar" data-toggle="tab" href="#content-allCar" role="tab" aria-controls="content-allCar" aria-selected="true">All Car Types</a></li>
-                                 
                                 </ul>
                                 <div class="b-find-content tab-content" id="findTabContent">
                                     <div class="tab-pane fade show active" id="content-allCar">

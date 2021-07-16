@@ -412,7 +412,7 @@ if(isset($_POST['submit'])){
         $edate=$_POST['date1'];
         $car=$_POST['car'];
         $desc=$_POST['dec'];
-        $rup=$_POST['rupe'];
+        $rup=$_POST['rup'];
         $que="insert into  tbl_offer(offr_nme, start_date, end_date, description, car_id,rupee) value('$ofname','$sdate','$edate','$desc',$car.$rup)";
         $query3=mysqli_query($con,$que);
             if ($query3) {

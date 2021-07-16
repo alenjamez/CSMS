@@ -25,7 +25,6 @@ include('includes/dbconnection.php');
        }
        else{
         $que="insert into  tbl_service(car_id,kilomtrs,service_no,date,pickup,login_id) value($car,$km,'$ser','$date','$pick',$lid)";
-        die($sql);
        }
        $query3=mysqli_query($con,$que);
            if ($query3) {

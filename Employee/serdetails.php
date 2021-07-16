@@ -15,6 +15,7 @@
     $query=mysqli_query($con,"select * from tbl_service where sr_id=$id");
     while ($rows=mysqli_fetch_array($query)) {
         $logid=$rows['login_id'];
+        $_SESSION['uid']=$logid;
         $carid=$rows['car_id'];
         $km=$rows['kilomtrs'];
         $date=$rows['date'];

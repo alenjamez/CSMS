@@ -38,7 +38,7 @@
     <script>
         function update(id){
             var frm = document.getElementById("frmm")
-            frm.setAttribute("action","serdetails.php?id="+id);
+            frm.setAttribute("action","notifyusr.php?id="+id);
             frm.submit();
         }
         function dates(){
@@ -217,52 +217,8 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Pickup</h1>
 
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        <th >Sl no</th>
-                                        <th >Name</th>
-                                        <th >Place</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        $count=1;
-                                        $date=date('Y-m-d');
-                                        $date=date('Y-m-d', strtotime($date. ' +1 day'));
-                                        $query1=mysqli_query($con,"select * from tbl_emp where login_id=$lid");
-                                        $empid=mysqli_fetch_array($query1)['reg_id'];
-                                        $query=mysqli_query($con,"select * from tbl_service where reg_id=$empid and date='$date'");
-                                        while ($rows=mysqli_fetch_array($query)) {
-                                            $logid=$rows['login_id'];
-                                            echo "<tr><td>";
-                                            echo $count;
-                                            echo "</td><td>";
-                                            $query2=mysqli_query($con,"select * from tbl_registration where login_id=$logid");
-                                            while($row1=mysqli_fetch_array($query2)){
-                                                $name=$row1['name'];
-                                                $location=$row1['location'];
-                                            }
-                                            echo $name;
-                                            echo "</td><td>";
-                                            echo $location;
-                                            ?>
-                                            </td></tr><?php
-                                             $count=$count+1;
-                                        }
-                                    ?>
-                                    </form>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <h1 class="h3 mb-4 text-gray-800">Service</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Upcomming Service</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -280,25 +236,28 @@
                                     <?php
                                         $count=1;
                                         $date=date('Y-m-d');
-                                        $query=mysqli_query($con,"select * from tbl_service where reg_id=$empid and date='$date'");
-                                        while ($rows=mysqli_fetch_array($query)) {
-                                            $sr_id=$rows['sr_id'];
-                                            $log=$rows['login_id'];
-                                            echo "<tr><td>";
-                                            echo $count;
-                                            $query3=mysqli_query($con,"select * from tbl_registration where login_id=$log");
-                                            $nme=mysqli_fetch_array($query3)['name'];
-                                            
-                                            echo "</td><td>";
-                                            echo $nme;
-                                            echo "</td><td>";
-                                            echo $rows['service_no'];
-                                            echo "</td><td>";
-                                            ?><form action="approv.php" method="POST" id="frmm">
-                                            <input class="btn btn-sm btn-primary" type="Button" value="More" id="<?php echo $sr_id; ?>" onclick="update(this.id)" >
-                                            </td></tr></form><?php
-                                            $count=$count+1;
-                                        }
+                                        $date=date('Y-m-d', strtotime($date. ' +1 day'));
+                                        $query=mysqli_query($con,"select * from tbl_service where next='$date'");
+                                            while ($rows=mysqli_fetch_array($query)) {
+                                                $sr_id=$rows['sr_id'];
+                                                $log=$rows['login_id'];
+                                                echo "<tr><td>";
+                                               echo $count;
+                                                $query3=mysqli_query($con,"select * from tbl_registration where login_id=$log");
+                                                $nme=mysqli_fetch_array($query3)['name'];
+                                                echo "</td><td>";
+                                                echo $nme;
+                                                echo "</td><td>";
+                                                echo $rows['service_no'];
+                                                echo "</td><td>";
+                                                ?><form action="approv.php" method="POST" id="frmm">
+                                                <input class="btn btn-sm btn-primary" type="Button" value="Notify" id="<?php echo $log; ?>" onclick="update(this.id)" >
+                                                </td></tr></form><?php
+                                                $count=$count+1;
+                                            }
+
+                            
+
                                     ?>
                                     </form>
                                     </tbody>

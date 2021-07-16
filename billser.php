@@ -41,7 +41,7 @@ $amount=$rows['total'];
             },
             function(a) 
             {
-                doc.save("HTML2PDF.pdf");
+                doc.save("Service.pdf");
                 window.location.href='review.php';
             });
             }

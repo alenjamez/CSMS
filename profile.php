@@ -28,6 +28,10 @@ if(isset($_SESSION['user']))
       <link rel="stylesheet" href="assets/css/master.css">
             <link rel="stylesheet" href="assets/css/master.css">
             <link rel="stylesheet" href="style/img.css"> 
+            <link rel="stylesheet" href="style/notify.css"> 
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    
+</head>
 
     <style>
 
@@ -325,7 +329,7 @@ if(isset($_SESSION['user']))
   <body class="page">
                
     <!-- Loader-->
-      <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
+      <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div> -->
     <!-- Loader end-->
 
       
@@ -360,6 +364,7 @@ if(isset($_SESSION['user']))
             <div class="tab">
   <button class="tablinks" onclick="openCity(event, 'edit')" id="defaultOpen">Edit Details</button>
   <button class="tablinks" onclick="openCity(event, 'change')">Change Password</button>
+  <button class="tablinks" onclick="openCity(event, 'notify')">Notifications</button>
 </div>
 
 <div id="edit" class="tabcontent">
@@ -456,6 +461,49 @@ if(isset($_SESSION['user']))
             </div>
         </div>
     </div>
+    <div id="notify" class="tabcontent">
+        <div class="container bootstrap snippet">
+            <div class="tab-pane active" id="home"><br><br>
+
+            <div class="container mt-5">
+                <div class="title">
+                <h3>Notifications</h3>
+                </div>
+            </div>
+            <?php
+             $sql3="select * from notify where login_id='$lid'";
+             $res13=mysqli_query($con,$sql3);
+             if($res13){
+                while($row13=mysqli_fetch_array($res13))
+                {
+                    $nid=$row13['n_id'];
+                   $mess=$row13['message'];
+             ?>
+             <div class="alert alert-info">
+             <div class="container">
+               
+             <b>Alert:<?php echo $mess; ?></b> 
+             <a href="deletemsg.php?id=<?php echo $nid;?>" style="float:right;margin-right:10px"><i class="material-icons">clear</i></a>
+         </div>
+                </div>
+         <?php } 
+         }
+
+        else{
+            ?>
+            <div class="alert alert-info">
+            <div class="container">
+ 
+            <b>Alert:</b> No Messages........
+         </div>
+         <?php } ?>
+
+    </div>
+                           
+            </div>
+        </div>
+    </div>
+
 
 
 
