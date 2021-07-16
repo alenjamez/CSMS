@@ -53,6 +53,7 @@ $dat=date("Y-m-d");
 $ere="select * from tbl_service where sr_id=$sr_id";
 $res3=mysqli_query($con,$ere);
 $type=mysqli_fetch_array($res3)['service_no'];
+$_SESSION['type']=$type;
 
 
 $er="INSERT INTO tbl_serordr(servicetype,dates,total,sr_id,bank_id) VALUES ('$type','$dat',$amount,$sr_id,$bid)";
@@ -72,7 +73,18 @@ while($rv12=mysqli_fetch_array($res2)){
 }
 
 $new=$o-$amount;
-$in="update tbl_service set status='Payed' where sr_id=$sr_id and status='Finished'";
+$date=date('Y-m-d');
+$type1=$_SESSION['type'];
+if ($type1=='First Service' || $type1=='Second Service'){
+    $date=date('Y-m-d', strtotime($date. ' +6 month'));
+$in="update tbl_service set status='Payed',next='$date' where sr_id=$sr_id and status='Finished' ";
+}
+else{
+    $date=date('Y-m-d', strtotime($date. ' +12 month'));
+$in="update tbl_service set status='Payed',next='$date' where sr_id=$sr_id and status='Finished'";
+die($in);
+}
+
 
 if(mysqli_query($con,$in))
 {

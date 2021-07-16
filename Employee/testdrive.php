@@ -245,7 +245,13 @@
                                             echo "</td><td>";
                                             echo $rows['date'];
                                             echo "</td><td>";?><form action="update.php" method="POST" id="frmm">
-                                            <input type="time" id="appt" name="appt"><?php
+                                            <select id="appt" name="appt" required> 
+                                                <option value="">choose time</option>
+                                                <option value="10:00 AM">10:00 AM</option>
+                                                <option value="11:00 AM">11:00 AM</option>
+                                                <option value="15:00 AM">15:00 AM</option>
+                                                <option value="16:00 AM">16:00 AM</option>
+                                                <option value="17:00 AM">17:00 AM</option></select><?php
                                             echo "</td><td>";?>
                                             <input type="Button" value="update" id="<?php echo $testid; ?>" onclick="update(this.id)" >
                                             <?php $count=$count+1;
